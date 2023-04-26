@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 8de364ccca07abb4cbfc3fa5515a9215
+guid: eddf5e7361b0a9844b1d4519878ec95a
 ModelImporter:
   serializedVersion: 21300
   internalIDToNameTable: []
@@ -53,12 +53,12 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Skin.001
-    second: {fileID: 2100000, guid: 58ec85eff8044a0428745632df1dc6f7, type: 2}
+    second: {fileID: 2100000, guid: 2f5172435dc0c46498b3922ee252d749, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: Skin.002
-    second: {fileID: 2100000, guid: 24bee31b6c1eb634892bfe4c3dfe2d06, type: 2}
+    second: {fileID: 2100000, guid: 2f5172435dc0c46498b3922ee252d749, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -88,11 +88,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Run
+      name: Idle
       takeName: metarig|metarigAction
-      internalID: -887982601649841707
-      firstFrame: 60
-      lastFrame: 90
+      internalID: 3536513432961602234
+      firstFrame: 0
+      lastFrame: 30
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -117,18 +117,18 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Idle
+      name: Walk
       takeName: metarig|metarigAction
       internalID: 3536513432961602234
-      firstFrame: 0
-      lastFrame: 30
+      firstFrame: 60
+      lastFrame: 90
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
