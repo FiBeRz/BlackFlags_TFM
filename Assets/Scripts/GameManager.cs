@@ -1,50 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
-    [SerializeField] private Canvas UICanvas;
     [SerializeField] private int totalReputationValue = 0;
+
+    private string textMessage = "";
+    private bool inSceneZone = false;
 
     public void showNPCText()
     {
-        if (UICanvas.GetComponent<PlayerUI>())
-        {
-            int stringNumber = Random.Range(0, MainConstants.NPCDialogue.Length);
-            UICanvas.GetComponent<PlayerUI>().showNPCText(MainConstants.NPCDialogue[stringNumber]);
-        }
+        int stringNumber = Random.Range(0, MainConstants.NPCDialogue.Length);
+        textMessage = MainConstants.NPCDialogue[stringNumber];
     }
 
     public void hideNPCText()
     {
-        if (UICanvas.GetComponent<PlayerUI>())
-        {
-            UICanvas.GetComponent<PlayerUI>().hideNPCText();
-        }
+        textMessage = "";
     }
 
     public void showNPCShopText()
     {
-        if (UICanvas.GetComponent<PlayerUI>())
-        {
-            int stringNumber = Random.Range(0, MainConstants.NPCShopDialogue.Length);
-            UICanvas.GetComponent<PlayerUI>().showNPCText(MainConstants.NPCShopDialogue[stringNumber]);
-        }
+        int stringNumber = Random.Range(0, MainConstants.NPCShopDialogue.Length);
+        textMessage = MainConstants.NPCShopDialogue[stringNumber];
     }
 
     public void hideNPCShopText()
     {
-        if (UICanvas.GetComponent<PlayerUI>())
-        {
-            UICanvas.GetComponent<PlayerUI>().hideNPCText();
-        }
+        textMessage = "";
+    }
+
+    public void showMapText()
+    {
+        textMessage = MainConstants.NOTIFICATION_MAP;
+        inSceneZone = true;
+    }
+
+    public void hideMapText()
+    {
+        textMessage = "";
+    }
+
+    public bool isInSceneZone()
+    {
+        return inSceneZone;
     }
 
     public void addReputation(int reputationPoints)
     {
         totalReputationValue += reputationPoints;
-        changeReputationImage();
     }
 
     public int getReputation()
@@ -57,34 +63,15 @@ public class GameManager : Singleton<GameManager>
         totalReputationValue = reputationValue;
     }
 
-    public void changeReputationImage()
+    public string getTextMessage()
     {
-        int reputationImage = MainConstants.DEFAULT_REPUTATION;
-        if (totalReputationValue >= 50)
-        {
-            reputationImage = MainConstants.GOOD_REPUTATION;
-            if (totalReputationValue >= 100)
-            {
-                reputationImage = MainConstants.BEST_REPUTATION;
-            }
-        }
-        else if (totalReputationValue <= -50)
-        {
-            reputationImage = MainConstants.BAD_REPUTATION;
-            if (totalReputationValue <= -100)
-            {
-                reputationImage = MainConstants.WORST_REPUTATION;
-            }
-        }
-
-        if (UICanvas.GetComponent<PlayerUI>())
-        {
-            UICanvas.GetComponent<PlayerUI>().changeReputationImage(reputationImage);
-        }
+        return textMessage;
     }
 
-    private void Update()
+    public void changeToMapScene()
     {
-        changeReputationImage();
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        SceneManager.LoadScene(MainConstants.INDEX_SCENE_MAP);
     }
 }

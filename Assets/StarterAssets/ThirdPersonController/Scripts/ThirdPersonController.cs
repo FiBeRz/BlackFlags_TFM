@@ -98,6 +98,9 @@ namespace StarterAssets
         private int _animIDFreeFall;
         private int _animIDMotionSpeed;
 
+        //Action
+        private InputAction _interactionAction;
+
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
 #endif
@@ -150,6 +153,9 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            //Interact
+            _interactionAction = _playerInput.actions[MainConstants.INTERACT_INTERACTION];
         }
 
         private void Update()
@@ -159,6 +165,7 @@ namespace StarterAssets
             JumpAndGravity();
             GroundedCheck();
             Move();
+            interactAction();
         }
 
         private void LateUpdate()
@@ -386,6 +393,14 @@ namespace StarterAssets
             if (animationEvent.animatorClipInfo.weight > 0.5f)
             {
                 AudioSource.PlayClipAtPoint(LandingAudioClip, transform.TransformPoint(_controller.center), FootstepAudioVolume);
+            }
+        }
+
+        private void interactAction()
+        {
+            if (_interactionAction.triggered && GameManager.Instance.isInSceneZone())
+            {
+                GameManager.Instance.changeToMapScene();
             }
         }
     }

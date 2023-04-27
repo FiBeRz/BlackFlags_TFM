@@ -4,12 +4,32 @@ using UnityEngine;
 
 public class MainConstants : MonoBehaviour
 {
+    //Scenes
+    public static int INDEX_SCENE_ISLAND = 0;
+    public static int INDEX_SCENE_MAP = 1;
+
+    //Actions
+    public static string INTERACT_INTERACTION = "Interact";
+
+    //Notifications
+    public static string NOTIFICATION_MAP = "Pulsa 'E' para embarcarte en una misión";
+
     //ReputationUI
     public static int DEFAULT_REPUTATION = 0;
     public static int GOOD_REPUTATION = 1;
     public static int BEST_REPUTATION = 2;
     public static int BAD_REPUTATION = 3;
     public static int WORST_REPUTATION = 4;
+
+    //Events
+    public static int EVENT_UNKNOWN = 0;
+    public static int EVENT_BLESS = 1;
+    public static int EVENT_CHEST = 2;
+    public static int EVENT_OASIS = 3;
+    public static int EVENT_SHARK = 4;
+    public static int EVENT_RESCUE = 5;
+    public static int EVENT_BATTLE = 6;
+    public static int EVENT_BOSS = 7;
 
     //NPC Dialogue
     public static string[] NPCShopDialogue = {"Bueno, bonito y barato. ¡Me lo quitan de las manos!",
