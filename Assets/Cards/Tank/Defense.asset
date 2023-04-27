@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c032bfa73ab78d469ca582b8d3ccdbf, type: 3}
+  m_Name: Defense
+  m_EditorClassIdentifier: 
+  name: Defensa
+  description: "Absorve un x % del da\xF1o"
+  artworkImage: {fileID: 21300000, guid: bc6589eaf52257e40bb4785bf8156ff6, type: 3}
