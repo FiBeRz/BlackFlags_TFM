@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class MainConstants : MonoBehaviour
 {
+    //ReputationUI
+    public static int DEFAULT_REPUTATION = 0;
+    public static int GOOD_REPUTATION = 1;
+    public static int BEST_REPUTATION = 2;
+    public static int BAD_REPUTATION = 3;
+    public static int WORST_REPUTATION = 4;
+
     //NPC Dialogue
     public static string[] NPCShopDialogue = {"Bueno, bonito y barato. ¡Me lo quitan de las manos!",
         "¿Ves algo que te guste?", "Si nadie me compra, voy a tener que cerrar el chiringuito.",

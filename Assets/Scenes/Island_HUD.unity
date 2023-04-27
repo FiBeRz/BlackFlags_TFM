@@ -2432,6 +2432,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UICanvas: {fileID: 1298251794}
+  totalReputationValue: 0
 --- !u!4 &705249657
 Transform:
   m_ObjectHideFlags: 0
@@ -4108,6 +4109,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   NPCText: {fileID: 1676985264}
   NPCTextBox: {fileID: 379273063}
+  reputationIcon: {fileID: 1000927058}
+  defaultSprite: {fileID: 21300000, guid: 37c93833dc2dbf54aaf1399e22a73570, type: 3}
+  goodSprite: {fileID: 21300000, guid: 199a0d2b06b00a84693de82677338ae8, type: 3}
+  bestSprite: {fileID: 21300000, guid: a6d5f2ffad43e58408532c0587c12c5f, type: 3}
+  badSprite: {fileID: 21300000, guid: 77d49a8e9d51d5b4eb35857e30372b45, type: 3}
+  worstSprite: {fileID: 21300000, guid: 2adef1c52f217e643bef491ea84da8d5, type: 3}
 --- !u!4 &1309754651 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 2a58529de665acf4da5d21d443bfa6c4, type: 3}

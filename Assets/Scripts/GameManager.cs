@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private Canvas UICanvas;
+    [SerializeField] private int totalReputationValue = 0;
 
     public void showNPCText()
     {
@@ -38,5 +39,52 @@ public class GameManager : Singleton<GameManager>
         {
             UICanvas.GetComponent<PlayerUI>().hideNPCText();
         }
+    }
+
+    public void addReputation(int reputationPoints)
+    {
+        totalReputationValue += reputationPoints;
+        changeReputationImage();
+    }
+
+    public int getReputation()
+    {
+        return totalReputationValue;
+    }
+
+    public void setReputation(int reputationValue)
+    {
+        totalReputationValue = reputationValue;
+    }
+
+    public void changeReputationImage()
+    {
+        int reputationImage = MainConstants.DEFAULT_REPUTATION;
+        if (totalReputationValue >= 50)
+        {
+            reputationImage = MainConstants.GOOD_REPUTATION;
+            if (totalReputationValue >= 100)
+            {
+                reputationImage = MainConstants.BEST_REPUTATION;
+            }
+        }
+        else if (totalReputationValue <= -50)
+        {
+            reputationImage = MainConstants.BAD_REPUTATION;
+            if (totalReputationValue <= -100)
+            {
+                reputationImage = MainConstants.WORST_REPUTATION;
+            }
+        }
+
+        if (UICanvas.GetComponent<PlayerUI>())
+        {
+            UICanvas.GetComponent<PlayerUI>().changeReputationImage(reputationImage);
+        }
+    }
+
+    private void Update()
+    {
+        changeReputationImage();
     }
 }
