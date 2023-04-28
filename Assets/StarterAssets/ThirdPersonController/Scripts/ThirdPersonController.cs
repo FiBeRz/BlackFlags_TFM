@@ -398,10 +398,18 @@ namespace StarterAssets
 
         private void interactAction()
         {
-            if (_interactionAction.triggered && GameManager.Instance.isInSceneZone())
+            if (_interactionAction.triggered)
             {
-                GameManager.Instance.changeToMapScene();
+                if (GameManager.Instance.isInSceneZone())
+                {
+                    GameManager.Instance.changeToMapScene();
+                }
+                else
+                {
+                    GameManager.Instance.showReputation();
+                }
             }
+            
         }
     }
 }

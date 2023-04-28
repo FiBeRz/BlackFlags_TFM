@@ -4,46 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class PlayerUI : MonoBehaviour
+public class MapUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI NPCText;
-    [SerializeField] private Image NPCTextBox;
     [SerializeField] private Image reputationIcon;
-    [SerializeField] private Image expandedReputationIcon;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
 
     void Start()
     {
-        if (NPCText)
-        {
-            NPCText.gameObject.SetActive(false);
-        }
-        if (NPCTextBox)
-        {
-            NPCTextBox.gameObject.SetActive(false);
-        }
-        if (expandedReputationIcon)
-        {
-            expandedReputationIcon.gameObject.SetActive(false);
-        }
-    }
 
-    private void changeText()
-    {
-        if (NPCText && NPCTextBox)
-        {
-            if (GameManager.Instance.getTextMessage() != "")
-            {
-                NPCText.SetText(GameManager.Instance.getTextMessage());
-                NPCText.gameObject.SetActive(true);
-                NPCTextBox.gameObject.SetActive(true);
-            }
-            else
-            {
-                NPCText.gameObject.SetActive(false);
-                NPCTextBox.gameObject.SetActive(false);
-            }
-        }
     }
 
     public void changeReputationImage(int reputationImage)
@@ -86,22 +54,8 @@ public class PlayerUI : MonoBehaviour
         changeReputationImage(reputationImage);
     }
 
-    private void showReputation()
-    {
-        if (GameManager.Instance.getInReputation())
-        {
-            expandedReputationIcon.gameObject.SetActive(true);
-        }
-        else
-        {
-            expandedReputationIcon.gameObject.SetActive(false);
-        }
-    }
-
     private void Update()
     {
         calculateReputationImage();
-        changeText();
-        showReputation();
     }
 }

@@ -9,6 +9,7 @@ public class GameManager : Singleton<GameManager>
 
     private string textMessage = "";
     private bool inSceneZone = false;
+    private bool inReputation = false;
 
     public void showNPCText()
     {
@@ -66,6 +67,16 @@ public class GameManager : Singleton<GameManager>
     public string getTextMessage()
     {
         return textMessage;
+    }
+
+    public void showReputation()
+    {
+        inReputation = !inReputation;
+    }
+
+    public bool getInReputation()
+    {
+        return inReputation;
     }
 
     public void changeToMapScene()
