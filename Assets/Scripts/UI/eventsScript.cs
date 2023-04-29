@@ -9,18 +9,11 @@ public class eventsScript : MonoBehaviour
     [SerializeField] private Button[] childrenButtons;
     [SerializeField] private Button[] branchButtons; 
     [SerializeField] private int eventType;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    [SerializeField] private GameObject eventInformation, mapInformation;
+    [SerializeField] private TextMeshProUGUI textName, textEvent;
+    [SerializeField] private Image eventImage;
+    [SerializeField] private Sprite eventSprite;
+    [SerializeField] private Button continueButton, acceptButton, rejectButton;
 
     public void eventClick()
     {
@@ -39,11 +32,18 @@ public class eventsScript : MonoBehaviour
             branchButtons[i].interactable = false;
         }
 
+        mapInformation.SetActive(false);
+        eventInformation.SetActive(true);
         launchEvent();
     }
 
     private void launchEvent()
     {
+        eventImage.sprite = eventSprite;
+        continueButton.gameObject.SetActive(false);
+        acceptButton.gameObject.SetActive(false);
+        rejectButton.gameObject.SetActive(false);
+
         if (eventType == MainConstants.EVENT_UNKNOWN)
         {
             executeUnknownEvent();
@@ -80,41 +80,67 @@ public class eventsScript : MonoBehaviour
 
     private void executeUnknownEvent()
     {
-        Debug.Log("Ejecutando evento desconocido");
+        textName.SetText(MainConstants.NAME_UNKNOWN);
+        textEvent.SetText(MainConstants.EXPLANATION_UNKNOWN);
+        continueButton.gameObject.SetActive(true);
     }
 
     private void executeBlessEvent()
     {
-        Debug.Log("Ejecutando evento bendición-maldición");
+        textName.SetText(MainConstants.NAME_BLESS);
+        textEvent.SetText(MainConstants.EXPLANATION_BLESS);
+        acceptButton.gameObject.SetActive(true);
+        rejectButton.gameObject.SetActive(true);
+
+        GameManager.Instance.prepareObject();
     }
 
     private void executeChestEvent()
     {
-        Debug.Log("Ejecutando evento cofre");
+        textName.SetText(MainConstants.NAME_CHEST);
+        textEvent.SetText(MainConstants.EXPLANATION_CHEST);
+        continueButton.gameObject.SetActive(true);
     }
 
     private void executeOasisEvent()
     {
-        Debug.Log("Ejecutando evento oasis");
+        textName.SetText(MainConstants.NAME_OASIS);
+        textEvent.SetText(MainConstants.EXPLANATION_OASIS);
+        continueButton.gameObject.SetActive(true);
     }
 
     private void executeSharkEvent()
     {
-        Debug.Log("Ejecutando evento tiburón");
+        textName.SetText(MainConstants.NAME_SHARK);
+        textEvent.SetText(MainConstants.EXPLANATION_SHARK);
+        continueButton.gameObject.SetActive(true);
     }
 
     private void executeRescueEvent()
     {
-        Debug.Log("Ejecutando evento rescate");
+        textName.SetText(MainConstants.NAME_RESCUE);
+        textEvent.SetText(MainConstants.EXPLANATION_RESCUE);
+        acceptButton.gameObject.SetActive(true);
+        rejectButton.gameObject.SetActive(true);
+
+        GameManager.Instance.prepareRescueScene();
     }
 
     private void executeBattleEvent()
     {
-        Debug.Log("Ejecutando evento combate");
+        textName.SetText(MainConstants.NAME_BATTLE);
+        textEvent.SetText(MainConstants.EXPLANATION_BATTLE);
+        continueButton.gameObject.SetActive(true);
+
+        GameManager.Instance.prepareBattleScene();
     }
 
     private void executeBossEvent()
     {
-        Debug.Log("Ejecutando evento boss");
+        textName.SetText(MainConstants.NAME_BOSS);
+        textEvent.SetText(MainConstants.EXPLANATION_BOSS);
+        continueButton.gameObject.SetActive(true);
+
+        GameManager.Instance.prepareBossScene();
     }
 }

@@ -31,6 +31,26 @@ public class MainConstants : MonoBehaviour
     public static int EVENT_BATTLE = 6;
     public static int EVENT_BOSS = 7;
 
+    //Event name
+    public static string NAME_UNKNOWN = "Evento Desconocido";
+    public static string NAME_BLESS = "Evento Caverna misteriosa";
+    public static string NAME_CHEST = "Evento Botín pirata";
+    public static string NAME_OASIS = "Evento Oasis milagroso";
+    public static string NAME_SHARK = "Evento Ataque de tiburones";
+    public static string NAME_RESCUE = "Evento Rescate";
+    public static string NAME_BATTLE = "Evento Combate";
+    public static string NAME_BOSS = "Evento Jefe Final";
+
+    //Event explanation
+    public static string EXPLANATION_UNKNOWN = "La tripulación se ha encontrado con un evento desconocido.\nRealmente este evento invocaría a cualquiera de los otros y tendría las consecuencias del evento seleccionado de manera aleatoria.";
+    public static string EXPLANATION_BLESS = "La tripulación se ha encontrado con una misteriosa caverna que desprende un halo misterioso.\nParece que dentro se encontraba 'nombre de objeto', famoso por 'explicación de objeto'.\nSe comenta que su uso puede tener consecuencias nefastas. ¿Lo recoges?";
+    public static string EXPLANATION_CHEST = "¡Pero qué ven mis ojos! La tripulación se ha encontrado con un hermoso botín pirata escondido años atrás. Supongo que nadie lo echará de menos...\nLa tripulación recibe monedas de oro";
+    public static string EXPLANATION_OASIS = "¡Tierra a la vista! ¿Será una agradable zona de descanso o un espejismo causado por el cansancio?\nLa tripulación descansa, recuperando parte de sus Puntos de Salud";
+    public static string EXPLANATION_SHARK = "Las aguas parecen más agitadas y hostiles que de costumbre. ¡Tiburones arremeten contra el barco!\nLa tripulación pierde Puntos de Salud y monedas de oro.";
+    public static string EXPLANATION_RESCUE = "¡Socorro! ¡Parece que alguien está siendo atacado por otros piratas!\n¿Debe la tripulación ir en su auxilio?";
+    public static string EXPLANATION_BATTLE = "Monstruos horribles vienen al ataque. ¡Hora de pasar a la acción!";
+    public static string EXPLANATION_BOSS = "Este enemigo no se parece en nada a los peligros enfrentados hasta ahora.\nSerá mejor que la tripulación se prepare...";
+
     //NPC Dialogue
     public static string[] NPCShopDialogue = {"Bueno, bonito y barato. ¡Me lo quitan de las manos!",
         "¿Ves algo que te guste?", "Si nadie me compra, voy a tener que cerrar el chiringuito.",

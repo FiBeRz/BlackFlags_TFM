@@ -8,10 +8,12 @@ public class MapUI : MonoBehaviour
 {
     [SerializeField] private Image reputationIcon;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
+    [SerializeField] private GameObject eventInformation, mapInformation;
 
     void Start()
     {
-
+        eventInformation.SetActive(false);
+        mapInformation.SetActive(true);
     }
 
     public void changeReputationImage(int reputationImage)
