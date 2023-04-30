@@ -55,7 +55,13 @@ public class MainConstants : MonoBehaviour
     public static string[] NPCShopDialogue = {"Bueno, bonito y barato. ¡Me lo quitan de las manos!",
         "¿Ves algo que te guste?", "Si nadie me compra, voy a tener que cerrar el chiringuito.",
         "Venga que hoy invita la casa. O no...", "Si no te gusta lo que vendo, siempre puedes montarte tu propia tienda."};
-    
+
+    public static string[] NPCShopBuy = { "¡Gracias por su compra!", "Un placer hacer negocios con mi cliente favorito.",
+    "¿Ves algo más que sea de tu agrado?"};
+
+    public static string[] NPCShopNoMoney = { "Si no tienes dinero para pagarlo no voy a dártelo ¿eh?", "No insistas, veo que tienes la cartera vacía.",
+    "¿Por qué no te vas a saquear otro sitio por ahí?"};
+
     public static string[] NPCDialogue = {"Como están los máquinas lo primero de todo.",
         "Últimamente el mar se ha convertido en un sitio peligroso.",
         "Los tiempos han cambiado, este pueblo ya no es lo que era.",

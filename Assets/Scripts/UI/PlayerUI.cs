@@ -11,6 +11,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image reputationIcon;
     [SerializeField] private Image expandedReputationIcon;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
+    [SerializeField] private GameObject shopUI;
+    [SerializeField] private TextMeshProUGUI moneyText;
 
     void Start()
     {
@@ -25,6 +27,10 @@ public class PlayerUI : MonoBehaviour
         if (expandedReputationIcon)
         {
             expandedReputationIcon.gameObject.SetActive(false);
+        }
+        if (shopUI)
+        {
+            shopUI.SetActive(false);
         }
     }
 
@@ -98,10 +104,29 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void isInShop()
+    {
+        if (GameManager.Instance.isInShop())
+        {
+            shopUI.SetActive(true);
+        }
+        else
+        {
+            shopUI.SetActive(false);
+        }
+    }
+
+    private void updateMoney()
+    {
+        moneyText.SetText(GameManager.Instance.getMoney() + "$");
+    }
+
     private void Update()
     {
+        updateMoney();
         calculateReputationImage();
         changeText();
+        isInShop();
         showReputation();
     }
 }

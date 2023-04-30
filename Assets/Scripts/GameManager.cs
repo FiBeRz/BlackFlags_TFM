@@ -6,11 +6,13 @@ using UnityEngine.SceneManagement;
 public class GameManager : Singleton<GameManager>
 {
     [SerializeField] private int totalReputationValue = 0;
+    [SerializeField] private int totalMoney = 300;
 
     //Island HUB
     private string textMessage = "";
     private bool inSceneZone = false;
     private bool inReputation = false;
+    private bool inShop = false;
 
     //Map
     private bool isRescueEvent = false;
@@ -33,11 +35,36 @@ public class GameManager : Singleton<GameManager>
     {
         int stringNumber = Random.Range(0, MainConstants.NPCShopDialogue.Length);
         textMessage = MainConstants.NPCShopDialogue[stringNumber];
+
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        inShop = true;
+    }
+
+    public void changeShopBuyText()
+    {
+        int stringNumber = Random.Range(0, MainConstants.NPCShopBuy.Length);
+        textMessage = MainConstants.NPCShopBuy[stringNumber];
+    }
+
+    public void changeShopNoMoneyText()
+    {
+        int stringNumber = Random.Range(0, MainConstants.NPCShopNoMoney.Length);
+        textMessage = MainConstants.NPCShopNoMoney[stringNumber];
     }
 
     public void hideNPCShopText()
     {
         textMessage = "";
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        inShop = false;
+    }
+
+    public bool isInShop()
+    {
+        return inShop;
     }
 
     public void showMapText()
@@ -49,6 +76,7 @@ public class GameManager : Singleton<GameManager>
     public void hideMapText()
     {
         textMessage = "";
+        inSceneZone = false;
     }
 
     public bool isInSceneZone()
@@ -84,6 +112,16 @@ public class GameManager : Singleton<GameManager>
     public bool getInReputation()
     {
         return inReputation;
+    }
+
+    public int getMoney()
+    {
+        return totalMoney;
+    }
+
+    public void addMoney(int money)
+    {
+        totalMoney += money;
     }
 
     public void changeToMapScene()
