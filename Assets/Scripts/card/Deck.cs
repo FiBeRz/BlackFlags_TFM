@@ -65,6 +65,9 @@ public class Deck : MonoBehaviour
 
             currentDeckSize--;
         }
+        else {
+            Shuffle();
+        }
     }
 
     public void Shuffle() {
@@ -76,6 +79,13 @@ public class Deck : MonoBehaviour
             randomNumber = Random.Range(i, deckSize);
             deck[i] = deck[randomNumber];
             deck[randomNumber] = tempCard;
+        }
+
+        currentDeck = deck.ToList();
+
+        foreach(GameObject card in hand) {
+            int index = currentDeck.FindIndex(x => x.id == card.GetComponent<CardDisplay>().id);
+            currentDeck.RemoveAt(index);
         }
     }
 }

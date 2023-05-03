@@ -35,8 +35,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16, y: 38.7}
-  m_SizeDelta: {x: 88.685, y: 18.746}
+  m_AnchoredPosition: {x: 0.649, y: 41.996986}
+  m_SizeDelta: {x: 84.493, y: 12.152}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7788661797445847310
 CanvasRenderer:
@@ -129,7 +129,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -15.212688, y: 0, z: 17.224323, w: 0}
+  m_margin: {x: 0.4487152, y: 0, z: 0.41410065, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -170,8 +170,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -26.9}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0.649, y: -25.80959}
+  m_SizeDelta: {x: 84.493, y: 27.542}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7788661797740783124
 CanvasRenderer:
@@ -264,7 +264,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 57.998005, y: 10.696777, z: 59.265774, w: 12.123016}
+  m_margin: {x: -0.036392212, y: -0.5107641, z: -0.22592926, w: 0.07009792}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -357,6 +357,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7788661798434632522}
   - component: {fileID: 7788661798434632523}
+  - component: {fileID: -2741911037207197294}
+  - component: {fileID: 7972285988338238536}
   m_Layer: 5
   m_Name: Card
   m_TagString: Untagged
@@ -400,11 +402,43 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3068573d1a3d1ce448b2b5d080ffdd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  card:
+    id: 0
+    name: 
+    description: 
+    artworkImage: {fileID: 0}
   id: 0
   nameText: {fileID: 7788661797445847281}
   descriptionText: {fileID: 7788661797740783127}
   artworkImage: {fileID: 7788661799071429383}
   cardBack: {fileID: 7788661798829058457}
+--- !u!225 &-2741911037207197294
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7788661798434632525}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
+--- !u!114 &7972285988338238536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7788661798434632525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fccd7cafe67a414085fab59560b8e98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parentToReturn: {fileID: 0}
+  placeHolderParent: {fileID: 0}
+  placeHolder: {fileID: 0}
 --- !u!1 &7788661798829058459
 GameObject:
   m_ObjectHideFlags: 0
