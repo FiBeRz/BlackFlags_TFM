@@ -42,7 +42,7 @@ public class Deck : MonoBehaviour
 
     public void DrawCard() {
         var panel = GameObject.Find("HandArea");
-        
+
         if (currentDeckSize > 0) {
             if (currentDeckSize < 2) {
                 deckCardBacks[0].gameObject.SetActive(false);
@@ -61,12 +61,10 @@ public class Deck : MonoBehaviour
             hand.Add(card);
             currentDeck.Remove(currentDeck[0]);
 
-            Debug.Log(card.GetComponent<CardDisplay>().id);
-
             currentDeckSize--;
-        }
-        else {
-            Shuffle();
+            if (currentDeckSize == 0) {
+                Shuffle();
+            }
         }
     }
 
@@ -87,5 +85,7 @@ public class Deck : MonoBehaviour
             int index = currentDeck.FindIndex(x => x.id == card.GetComponent<CardDisplay>().id);
             currentDeck.RemoveAt(index);
         }
+
+        currentDeckSize = currentDeck.Count();
     }
 }

@@ -182,7 +182,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   deck: []
   currentDeck: []
-  deckSize: 9
+  deckSize: 10
   currentDeckSize: 0
   firstDraw: 3
   deckCardBacks:

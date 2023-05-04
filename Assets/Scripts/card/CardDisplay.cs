@@ -15,26 +15,11 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] private Image artworkImage;
     [SerializeField] private Image cardBack;
 
-    void Start() 
-    {
-        card = CardDataBase.CardList[id];
-        nameText.text = card.name;
-        descriptionText.text = card.description;
-        artworkImage.sprite = card.artworkImage;
-    }
-
     public void Init(Card card) {
         this.card = card;
         this.id = card.id;
         this.nameText.text = card.name;
         this.descriptionText.text = card.description;
         this.artworkImage.sprite = card.artworkImage;
-    }
-
-    public void ShowCardBack(bool isActive) {
-        if (isActive)
-            cardBack.gameObject.SetActive(true);
-        else
-            cardBack.gameObject.SetActive(false);
     }
 }
