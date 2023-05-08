@@ -436,6 +436,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fccd7cafe67a414085fab59560b8e98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  BattleSystem: {fileID: 4364965167214953962, guid: 381b655070d92f748ad3219937127c07, type: 3}
   parentToReturn: {fileID: 0}
   placeHolderParent: {fileID: 0}
   placeHolder: {fileID: 0}

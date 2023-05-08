@@ -13,16 +13,16 @@ public class CardDataBase : MonoBehaviour
         // Ship Shooter
         CardList.Add(new Card(1, "Ataque rapido", "Ataca con tu potencia de fuego", Resources.Load<Sprite>("Sprites/gun")));
         CardList.Add(new Card(2, "Descartar", "Descarta una carta para robar dos", Resources.Load<Sprite>("Sprites/shuffle")));
-        CardList.Add(new Card(3, "Ataque cargado", "Realiza un 175% del daño al principio del siguiente turno", Resources.Load<Sprite>("Sprites/bigBullet")));
+        CardList.Add(new Card(3, "Ataque cargado", "Realiza un 175% del daño al principio del siguiente turno", Resources.Load<Sprite>("Sprites/bigGun")));
 
         // Tank Cards
         CardList.Add(new Card(4, "Ataque", "Ataca a los enemigos", Resources.Load<Sprite>("Sprites/sword")));
         CardList.Add(new Card(5, "Defensa", "Absorve un x % del daño", Resources.Load<Sprite>("Sprites/shield")));
-        CardList.Add(new Card(6, "Robar", "Roba una carta del mazo", Resources.Load<Sprite>("Sprites/jew")));
+        CardList.Add(new Card(6, "Robar", "Roba una carta del mazo", Resources.Load<Sprite>("Sprites/draw")));
 
         // Wizard Cards
-        CardList.Add(new Card(7, "Aumento de ataque", "Aumenta el poder de los aliados", Resources.Load<Sprite>("Sprites/redArrowUp")));
-        CardList.Add(new Card(8, "Aumento de defensa", "Aumenta la defensa de los aliados", Resources.Load<Sprite>("Sprites/blueArrowUp")));
+        CardList.Add(new Card(7, "Aumento de ataque", "Aumenta el poder de los aliados", Resources.Load<Sprite>("Sprites/buffAttack")));
+        CardList.Add(new Card(8, "Aumento de defensa", "Aumenta la defensa de los aliados", Resources.Load<Sprite>("Sprites/buffDefense")));
         CardList.Add(new Card(9, "Marea", "Aumenta el número de cartas que puedes jugar el siguiente turno", Resources.Load<Sprite>("Sprites/water")));
     }
 }

@@ -6,12 +6,22 @@ using UnityEngine.UI;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private GameObject BattleSystem;
+
     public Transform parentToReturn;
     public Transform placeHolderParent;
     public GameObject placeHolder;
 
+    void Awake()
+    {
+        BattleSystem = GameObject.FindGameObjectWithTag("BattleSystem");
+    }
+
     void IBeginDragHandler.OnBeginDrag(PointerEventData eventData)
     {
+        if (BattleSystem.GetComponent<BattleSystem>().isDraggable == false)
+            return;
+
         placeHolder = new GameObject();
         placeHolder.transform.SetParent(this.transform.parent);
         LayoutElement layout = placeHolder.AddComponent<LayoutElement>();
@@ -27,6 +37,9 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (BattleSystem.GetComponent<BattleSystem>().isDraggable == false)
+            return;
+
         this.transform.position = eventData.position;
 
         if (placeHolder.transform.parent != placeHolderParent) {
@@ -52,9 +65,18 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (BattleSystem.GetComponent<BattleSystem>().isDraggable == false)
+            return;
+
         this.transform.SetParent(parentToReturn);
         this.transform.SetSiblingIndex(placeHolder.transform.GetSiblingIndex());
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        if (parentToReturn.name == "DropArea")
+        {
+            BattleSystem.GetComponent<BattleSystem>().cardAction(this.GetComponent<CardDisplay>().id);
+            Destroy(this.gameObject);
+        }
 
         Destroy(placeHolder);
     }

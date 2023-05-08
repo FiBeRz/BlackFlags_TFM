@@ -436,10 +436,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3068573d1a3d1ce448b2b5d080ffdd3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  card: {fileID: 11400000, guid: 2a999b68a1e6edf44a7c1ff36e5dcd4a, type: 2}
+  card:
+    id: 0
+    name: 
+    description: 
+    artworkImage: {fileID: 0}
+  id: 0
   nameText: {fileID: 1922767103}
   descriptionText: {fileID: 1661990425}
   artworkImage: {fileID: 331342601}
+  cardBack: {fileID: 0}
 --- !u!1 &1249806134
 GameObject:
   m_ObjectHideFlags: 0

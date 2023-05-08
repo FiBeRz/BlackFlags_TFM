@@ -30,7 +30,6 @@ public class Deck : MonoBehaviour
         currentDeck = deck.ToList();
         currentDeckSize = deckSize;
 
-        StartCoroutine(DrawFirstCards());
     }
 
     public IEnumerator DrawFirstCards() {
@@ -71,7 +70,7 @@ public class Deck : MonoBehaviour
     public void Shuffle() {
         Card tempCard;
         int randomNumber;
-    
+
         for (int i = 0; i < deckSize; i++) {
             tempCard = deck[i];
             randomNumber = Random.Range(i, deckSize);
@@ -80,12 +79,28 @@ public class Deck : MonoBehaviour
         }
 
         currentDeck = deck.ToList();
-
-        foreach(GameObject card in hand) {
+        foreach (GameObject card in hand) {
+            if(card == null) continue;
             int index = currentDeck.FindIndex(x => x.id == card.GetComponent<CardDisplay>().id);
             currentDeck.RemoveAt(index);
         }
 
         currentDeckSize = currentDeck.Count();
+
+        if (currentDeckSize > 5)
+        {
+            deckCardBacks[0].gameObject.SetActive(true);
+            deckCardBacks[1].gameObject.SetActive(true);
+            deckCardBacks[2].gameObject.SetActive(true);
+        }
+        else if (currentDeckSize > 2)
+        {
+            deckCardBacks[0].gameObject.SetActive(true);
+            deckCardBacks[1].gameObject.SetActive(true);
+        }
+        else if(currentDeckSize > 0)
+        {
+            deckCardBacks[0].gameObject.SetActive(true);
+        }
     }
 }

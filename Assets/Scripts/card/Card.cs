@@ -11,7 +11,7 @@ public class Card
     public string name;
     public string description;
 
-    public Sprite artworkImage;
+    public Sprite artworkImage; 
 
     public Card(int id, string cardName, string description, Sprite artworkImage) {
         this.id = id;
