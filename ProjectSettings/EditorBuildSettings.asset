@@ -6,9 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Island_HUB.unity
+    path: Assets/Scenes/Isla.unity
     guid: 7e47840bfa065cc46b4973b232e1ec2f
   - enabled: 1
-    path: Assets/Scenes/Map.unity
+    path: Assets/Scenes/Mapa.unity
     guid: 79b58b2193be69a4793134bcb559f45c
   m_configObjects: {}
