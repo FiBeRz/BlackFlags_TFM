@@ -2094,7 +2094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27351096, y: 0.058844466}
   m_AnchorMax: {x: 0.98856, y: 0.9522986}
-  m_AnchoredPosition: {x: 393.15967, y: 0}
+  m_AnchoredPosition: {x: 393.15976, y: 0}
   m_SizeDelta: {x: 566.76965, y: 358.11145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505903051
@@ -2452,7 +2452,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &638914625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2630,6 +2630,7 @@ MonoBehaviour:
   eventInformation: {fileID: 830325679}
   mapInformation: {fileID: 1238548292}
   fadeoutPanel: {fileID: 0}
+  eventSystem: {fileID: 638914624}
 --- !u!1 &673671527
 GameObject:
   m_ObjectHideFlags: 0

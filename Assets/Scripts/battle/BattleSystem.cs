@@ -100,21 +100,26 @@ public class BattleSystem : MonoBehaviour
 
         //Como esto no lo maneja game manager uso un fade asignado
        
-        float a = 1;
-        fade.color = new Color(0, 0, 0, a);
-        yield return new WaitForSeconds(0.3f);
-
-        while (a > 0)
+        if (fade)
         {
-            a -= Time.deltaTime * 0.75f;
+            float a = 1;
             fade.color = new Color(0, 0, 0, a);
-            yield return null;
-        }
-   
-    
-        worldmap = GameObject.FindGameObjectWithTag("Holder");
-        worldmap.SetActive(false);
+            yield return new WaitForSeconds(0.3f);
 
+            while (a > 0)
+            {
+                a -= Time.deltaTime * 0.75f;
+                fade.color = new Color(0, 0, 0, a);
+                yield return null;
+            }
+
+
+            worldmap = GameObject.FindGameObjectWithTag("Holder");
+            if (worldmap)
+            {
+                worldmap.SetActive(false);
+            }
+        }
 
         StartCoroutine(deck.DrawFirstCards());
 
@@ -275,9 +280,13 @@ public class BattleSystem : MonoBehaviour
         fade.color = new Color(0, 0, 0, a);
 
        
-        worldmap.SetActive(true);
+        if (worldmap)
+        {
+            worldmap.SetActive(true);
 
-        SceneManager.UnloadSceneAsync(MainConstants.INDEX_SCENE_BATTLE);
+            SceneManager.UnloadSceneAsync(MainConstants.INDEX_SCENE_BATTLE);
+        }
+        
         yield return null;
     }
 

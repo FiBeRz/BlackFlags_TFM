@@ -10,12 +10,13 @@ public class MapUI : MonoBehaviour
     [SerializeField] private Image reputationIcon, fade;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
     [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel;
+    private GameObject eventSystem;
 
     void Start()
     {
         eventInformation.SetActive(false);
         mapInformation.SetActive(true);
-        
+        eventSystem = GameObject.Find("EventSystem");
     }
 
     private void OnEnable()
@@ -25,21 +26,24 @@ public class MapUI : MonoBehaviour
 
     IEnumerator RemoveFade()
     {    
-        float a = 1;
-        fade.color = new Color(0, 0, 0, a);
-        yield return new WaitForSeconds(0.2f);
-        while (a > 0)
+        if (fade)
         {
-            a -= Time.deltaTime * 0.75f;
+            float a = 1;
             fade.color = new Color(0, 0, 0, a);
-            yield return null;
-        }
-        a = 0;
-  
+            yield return new WaitForSeconds(0.2f);
+            while (a > 0)
+            {
+                a -= Time.deltaTime * 0.75f;
+                fade.color = new Color(0, 0, 0, a);
+                yield return null;
+            }
+            a = 0;
 
-        Debug.Log("Evento de fadescreen");
-       
-        fade.color = new Color(0, 0, 0, 0);
+
+            //Debug.Log("Evento de fadescreen");
+
+            fade.color = new Color(0, 0, 0, 0);
+        }
         yield return null;
     }
 
@@ -83,8 +87,28 @@ public class MapUI : MonoBehaviour
         changeReputationImage(reputationImage);
     }
 
+    private void checkChangeToCombat()
+    {
+        if (GameManager.Instance.isInChangeToCombat())
+        {
+            eventSystem.SetActive(false);
+            GameManager.Instance.returnFromCombat();
+        }
+    }
+
+    private void checkReactivateInterface()
+    {
+        if (GameManager.Instance.isInReactivateInterface())
+        {
+            eventSystem.SetActive(true);
+            GameManager.Instance.returnFromReactivate();
+        }
+    }
+
     private void Update()
     {
         calculateReputationImage();
+        checkChangeToCombat();
+        checkReactivateInterface();
     }
 }

@@ -54,7 +54,7 @@ public class PlayerUI : MonoBehaviour
         a = 0;
 
 
-        Debug.Log("Evento de fadescreen");
+        //Debug.Log("Evento de fadescreen");
 
         fade.color = new Color(0, 0, 0, 0);
         yield return null;

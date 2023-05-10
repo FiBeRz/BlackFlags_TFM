@@ -21,6 +21,12 @@ public class GameManager : Singleton<GameManager>
     private bool isBattleEvent = false;
     private bool isBossEvent = false;
 
+    //Change Scenes
+    [SerializeField] Image fade;
+    private bool changeToCombat = false;
+    private bool reactivateInterface = false;
+
+
     public void showNPCText()
     {
         int stringNumber = Random.Range(0, MainConstants.NPCDialogue.Length);
@@ -155,9 +161,6 @@ public class GameManager : Singleton<GameManager>
         isBattleEvent = true;
     }
 
-    [SerializeField] Image fade;
-
-
     public void changeToMapScene(int mapID = 0)
     {
         Cursor.visible = true;
@@ -176,7 +179,10 @@ public class GameManager : Singleton<GameManager>
         while (a < 1)
         {
             a += Time.deltaTime * 0.75f;
-            fade.color = new Color(0, 0, 0, a);
+            if (fade)
+            {
+                fade.color = new Color(0, 0, 0, a);
+            }
             yield return null;
         }
         a = 1;
@@ -184,11 +190,15 @@ public class GameManager : Singleton<GameManager>
 
         Debug.Log("Evento de mapa");
         yield return new WaitForSeconds(0.2f);
-        fade.color = new Color(0, 0, 0, 0);
+        if (fade)
+        {
+            fade.color = new Color(0, 0, 0, 0);
+        }
     }
 
     public void launchBattleEvent(int battleID = 0)
     {
+        changeToCombat = true;
         StartCoroutine("LaunchBattleEvent");
     }
 
@@ -207,6 +217,7 @@ public class GameManager : Singleton<GameManager>
             yield return null;
         }
         a = 1;
+        reactivateInterface = true;
         SceneManager.LoadScene(MainConstants.INDEX_SCENE_BATTLE, LoadSceneMode.Additive);
         
         Debug.Log("Evento de combate");
@@ -258,5 +269,25 @@ public class GameManager : Singleton<GameManager>
 
         //Add object indicator to object list
         Debug.Log("Objeto añadido");
+    }
+
+    public bool isInChangeToCombat()
+    {
+        return changeToCombat;
+    }
+
+    public void returnFromCombat()
+    {
+        changeToCombat = false;
+    }
+
+    public bool isInReactivateInterface()
+    {
+        return reactivateInterface;
+    }
+
+    public void returnFromReactivate()
+    {
+        reactivateInterface = false;
     }
 }
