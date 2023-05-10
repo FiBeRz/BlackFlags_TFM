@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
@@ -41,10 +43,26 @@ public class BattleSystem : MonoBehaviour
         deck = CardDataBase.GetComponent<Deck>();
 
         state = BattleState.START;
-        SetupBattle();
+        
+        StartCoroutine("SetupBattle");
+        //Desactivacion del mapa que invoco battle system, por lo cual tambien se remueve el fade
+       
+
     }
 
-    void SetupBattle()
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            state = BattleState.WON;
+            Debug.Log("Victoria");
+            StartCoroutine("ReturnToMap");
+        }
+
+    }
+    [SerializeField] Image fade;
+
+    public void SpawnEntities()
     {
         Vector3 position = allyStation.position;
         // POR AHORA HAY UN EQUIPO PREDEFINIDO DE 3 WARRIOR, 2 SHOOTERS Y 1 WIZARD
@@ -52,19 +70,19 @@ public class BattleSystem : MonoBehaviour
         int i;
         for (i = 0; i < 3; i++)
         {
-            GameObject allyGO = Instantiate(allyWarriorPrefab, new Vector3(position.x + 0f, position.y, position.z + (i*2)), allyStation.rotation, allyStation);
+            GameObject allyGO = Instantiate(allyWarriorPrefab, new Vector3(position.x + 0f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyWarriors.Add(allyGO.GetComponent<Unit>());
         }
         nWarriors = i;
         for (i = 0; i < 2; i++)
         {
-            GameObject allyGO = Instantiate(allyShooterPrefab, new Vector3(position.x + 2f, position.y, position.z + (i*2)), allyStation.rotation, allyStation);
+            GameObject allyGO = Instantiate(allyShooterPrefab, new Vector3(position.x + 2f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyShooters.Add(allyGO.GetComponent<Unit>());
         }
         nShooters = i;
         for (i = 0; i < 1; i++)
         {
-            GameObject allyGO = Instantiate(allyWizardPrefab, new Vector3(position.x + 4f, position.y, position.z + (i*2)), allyStation.rotation, allyStation);
+            GameObject allyGO = Instantiate(allyWizardPrefab, new Vector3(position.x + 4f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyWizards.Add(allyGO.GetComponent<Unit>());
         }
         nWizards = i;
@@ -73,13 +91,40 @@ public class BattleSystem : MonoBehaviour
         GameObject enemyGO = Instantiate(enemyPrefab, enemyStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
 
-     
+    }
+
+    GameObject worldmap;
+    IEnumerator SetupBattle()
+    {
+        SpawnEntities();
+
+        //Como esto no lo maneja game manager uso un fade asignado
+       
+        float a = 1;
+        fade.color = new Color(0, 0, 0, a);
+        yield return new WaitForSeconds(0.3f);
+
+        while (a > 0)
+        {
+            a -= Time.deltaTime * 0.75f;
+            fade.color = new Color(0, 0, 0, a);
+            yield return null;
+        }
+   
+    
+        worldmap = GameObject.FindGameObjectWithTag("Holder");
+        worldmap.SetActive(false);
+
+
         StartCoroutine(deck.DrawFirstCards());
 
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
+
     }
+
+
 
     IEnumerator EnemyTurn() 
     {
@@ -211,8 +256,29 @@ public class BattleSystem : MonoBehaviour
         {
             state = BattleState.WON;
             Debug.Log("Victoria");
+            StartCoroutine("ReturnToMap");
         }
 
+    }
+
+    IEnumerator ReturnToMap()
+    {
+        float a = 0;
+
+        while (a <= 1)
+        {
+            a += Time.deltaTime * 0.75f;
+            fade.color = new Color(0, 0, 0, a);
+            yield return null;
+        }
+        a = 1;
+        fade.color = new Color(0, 0, 0, a);
+
+       
+        worldmap.SetActive(true);
+
+        SceneManager.UnloadSceneAsync(MainConstants.INDEX_SCENE_BATTLE);
+        yield return null;
     }
 
 }

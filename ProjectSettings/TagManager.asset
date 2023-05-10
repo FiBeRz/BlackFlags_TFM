@@ -7,6 +7,10 @@ TagManager:
   - CinemachineTarget
   - Card
   - BattleSystem
+  - Holder
+  - Fadeout
+  - CombatHolder
+  - HubHolder
   layers:
   - Default
   - TransparentFX

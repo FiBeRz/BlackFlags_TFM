@@ -3,17 +3,44 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class MapUI : MonoBehaviour
 {
-    [SerializeField] private Image reputationIcon;
+    [SerializeField] private Image reputationIcon, fade;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject eventInformation, mapInformation;
+    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel;
 
     void Start()
     {
         eventInformation.SetActive(false);
         mapInformation.SetActive(true);
+        
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine("RemoveFade");
+    }
+
+    IEnumerator RemoveFade()
+    {    
+        float a = 1;
+        fade.color = new Color(0, 0, 0, a);
+        yield return new WaitForSeconds(0.2f);
+        while (a > 0)
+        {
+            a -= Time.deltaTime * 0.75f;
+            fade.color = new Color(0, 0, 0, a);
+            yield return null;
+        }
+        a = 0;
+  
+
+        Debug.Log("Evento de fadescreen");
+       
+        fade.color = new Color(0, 0, 0, 0);
+        yield return null;
     }
 
     public void changeReputationImage(int reputationImage)

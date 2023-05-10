@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -124,12 +125,6 @@ public class GameManager : Singleton<GameManager>
         totalMoney += money;
     }
 
-    public void changeToMapScene()
-    {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-        SceneManager.LoadScene(MainConstants.INDEX_SCENE_MAP);
-    }
 
     public void prepareRescueScene()
     {
@@ -160,12 +155,63 @@ public class GameManager : Singleton<GameManager>
         isBattleEvent = true;
     }
 
-    public void launchBattleEvent()
+    [SerializeField] Image fade;
+
+
+    public void changeToMapScene(int mapID = 0)
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+        StartCoroutine("ChangeToMapScene");
+    }
+
+    IEnumerator ChangeToMapScene()
+    {
+       
+        fade = GameObject.FindGameObjectWithTag("Fadeout").GetComponent<Image>();
+        float a = 0;
+        fade.color = new Color(0, 0, 0, a);
+
+
+        while (a < 1)
+        {
+            a += Time.deltaTime * 0.75f;
+            fade.color = new Color(0, 0, 0, a);
+            yield return null;
+        }
+        a = 1;
+        SceneManager.LoadScene(MainConstants.INDEX_SCENE_MAP);
+
+        Debug.Log("Evento de mapa");
+        yield return new WaitForSeconds(0.2f);
+        fade.color = new Color(0, 0, 0, 0);
+    }
+
+    public void launchBattleEvent(int battleID = 0)
+    {
+        StartCoroutine("LaunchBattleEvent");
+    }
+
+    IEnumerator LaunchBattleEvent()
     {
         isBattleEvent = false;
+        fade = GameObject.FindGameObjectWithTag("Fadeout").GetComponent<Image>();
+        float a = 0;
+        fade.color = new Color(0, 0, 0, a);
+    
 
-        //Change to Battle scene
+        while (a < 1)
+        {
+            a += Time.deltaTime * 0.75f;
+            fade.color = new Color(0, 0, 0, a);
+            yield return null;
+        }
+        a = 1;
+        SceneManager.LoadScene(MainConstants.INDEX_SCENE_BATTLE, LoadSceneMode.Additive);
+        
         Debug.Log("Evento de combate");
+        yield return new WaitForSeconds(0.2f);
+        fade.color = new Color(0, 0, 0, 0);
     }
 
     public bool inBattleEvent()
@@ -181,7 +227,7 @@ public class GameManager : Singleton<GameManager>
     public void launchBossEvent()
     {
         isBossEvent = false;
-
+   
         //Change to Battle-Boss scene
         Debug.Log("Evento de Boss");
     }
