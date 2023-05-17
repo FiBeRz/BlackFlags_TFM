@@ -50,4 +50,19 @@ public class ContinueButtonScript : MonoBehaviour
             GameManager.Instance.rejectObject();
         }
     }
+
+    public void acceptTaxes()
+    {
+        int money = GameManager.Instance.getMoney();
+        int totalTaxes = 10 * money / 100;
+        GameManager.Instance.addMoney(-1 * totalTaxes);
+        GameManager.Instance.addReputation(10);
+        GameManager.Instance.changeToIslandScene();
+    }
+
+    public void rejectTaxes()
+    {
+        GameManager.Instance.addReputation(-20);
+        GameManager.Instance.changeToIslandScene();
+    }
 }

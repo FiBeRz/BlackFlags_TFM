@@ -9,14 +9,17 @@ public class MapUI : MonoBehaviour
 {
     [SerializeField] private Image reputationIcon, fade;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel;
+    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation;
+    [SerializeField] private TextMeshProUGUI moneyText;
     private GameObject eventSystem;
 
     void Start()
     {
         eventInformation.SetActive(false);
+        taxesInformation.SetActive(false);
         mapInformation.SetActive(true);
         eventSystem = GameObject.Find("EventSystem");
+        moneyText.SetText(GameManager.Instance.getMoney() + "");
     }
 
     private void OnEnable()
@@ -105,10 +108,25 @@ public class MapUI : MonoBehaviour
         }
     }
 
+    private void checkEndOfRun()
+    {
+        if (GameManager.Instance.isEndOfRun())
+        {
+            taxesInformation.SetActive(true);
+        }
+    }
+
+    public void calculateMoney()
+    {
+        moneyText.SetText(GameManager.Instance.getMoney() + "");
+    }
+
     private void Update()
     {
         calculateReputationImage();
+        calculateMoney();
         checkChangeToCombat();
         checkReactivateInterface();
+        checkEndOfRun();
     }
 }

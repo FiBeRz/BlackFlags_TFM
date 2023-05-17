@@ -20,6 +20,7 @@ public class GameManager : Singleton<GameManager>
     private bool isObjectEvent = false;
     private bool isBattleEvent = false;
     private bool isBossEvent = false;
+    private bool endOfRun = false;
 
     //Change Scenes
     [SerializeField] Image fade;
@@ -163,6 +164,7 @@ public class GameManager : Singleton<GameManager>
 
     public void changeToMapScene(int mapID = 0)
     {
+        hideMapText();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         StartCoroutine("ChangeToMapScene");
@@ -186,6 +188,7 @@ public class GameManager : Singleton<GameManager>
             yield return null;
         }
         a = 1;
+        endOfRun = false;
         SceneManager.LoadScene(MainConstants.INDEX_SCENE_MAP);
 
         Debug.Log("Evento de mapa");
@@ -194,6 +197,11 @@ public class GameManager : Singleton<GameManager>
         {
             fade.color = new Color(0, 0, 0, 0);
         }
+    }
+
+    public void changeToIslandScene()
+    {
+        SceneManager.LoadScene(MainConstants.INDEX_SCENE_ISLAND);
     }
 
     public void launchBattleEvent(int battleID = 0)
@@ -241,11 +249,22 @@ public class GameManager : Singleton<GameManager>
    
         //Change to Battle-Boss scene
         Debug.Log("Evento de Boss");
+        returnFromBoss();
     }
 
     public bool inBossEvent()
     {
         return isBossEvent;
+    }
+
+    public void returnFromBoss()
+    {
+        endOfRun = true;
+    }
+
+    public bool isEndOfRun()
+    {
+        return endOfRun;
     }
 
     public void prepareObject()

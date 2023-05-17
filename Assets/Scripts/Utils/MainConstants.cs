@@ -5,9 +5,9 @@ using UnityEngine;
 public class MainConstants : MonoBehaviour
 {
     //Scenes
-    public static int INDEX_SCENE_ISLAND = 0;
-    public static int INDEX_SCENE_MAP = 1;
-    public static int INDEX_SCENE_BATTLE = 2;
+    public static int INDEX_SCENE_ISLAND = 1;
+    public static int INDEX_SCENE_MAP = 2;
+    public static int INDEX_SCENE_BATTLE = 3;
 
     //Actions
     public static string INTERACT_INTERACTION = "Interact";
