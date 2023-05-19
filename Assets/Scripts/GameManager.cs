@@ -30,8 +30,55 @@ public class GameManager : Singleton<GameManager>
 
     public void showNPCText()
     {
+        //Neutral reputation
         int stringNumber = Random.Range(0, MainConstants.NPCDialogue.Length);
         textMessage = MainConstants.NPCDialogue[stringNumber];
+
+        //Good reputation
+        if (totalReputationValue >= 50)
+        {
+            int stringGood = Random.Range(0, MainConstants.NPCDialogueGood.Length);
+            if (totalReputationValue < 100)
+            {
+                if (Random.Range(0, 3) == 0)                                                //33% change message from default to good
+                {
+                    textMessage = MainConstants.NPCDialogueGood[stringGood];
+                }
+            }
+            else
+            {
+                textMessage = MainConstants.NPCDialogueGood[stringGood];
+                //Best reputation
+                int stringBest = Random.Range(0, MainConstants.NPCDialogueBest.Length);
+                if (Random.Range(0, 2) == 0)                                                //50% change message from good to best
+                {
+                    textMessage = MainConstants.NPCDialogueBest[stringBest];
+                }
+            }
+        }
+
+        //Bad reputation
+        if (totalReputationValue <= -50)
+        {
+            int stringBad = Random.Range(0, MainConstants.NPCDialogueBad.Length);
+            if (totalReputationValue > -100)
+            {
+                if (Random.Range(0, 3) == 0)                                                //33% change message from default to bad
+                {
+                    textMessage = MainConstants.NPCDialogueBad[stringBad];
+                }
+            }
+            else
+            {
+                textMessage = MainConstants.NPCDialogueBad[stringBad];
+                //Worst reputation
+                int stringWorst = Random.Range(0, MainConstants.NPCDialogueWorst.Length);
+                if (Random.Range(0, 2) == 0)                                                //50% change message from bad to worst
+                {
+                    textMessage = MainConstants.NPCDialogueWorst[stringWorst];
+                }
+            }
+        }
     }
 
     public void hideNPCText()
@@ -41,8 +88,21 @@ public class GameManager : Singleton<GameManager>
 
     public void showNPCShopText()
     {
-        int stringNumber = Random.Range(0, MainConstants.NPCShopDialogue.Length);
-        textMessage = MainConstants.NPCShopDialogue[stringNumber];
+        if ((totalReputationValue > -100) && (totalReputationValue < 100))
+        {
+            int stringNumber = Random.Range(0, MainConstants.NPCShopDialogue.Length);
+            textMessage = MainConstants.NPCShopDialogue[stringNumber];
+        }
+        else if (totalReputationValue >= 100)
+        {
+            int stringNumber = Random.Range(0, MainConstants.NPCShopGood.Length);
+            textMessage = MainConstants.NPCShopGood[stringNumber];
+        }
+        else
+        {
+            int stringNumber = Random.Range(0, MainConstants.NPCShopBad.Length);
+            textMessage = MainConstants.NPCShopBad[stringNumber];
+        }
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;

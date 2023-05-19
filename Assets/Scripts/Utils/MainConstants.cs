@@ -12,6 +12,15 @@ public class MainConstants : MonoBehaviour
     //Actions
     public static string INTERACT_INTERACTION = "Interact";
 
+    //Text color
+    public static int COLOR_BLACK = 0;
+    public static int COLOR_GREEN = 1;
+    public static int COLOR_RED = 2;
+
+    //Reputation discount and recharge
+    public static int DISCOUNT_PERCENT = 80;                                            //Percent after discount
+    public static int RECHARGE_PERCENT = 120;                                           //Percent after recharge
+
     //Notifications
     public static string NOTIFICATION_MAP = "Pulsa 'E' para embarcarte en una misión";
 
@@ -63,15 +72,18 @@ public class MainConstants : MonoBehaviour
     public static string[] NPCShopNoMoney = { "Si no tienes dinero para pagarlo no voy a dártelo ¿eh?", "No insistas, veo que tienes la cartera vacía.",
     "¿Por qué no te vas a saquear otro sitio por ahí?"};
 
+    public static string[] NPCShopGood = {"Pero qué ven mis ojos, ¡si es mi cliente favorito!",
+        "Hoy tenemos una oferta especial para clientes como tú, pero no vayas diciéncolo por ahí, ¿eh?",
+        "Lo que haces por este pueblo es increíble. Una rebaja es lo menos que puedo ofrecerte."};
+
+    public static string[] NPCShopBad = {"Aquí no eres bien recibido. Vete yendo por donde has venido.",
+        "Como sigas por aquí cerca la oferta de hoy va a ser un puñetazo. Invita la casa.",
+        "Queríamos librarnos de los piratas, no invitarlos a nuestras casas. Vamos, ¡largo de aquí!"};
+
     public static string[] NPCDialogue = {"Como están los máquinas lo primero de todo.",
         "Últimamente el mar se ha convertido en un sitio peligroso.",
         "Los tiempos han cambiado, este pueblo ya no es lo que era.",
         "Me crié en este lugar, es una pena ver en lo que se ha convertido.",
-        "¿Eres el pirata del que habla todo el mundo? Me das un poco de miedo, pero tu eficacia es innegable...",
-        "Últimamente se ven muchas caras nuevas por aquí... Gracias.",
-        "No debería estar hablando contigo, pero no me pareces tan malo como se comenta por ahí.",
-        "Es un secreto, pero estoy pensando en unirme a tu banda. No se lo digas a nadie, ¿eh?",
-        "Quizá no todos los piratas den miedo después de todo.",
         "Ojalá este pueblo volviera a su antigua gloria.",
         "Solía pasear por aquí a todas horas, antes me hacía feliz, pero ahora da un poco de pena.",
         "Creo que es la décima vez que hago este recorrido hoy.",
@@ -92,12 +104,53 @@ public class MainConstants : MonoBehaviour
         "¿Mal día? No te preocupes, hasta del limón más agrio se puede hacer algo que parezca limonada...",
         "Lo bueno de que los días sean tan largos es que aunque te pase algo malo, siempre puede pasar otra cosa que te haga recordarlo de otra manera.",
         "¿Has entrado alguna vez en la tienda? Esa cosa no tiene sentido. ¡Parece más grande por dentro!",
-        "Muchas personas están en tu contra, pero no conozco a nadie más que se despierte cada día y luche por hacer del mundo un lugar mejor.",
         "La vida de cada persona es un conjunto de constantes y variables. ¿No es poético?",
         "Hace unos años me fastidié el dedo méñique, ahora uso un dedal para cubrir mi 'horrible deformidad' jajaja.",
-        "No puedo decir que apoye tus métodos, pero no puedo expresar con palabras la gratitud que te tengo.",
-        "Supongo que hay veces en las que hay que apoyar la piratería, ¿no? No sé si termina de convencerme...",
         "Me da vergüenza hablar contigo, pero siento como si una fuerza me impulsara a hacerlo.",
         "¿Puedo continuar andando? Tengo una cita y creo que voy a llegar tarde...",
         "Juraría que quería caminar en otra dirección, ¿por qué sigo por aquí?"};
+
+    public static string[] NPCDialogueGood = {
+        "¿Eres el pirata del que habla todo el mundo? Me das un poco de miedo, pero tu eficacia es innegable...",
+        "Últimamente se ven muchas caras nuevas por aquí... Gracias.",
+        "No debería estar hablando contigo, pero no me pareces tan malo como se comenta por ahí.",
+        "Es un secreto, pero estoy pensando en unirme a tu banda. No se lo digas a nadie, ¿eh?",
+        "Quizá no todos los piratas den miedo después de todo.",
+        "Muchas personas están en tu contra, pero no conozco a nadie más que se despierte cada día y luche por hacer del mundo un lugar mejor.",
+        "No puedo decir que apoye tus métodos, pero no puedo expresar con palabras la gratitud que te tengo.",
+        "Supongo que hay veces en las que hay que apoyar la piratería, ¿no? No sé si termina de convencerme...",
+    };
+
+    public static string[] NPCDialogueBest = {
+        "No cabe duda de que eres el más indicado para ser el guardían de esta isla. No tendrás un número asociado o algo así, ¿no?",
+        "No me importa lo que se diga fuera de esta isla. Para mí eres el rey de los piratas.",
+        "En tu honor voy a llamar Jack a mi hijo. ¿Cómo? ¿Ese no es tu nombre? Entonces lo llamaré Luffy. ¿Tampoco?",
+        "Quién iba a pensar que un pirata iba a ponernos la vida más fácil.",
+        "¡Menos mal que te has ganado el favor de esta gente! Llevo meses intentando hablar contigo, pero yo no hablo con criminales.",
+        "Yo también quiero ser pirata. Pero no sé donde comprarme el loro... ni el barco. ¿Me prestas los tuyos?",
+        "No veía tantas caras por el pueblo desde mi infancia. No tengo palabras para agradecerte todo lo que haces.",
+        "Mi abuelo también fue un pirata muy famoso. ¿Te suena el nombre de Guybrush Threepwood?",
+    };
+
+    public static string[] NPCDialogueBad = {
+        "No sé si va a ser peor el remedio o la enfermedad...",
+        "Me está costando mucho mantener nuestra amistad después de... bueno, de tus últimas decisiones, en general.",
+        "Le das a la gente el poder para decidir y mira lo que hacen con él. Decepcionante.",
+        "Voy a empezar a hacer lo contrario de lo que digas, porque últimamente no das una, ¿eh?",
+        "La gente empieza a mirarte con malos ojos. Pero yo no sé que pensar aún. No nos decepciones, por favor...",
+        "Últimamente me estoy sintiendo un poco mal por empezar a pensar que éramos amigos.",
+        "Espero que esto que estás haciendo te merezca la pena.",
+        "El futuro está dejando de mostrarse esperanzador. Tus acciones tendrán consecuencias.",
+    };
+
+    public static string[] NPCDialogueWorst = {
+        "No lo intentes. No va a salir de mí ni una palabra buena hacia tí.",
+        "...",
+        "Me gustaría que te alejaras de mi. Gracias.",
+        "Esto era mejor cuando solo éramos tres personas aquí. Lo has arruinado todo.",
+        "Lo que tengo que decir no es mejor que el silencio, así que mejor me voy callando.",
+        "¿Por qué no te vas por ahí a ver si te ataca un jabalí o algo?",
+        "Cuando llegue tu arco de redención me avisas si eso, que ahora mismo tengo mucho lío.",
+        "¿Puedes hacer un favor más a la isla y dejar que te coma un remolino?"
+    };
 }
