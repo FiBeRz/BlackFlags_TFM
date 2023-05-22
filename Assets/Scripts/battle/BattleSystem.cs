@@ -32,9 +32,26 @@ public class BattleSystem : MonoBehaviour
     public List<Unit> allyShooters;
     public List<Unit> allyWizards;
 
+    public List<Unit> allAlly;
+
     private int nWarriors = 0;
     private int nShooters = 0;
     private int nWizards = 0;
+    private int nAlly = 0;
+
+    // PORCENTAJES
+    public float buffAttackRatio = 0.1F;
+    public float buffDefenseRatio = 0.2F;
+
+    public float ataqueCargadoRatio = 1.0F;
+
+    public int shipDamage = 50;
+
+    // FLAGS PARA ACCIONES DE CARTAS
+    private bool discard = false;
+    private bool defend = false;
+    private bool ataqueCargado = false;
+    private int multicard = 0;
 
 
     // Start is called before the first frame update
@@ -72,21 +89,25 @@ public class BattleSystem : MonoBehaviour
         {
             GameObject allyGO = Instantiate(allyWarriorPrefab, new Vector3(position.x + 0f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyWarriors.Add(allyGO.GetComponent<Unit>());
+            allAlly.Add(allyGO.GetComponent<Unit>());
         }
         nWarriors = i;
         for (i = 0; i < 2; i++)
         {
             GameObject allyGO = Instantiate(allyShooterPrefab, new Vector3(position.x + 2f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyShooters.Add(allyGO.GetComponent<Unit>());
+            allAlly.Add(allyGO.GetComponent<Unit>());
         }
         nShooters = i;
         for (i = 0; i < 1; i++)
         {
             GameObject allyGO = Instantiate(allyWizardPrefab, new Vector3(position.x + 4f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyWizards.Add(allyGO.GetComponent<Unit>());
+            allAlly.Add(allyGO.GetComponent<Unit>());
         }
         nWizards = i;
 
+        nAlly = nWizards + nShooters + nWarriors;
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
@@ -137,49 +158,44 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        Unit currentTarget;
-
-        if (nWarriors > 0)
+        int nTargets = nAlly;
+        if (defend && nWarriors > 0)
         {
-            currentTarget = allyWarriors[0];
+            nTargets = nWarriors;
+        }
 
-            bool isDead = currentTarget.TakeDamage(enemyUnit.damage);
+        foreach (Unit currentUnit in allAlly)
+        {
+            if (defend)
+            {
+                if (currentUnit.unitClass != UnitClass.Warrior) continue;
+            }
+            bool isDead = currentUnit.TakeDamage(enemyUnit.damage / nTargets);
 
             if (isDead)
             {
-                nWarriors--;
-                allyWarriors.Remove(currentTarget);
-                Destroy(currentTarget.gameObject);
-            }
-        }
-        else if (nShooters > 0)
-        {
-            currentTarget = allyShooters[0];
-
-            bool isDead = currentTarget.TakeDamage(enemyUnit.damage);
-
-            if (isDead)
-            {
-                nShooters--;
-                allyShooters.Remove(currentTarget);
-                Destroy(currentTarget.gameObject);
-            }
-        }
-        else 
-        {
-            currentTarget = allyWizards[0];
-
-            bool isDead = currentTarget.TakeDamage(enemyUnit.damage);
-
-            if (isDead)
-            {
-                nWizards--;
-                allyWizards.Remove(currentTarget);
-                Destroy(currentTarget.gameObject);
+                nAlly--;
+                allAlly.Remove(currentUnit);
+                if (currentUnit.unitClass == UnitClass.Warrior)
+                {
+                    allyWarriors.Remove(currentUnit);
+                    nWarriors--;
+                } 
+                else if (currentUnit.unitClass == UnitClass.Shooter) 
+                {
+                    allyShooters.Remove(currentUnit);
+                    nShooters--; 
+                } 
+                else
+                {
+                    allyWizards.Remove(currentUnit);
+                    nWizards--; 
+                }
+                Destroy(currentUnit.gameObject);
             }
         }
 
-        if (nShooters + nWarriors + nWizards == 0)
+        if (nAlly == 0)
         {
             state = BattleState.LOST;
         }
@@ -195,25 +211,75 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn() 
     {
         isDraggable = true;
-        deck.DrawCard();
+        if (multicard != 1)
+        {
+            deck.DrawCard();
+
+            if (ataqueCargado)
+            {
+                this.attack(1, ataqueCargadoRatio);
+                ataqueCargado = false;
+            }
+        }
     }
 
 
     public void cardAction(int id)
     {
+        if (discard)
+        {
+            discard = false;
+            deck.DrawCard();
+            deck.DrawCard();
+            state = BattleState.ENEMYTURN;
+            StartCoroutine(EnemyTurn());
+            return;
+        }
+
+        if (multicard == 2)
+        {
+            multicard = 1;
+        }
+
         bool isDead = false;
         switch (id){
+            case 0:
+                this.attack(3);
+                break;
             case 1://ATAQUE RAPIDO
                 this.attack(1, 1f);
                 break;
+            case 2://DESCARTAR
+                discard = true;
+                break;
             case 3://ATAQUE CARGADO
-                this.attack(1, 2f);
+                ataqueCargado = true;
                 break;
             case 4://ATAQUE NORMAL
-                this.attack(0,1f);
+                this.attack(0);
+                break;
+            case 5://DEFENSA
+                defend = true;
+                break;
+            case 6://ROBAR
+                deck.DrawCard();
+                break;
+            case 7://AUMENTO ATAQUE
+                this.buffAlly(0);
+                break;
+            case 8://AUMENTO DEFENSA
+                this.buffAlly(1);
+                break;
+            case 9://MAREA
+                multicard = 2;
                 break;
             default:
                 break;
+        }
+        if (multicard == 1)
+        {
+            multicard = 0;
+            return;
         }
 
         if (isDead)
@@ -222,8 +288,12 @@ public class BattleSystem : MonoBehaviour
         }
         else
         {
-            state = BattleState.ENEMYTURN;
-            StartCoroutine(EnemyTurn());
+            if (!discard)
+            {
+                state = BattleState.ENEMYTURN;
+                StartCoroutine(EnemyTurn());
+            }
+            
         }
            
     }
@@ -247,13 +317,10 @@ public class BattleSystem : MonoBehaviour
                 damage += shooter.damage;
             }
         }
-        else //Wizards
-        {
-            foreach (Unit wizard in allyWizards)
-            {
-                damage += wizard.damage;
-            }
+        else {
+            damage = shipDamage;
         }
+
         bool isDead = enemyUnit.TakeDamage((int)(damage * mlt));
         Debug.Log(enemyUnit.currentHP);
 
@@ -264,6 +331,24 @@ public class BattleSystem : MonoBehaviour
             StartCoroutine("ReturnToMap");
         }
 
+    }
+
+    public void buffAlly(int type)
+    {
+        if (type == 0)
+        {
+            foreach (Unit unit in allAlly)
+            {
+                unit.buffAttack(buffAttackRatio);
+            }
+        }
+        else if (type == 1)
+        {
+            foreach (Unit unit in allAlly)
+            {
+                unit.buffDefense(buffDefenseRatio);
+            }
+        }
     }
 
     IEnumerator ReturnToMap()

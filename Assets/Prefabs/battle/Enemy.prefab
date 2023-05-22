@@ -48,9 +48,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitName: EnemyPrefab
   unitLevel: 12
-  damage: 100
+  damage: 200
   maxHP: 300
   currentHP: 300
+  defense: 10
   unitClass: 0
 --- !u!1001 &4532721534211398929
 PrefabInstance:

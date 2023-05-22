@@ -51,6 +51,7 @@ MonoBehaviour:
   damage: 40
   maxHP: 200
   currentHP: 200
+  defense: 10
   unitClass: 1
 --- !u!1001 &806753144512351604
 PrefabInstance:
