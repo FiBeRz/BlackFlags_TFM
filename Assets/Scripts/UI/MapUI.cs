@@ -9,8 +9,9 @@ public class MapUI : MonoBehaviour
 {
     [SerializeField] private Image reputationIcon, fade;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation;
-    [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation, blackMarketEvent, shortcutEvent;
+    [SerializeField] private TextMeshProUGUI moneyText, shopMoneyText;
+    [SerializeField] private TextMeshProUGUI[] eventPercentageTexts;
     private GameObject eventSystem;
 
     void Start()
@@ -19,7 +20,24 @@ public class MapUI : MonoBehaviour
         taxesInformation.SetActive(false);
         mapInformation.SetActive(true);
         eventSystem = GameObject.Find("EventSystem");
-        moneyText.SetText(GameManager.Instance.getMoney() + "");
+        moneyText.SetText(GameManager.Instance.getMoney() + "$");
+        shopMoneyText.SetText(GameManager.Instance.getMoney() + "$");
+
+        if (GameManager.Instance.getReputation() >= 50)
+        {
+            shortcutEvent.SetActive(true);
+            blackMarketEvent.SetActive(false);
+        }
+        else if (GameManager.Instance.getReputation() <= -50)
+        {
+            blackMarketEvent.SetActive(true);
+            shortcutEvent.SetActive(false);
+        }
+        else
+        {
+            blackMarketEvent.SetActive(false);
+            shortcutEvent.SetActive(false);
+        }
     }
 
     private void OnEnable()
@@ -116,14 +134,103 @@ public class MapUI : MonoBehaviour
         }
     }
 
-    public void calculateMoney()
+    private void calculateMoney()
     {
-        moneyText.SetText(GameManager.Instance.getMoney() + "");
+        moneyText.SetText(GameManager.Instance.getMoney() + "$");
+        shopMoneyText.SetText(GameManager.Instance.getMoney() + "$");
+    }
+
+    private void calculateEventPercentage()
+    {
+        int unknownValue, oasisValue, rescueValue, sharkValue, chestValue, battleValue, blessValue, bossValue, marketValue, shortcutValue;
+
+        //Good reputation
+        if (GameManager.Instance.getReputation() >= 50 && GameManager.Instance.getReputation() < 100)
+        {
+            unknownValue = MainConstants.GOOD_UNKNOWN;
+            oasisValue = MainConstants.GOOD_OASIS;
+            rescueValue = MainConstants.GOOD_RESCUE;
+            sharkValue = MainConstants.GOOD_SHARK;
+            chestValue = MainConstants.GOOD_CHEST;
+            battleValue = MainConstants.GOOD_BATTLE;
+            blessValue = MainConstants.GOOD_BLESS;
+            bossValue = MainConstants.GOOD_BOSS;
+            marketValue = MainConstants.GOOD_BLACKMARKET;
+            shortcutValue = MainConstants.GOOD_SHORTCUT;
+        }
+        //Best reputation
+        else if (GameManager.Instance.getReputation() >= 100)
+        {
+            unknownValue = MainConstants.BEST_UNKNOWN;
+            oasisValue = MainConstants.BEST_OASIS;
+            rescueValue = MainConstants.BEST_RESCUE;
+            sharkValue = MainConstants.BEST_SHARK;
+            chestValue = MainConstants.BEST_CHEST;
+            battleValue = MainConstants.BEST_BATTLE;
+            blessValue = MainConstants.BEST_BLESS;
+            bossValue = MainConstants.BEST_BOSS;
+            marketValue = MainConstants.BEST_BLACKMARKET;
+            shortcutValue = MainConstants.BEST_SHORTCUT;
+        }
+        //Bad reputation
+        else if (GameManager.Instance.getReputation() <= -50 && GameManager.Instance.getReputation() > -100)
+        {
+            unknownValue = MainConstants.BAD_UNKNOWN;
+            oasisValue = MainConstants.BAD_OASIS;
+            rescueValue = MainConstants.BAD_RESCUE;
+            sharkValue = MainConstants.BAD_SHARK;
+            chestValue = MainConstants.BAD_CHEST;
+            battleValue = MainConstants.BAD_BATTLE;
+            blessValue = MainConstants.BAD_BLESS;
+            bossValue = MainConstants.BAD_BOSS;
+            marketValue = MainConstants.BAD_BLACKMARKET;
+            shortcutValue = MainConstants.BAD_SHORTCUT;
+        }
+        //Worst reputation
+        else if (GameManager.Instance.getReputation() <= -100)
+        {
+            unknownValue = MainConstants.WORST_UNKNOWN;
+            oasisValue = MainConstants.WORST_OASIS;
+            rescueValue = MainConstants.WORST_RESCUE;
+            sharkValue = MainConstants.WORST_SHARK;
+            chestValue = MainConstants.WORST_CHEST;
+            battleValue = MainConstants.WORST_BATTLE;
+            blessValue = MainConstants.WORST_BLESS;
+            bossValue = MainConstants.WORST_BOSS;
+            marketValue = MainConstants.WORST_BLACKMARKET;
+            shortcutValue = MainConstants.WORST_SHORTCUT;
+        }
+        //Neutral reputation
+        else
+        {
+            unknownValue = MainConstants.NEUTRAL_UNKNOWN;
+            oasisValue = MainConstants.NEUTRAL_OASIS;
+            rescueValue = MainConstants.NEUTRAL_RESCUE;
+            sharkValue = MainConstants.NEUTRAL_SHARK;
+            chestValue = MainConstants.NEUTRAL_CHEST;
+            battleValue = MainConstants.NEUTRAL_BATTLE;
+            blessValue = MainConstants.NEUTRAL_BLESS;
+            bossValue = MainConstants.NEUTRAL_BOSS;
+            marketValue = MainConstants.NEUTRAL_BLACKMARKET;
+            shortcutValue = MainConstants.NEUTRAL_SHORTCUT;
+        }
+
+        eventPercentageTexts[MainConstants.EVENT_UNKNOWN].SetText(unknownValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_OASIS].SetText(oasisValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_RESCUE].SetText(rescueValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_SHARK].SetText(sharkValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_CHEST].SetText(chestValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_BATTLE].SetText(battleValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_BLESS].SetText(blessValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_BOSS].SetText(bossValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_BLACKMARKET].SetText(marketValue + "%");
+        eventPercentageTexts[MainConstants.EVENT_SHORTCUT].SetText(shortcutValue + "%");
     }
 
     private void Update()
     {
         calculateReputationImage();
+        calculateEventPercentage();
         calculateMoney();
         checkChangeToCombat();
         checkReactivateInterface();

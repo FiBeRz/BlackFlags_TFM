@@ -7,6 +7,7 @@ using TMPro;
 public class ShopButtonScript : MonoBehaviour
 {
     [SerializeField] private int value = 50;
+    [SerializeField] private bool blackMarket = false;
     private int initialValue;
 
     void Start()
@@ -17,7 +18,10 @@ public class ShopButtonScript : MonoBehaviour
 
     void Update()
     {
-        checkValue();
+        if (!blackMarket)
+        {
+            checkValue();
+        }
     }
 
     private void checkValue()

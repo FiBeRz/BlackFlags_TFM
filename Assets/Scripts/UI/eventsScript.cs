@@ -9,7 +9,7 @@ public class eventsScript : MonoBehaviour
     [SerializeField] private Button[] childrenButtons;
     [SerializeField] private Button[] branchButtons; 
     [SerializeField] private int eventType;
-    [SerializeField] private GameObject eventInformation, mapInformation;
+    [SerializeField] private GameObject eventInformation, mapInformation, shopUI;
     [SerializeField] private TextMeshProUGUI textName, textEvent;
     [SerializeField] private Image eventImage;
     [SerializeField] private Sprite eventSprite;
@@ -24,7 +24,10 @@ public class eventsScript : MonoBehaviour
 
         for (int i=0; i<childrenButtons.Length; i++)
         {
-            childrenButtons[i].interactable = true;
+            if (childrenButtons[i].IsActive())
+            {
+                childrenButtons[i].interactable = true;
+            }
         }
 
         for (int i = 0; i < branchButtons.Length; i++)
@@ -75,6 +78,14 @@ public class eventsScript : MonoBehaviour
         else if (eventType == MainConstants.EVENT_BOSS)
         {
             executeBossEvent();
+        }
+        else if (eventType == MainConstants.EVENT_BLACKMARKET)
+        {
+            executeBlackMarketEvent();
+        }
+        else if (eventType == MainConstants.EVENT_SHORTCUT)
+        {
+            executeShortcutEvent();
         }
     }
 
@@ -142,5 +153,23 @@ public class eventsScript : MonoBehaviour
         continueButton.gameObject.SetActive(true);
 
         GameManager.Instance.prepareBossScene();
+    }
+
+    private void executeBlackMarketEvent()
+    {
+        textName.SetText(MainConstants.NAME_BLACKMARKET);
+        if (shopUI)
+        {
+            textEvent.SetText("");
+            shopUI.SetActive(true);
+        }
+        continueButton.gameObject.SetActive(true);
+    }
+
+    private void executeShortcutEvent()
+    {
+        textName.SetText(MainConstants.NAME_SHORTCUT);
+        textEvent.SetText(MainConstants.EXPLANATION_SHORTCUT);
+        continueButton.gameObject.SetActive(true);
     }
 }
