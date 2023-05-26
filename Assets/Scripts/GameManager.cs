@@ -261,6 +261,8 @@ public class GameManager : Singleton<GameManager>
 
     public void changeToIslandScene()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         SceneManager.LoadScene(MainConstants.INDEX_SCENE_ISLAND);
     }
 

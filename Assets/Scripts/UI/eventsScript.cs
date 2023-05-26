@@ -20,6 +20,9 @@ public class eventsScript : MonoBehaviour
         if (this.GetComponent<Button>())
         {
             this.GetComponent<Button>().interactable = false;
+            var ss = this.GetComponent<Button>().spriteState;
+            ss.disabledSprite = ss.selectedSprite;
+            this.GetComponent<Button>().spriteState = ss;
         }
 
         for (int i=0; i<childrenButtons.Length; i++)
