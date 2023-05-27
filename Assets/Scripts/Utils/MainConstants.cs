@@ -219,4 +219,26 @@ public class MainConstants : MonoBehaviour
         "Cuando llegue tu arco de redención me avisas si eso, que ahora mismo tengo mucho lío.",
         "¿Puedes hacer un favor más a la isla y dejar que te coma un remolino?"
     };
+
+    public static string[] TutorialMap = { 
+        "GRAAAA! ¿Primera travesía en alta mar, marinero?",
+        "Como puedes ver, este mapa muestra los puntos de interés más destacados de esta parte del océano. ¡GRAA!",
+        "La vida pirata no es fácil, y en cualquier momento se te puede presentar una decisión que tendrá consecuencias importantes...",
+        "Podrás consultar las consecuencias de tus acciones haciendo clic en el icono de 'Reputación' de la esquina superior izquierda. ¡GRAAAAA!",
+        "Además, si en algún momento pierdes de vista tu destino, puedes pulsar la flecha de la leyenda de la esquina superior derecha...",
+        "Así se desplegará una aclaración de los distintos eventos de interés ¡GRA GRA!",
+        "También puedes volver a pulsar el mismo icono para volver a plegar la leyenda ¡GRAAAAAAAA!",
+        "Por ahora eso es todo. ¡GRAAAA! Prueba a hacer clic en uno de los eventos iniciales y ve haciéndote camino entre estas peligrosas aguas. ¡GRA GRA!",
+        "Si alguna vez necesitas que te refresque la memoria, interactúa con el icono de la esquina inferior derecha. ¡GRAA!",
+        "Es un icono con mi cara. ¡No tiene pérdida! ¡No tiene pérdida! ¡GRAA GRAA!"
+    };
+
+    public static string[] ShortTutorialMap = {
+        "Haz clic sobre un evento activo para continuar con tu aventura. ¡GRAAAAAAAAAA!",
+        "¿Cómo te has portado últimamente? ¡GRAA!\nPulsa sobre el icono de 'Reputación' para analizar tu progreso. ¡GRA GRA!",
+        "¿Te has perdido?\nPulsa sobre la flecha del icono de la Leyenda para saber más sobre estos mares. ¡GRAAA!",
+        "¿Volver a la isla? ¡Para eso tienes que completar tu travesía! ¡GRAA!\nO morir en el intento... ¡GRA GRA!",
+        "Echa un ojo a tu reputación de vez en cuando, estas aguas están repletas de aliados y enemigos, pero debes decidir cúal es cuál. ¡GRAAAAA!"
+    };
+
 }

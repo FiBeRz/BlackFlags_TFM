@@ -9,15 +9,18 @@ public class MapUI : MonoBehaviour
 {
     [SerializeField] private Image reputationIcon, fade;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation, blackMarketEvent, shortcutEvent;
-    [SerializeField] private TextMeshProUGUI moneyText, shopMoneyText;
+    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation, blackMarketEvent, shortcutEvent, tutorialInformation;
+    [SerializeField] private TextMeshProUGUI moneyText, shopMoneyText, tutorialText;
     [SerializeField] private TextMeshProUGUI[] eventPercentageTexts;
+    [SerializeField] private Button startEventBattle, startEventUnknown;
     private GameObject eventSystem;
+    private bool startRun = false;
 
     void Start()
     {
         eventInformation.SetActive(false);
         taxesInformation.SetActive(false);
+        checkTutorial();
         mapInformation.SetActive(true);
         eventSystem = GameObject.Find("EventSystem");
         moneyText.SetText(GameManager.Instance.getMoney() + "$");
@@ -227,6 +230,36 @@ public class MapUI : MonoBehaviour
         eventPercentageTexts[MainConstants.EVENT_SHORTCUT].SetText(shortcutValue + "%");
     }
 
+    private void checkTutorial()
+    {
+        if (GameManager.Instance.isFirstTimeInMap())
+        {
+            tutorialInformation.SetActive(true);
+        }
+        else
+        {
+            tutorialInformation.SetActive(false);
+        }
+    }
+
+    private void checkTextTutorial()
+    {
+        if (GameManager.Instance.isFirstTimeInMap())
+        {
+            tutorialText.SetText(GameManager.Instance.getTutorialText());
+        }
+        else
+        {
+            tutorialInformation.SetActive(false);
+            if (!startRun)
+            {
+                startEventBattle.interactable = true;
+                startEventUnknown.interactable = true;
+                startRun = true;
+            }
+        }
+    }
+
     private void Update()
     {
         calculateReputationImage();
@@ -235,5 +268,6 @@ public class MapUI : MonoBehaviour
         checkChangeToCombat();
         checkReactivateInterface();
         checkEndOfRun();
+        checkTextTutorial();
     }
 }
