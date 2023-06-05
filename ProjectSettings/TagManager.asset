@@ -11,6 +11,7 @@ TagManager:
   - Fadeout
   - CombatHolder
   - HubHolder
+  - Top
   layers:
   - Default
   - TransparentFX
@@ -47,4 +48,7 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Top
+    uniqueID: 1646173987
     locked: 0

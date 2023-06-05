@@ -11,7 +11,10 @@ public class BattleSystem : MonoBehaviour
 {
 
     public GameObject CardDataBase;
+    public GameObject HUDController;
+
     private Deck deck;
+    private HUDController HUD;
 
     public GameObject allyWarriorPrefab;
     public GameObject allyShooterPrefab;
@@ -58,6 +61,7 @@ public class BattleSystem : MonoBehaviour
     void Start()
     {
         deck = CardDataBase.GetComponent<Deck>();
+        HUD = HUDController.GetComponent<HUDController>();
 
         state = BattleState.START;
         
@@ -155,8 +159,9 @@ public class BattleSystem : MonoBehaviour
     IEnumerator EnemyTurn() 
     {
         isDraggable = false;
+        HUD.HideHand();
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
         int nTargets = nAlly;
         if (defend && nWarriors > 0)
@@ -164,8 +169,9 @@ public class BattleSystem : MonoBehaviour
             nTargets = nWarriors;
         }
 
-        foreach (Unit currentUnit in allAlly)
+        for (int i = 0; i < allAlly.Count; ++i)
         {
+            Unit currentUnit = allAlly[i];
             if (defend)
             {
                 if (currentUnit.unitClass != UnitClass.Warrior) continue;
@@ -194,6 +200,7 @@ public class BattleSystem : MonoBehaviour
                 Destroy(currentUnit.gameObject);
             }
         }
+        defend = false;
 
         if (nAlly == 0)
         {
@@ -210,6 +217,8 @@ public class BattleSystem : MonoBehaviour
 
     void PlayerTurn() 
     {
+        HUD.ShowHand();
+
         isDraggable = true;
         if (multicard != 1)
         {
@@ -217,6 +226,7 @@ public class BattleSystem : MonoBehaviour
 
             if (ataqueCargado)
             {
+                //yield return new WaitForSeconds(1f);
                 this.attack(1, ataqueCargadoRatio);
                 ataqueCargado = false;
             }
@@ -231,10 +241,23 @@ public class BattleSystem : MonoBehaviour
             discard = false;
             deck.DrawCard();
             deck.DrawCard();
+
+            if (multicard == 1)
+            {
+                return;
+            }
+
             state = BattleState.ENEMYTURN;
             StartCoroutine(EnemyTurn());
             return;
         }
+            
+        if (multicard == 1)
+        {
+            multicard = 0;
+        }
+
+
 
         if (multicard == 2)
         {
@@ -278,7 +301,6 @@ public class BattleSystem : MonoBehaviour
         }
         if (multicard == 1)
         {
-            multicard = 0;
             return;
         }
 

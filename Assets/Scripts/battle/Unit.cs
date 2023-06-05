@@ -18,6 +18,16 @@ public class Unit : MonoBehaviour
 
     public UnitClass unitClass;
 
+    private HUDController HUDController;
+
+
+    [SerializeField] private HealthBar _healthBar;
+
+    void Awake() 
+    {
+        HUDController = GameObject.Find("HUDController").GetComponent<HUDController>();
+
+    }
 
     public void buffAttack(float ratio) 
     {
@@ -38,6 +48,9 @@ public class Unit : MonoBehaviour
         if( currentDMG < 0) currentDMG = 0;
 
         currentHP -= currentDMG;
+
+        _healthBar.UpdateHealthBar(maxHP, currentHP);
+        HUDController.ShowDamage(this.transform.position,currentDMG);
 
         if (currentHP <= 0)
             return true;
