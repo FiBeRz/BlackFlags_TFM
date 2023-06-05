@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class ContinueButtonScript : MonoBehaviour
 {
-    [SerializeField] private GameObject eventInformation, mapInformation;
+    [SerializeField] private GameObject eventInformation, mapInformation, shopUI;
 
     public void continueEvent()
     {
         mapInformation.SetActive(true);
         eventInformation.SetActive(false);
+        shopUI.SetActive(false);
 
         if (GameManager.Instance.inBattleEvent())
         {

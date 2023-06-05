@@ -25,5 +25,10 @@ public class reputationButtonScript : MonoBehaviour
         }
 
         isExpanded = !isExpanded;
+
+        if (this.GetComponent<Button>())
+        {
+            this.GetComponent<Button>().Select();
+        }
     }
 }

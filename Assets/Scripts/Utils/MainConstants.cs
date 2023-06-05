@@ -40,6 +40,8 @@ public class MainConstants : MonoBehaviour
     public static int EVENT_RESCUE = 5;
     public static int EVENT_BATTLE = 6;
     public static int EVENT_BOSS = 7;
+    public static int EVENT_BLACKMARKET = 8;
+    public static int EVENT_SHORTCUT = 9;
 
     //Event name
     public static string NAME_UNKNOWN = "Evento Desconocido";
@@ -50,6 +52,8 @@ public class MainConstants : MonoBehaviour
     public static string NAME_RESCUE = "Evento Rescate";
     public static string NAME_BATTLE = "Evento Combate";
     public static string NAME_BOSS = "Evento Jefe Final";
+    public static string NAME_BLACKMARKET = "Evento Mercado Negro";
+    public static string NAME_SHORTCUT = "Evento Pasaje Corsario";
 
     //Event explanation
     public static string EXPLANATION_UNKNOWN = "La tripulación se ha encontrado con un evento desconocido.\nRealmente este evento invocaría a cualquiera de los otros y tendría las consecuencias del evento seleccionado de manera aleatoria.";
@@ -60,6 +64,68 @@ public class MainConstants : MonoBehaviour
     public static string EXPLANATION_RESCUE = "¡Socorro! ¡Parece que alguien está siendo atacado por otros piratas!\n¿Debe la tripulación ir en su auxilio?";
     public static string EXPLANATION_BATTLE = "Monstruos horribles vienen al ataque. ¡Hora de pasar a la acción!";
     public static string EXPLANATION_BOSS = "Este enemigo no se parece en nada a los peligros enfrentados hasta ahora.\nSerá mejor que la tripulación se prepare...";
+    public static string EXPLANATION_BLACKMARKET = "Aquí aparecérá una tienda como la de la isla principal, pero con objetos del mercado negro.";
+    public static string EXPLANATION_SHORTCUT = "Los corsarios de buena reputación reconocen a la tripulación como miembros de los suyos.\nLa tripulación utiliza un pasaje secreto para evitar algunas amenazas y obtener importantes recompensas.";
+
+    //Event Percentage Neutral value
+    public static int NEUTRAL_UNKNOWN = 20;
+    public static int NEUTRAL_OASIS = 10;
+    public static int NEUTRAL_RESCUE = 10;
+    public static int NEUTRAL_SHARK = 10;
+    public static int NEUTRAL_CHEST = 15;
+    public static int NEUTRAL_BATTLE = 30;
+    public static int NEUTRAL_BLESS = 5;
+    public static int NEUTRAL_BOSS = 100;
+    public static int NEUTRAL_BLACKMARKET = 0;
+    public static int NEUTRAL_SHORTCUT = 0;
+
+    //Event Percentage Good value
+    public static int GOOD_UNKNOWN = 18;
+    public static int GOOD_OASIS = 10;
+    public static int GOOD_RESCUE = 10;
+    public static int GOOD_SHARK = 7;
+    public static int GOOD_CHEST = 15;
+    public static int GOOD_BATTLE = 30;
+    public static int GOOD_BLESS = 5;
+    public static int GOOD_BOSS = 100;
+    public static int GOOD_BLACKMARKET = 0;
+    public static int GOOD_SHORTCUT = 5;
+
+    //Event Percentage Best value
+    public static int BEST_UNKNOWN = 16;
+    public static int BEST_OASIS = 10;
+    public static int BEST_RESCUE = 7;
+    public static int BEST_SHARK = 7;
+    public static int BEST_CHEST = 15;
+    public static int BEST_BATTLE = 25;
+    public static int BEST_BLESS = 10;
+    public static int BEST_BOSS = 100;
+    public static int BEST_BLACKMARKET = 0;
+    public static int BEST_SHORTCUT = 10;
+
+    //Event Percentage Bad value
+    public static int BAD_UNKNOWN = 18;
+    public static int BAD_OASIS = 7;
+    public static int BAD_RESCUE = 10;
+    public static int BAD_SHARK = 10;
+    public static int BAD_CHEST = 15;
+    public static int BAD_BATTLE = 30;
+    public static int BAD_BLESS = 5;
+    public static int BAD_BOSS = 100;
+    public static int BAD_BLACKMARKET = 5;
+    public static int BAD_SHORTCUT = 0;
+
+    //Event Percentage Worst value
+    public static int WORST_UNKNOWN = 16;
+    public static int WORST_OASIS = 7;
+    public static int WORST_RESCUE = 5;
+    public static int WORST_SHARK = 10;
+    public static int WORST_CHEST = 12;
+    public static int WORST_BATTLE = 35;
+    public static int WORST_BLESS = 5;
+    public static int WORST_BOSS = 100;
+    public static int WORST_BLACKMARKET = 10;
+    public static int WORST_SHORTCUT = 0;
 
     //NPC Dialogue
     public static string[] NPCShopDialogue = {"Bueno, bonito y barato. ¡Me lo quitan de las manos!",
@@ -153,4 +219,26 @@ public class MainConstants : MonoBehaviour
         "Cuando llegue tu arco de redención me avisas si eso, que ahora mismo tengo mucho lío.",
         "¿Puedes hacer un favor más a la isla y dejar que te coma un remolino?"
     };
+
+    public static string[] TutorialMap = { 
+        "GRAAAA! ¿Primera travesía en alta mar, marinero?",
+        "Como puedes ver, este mapa muestra los puntos de interés más destacados de esta parte del océano. ¡GRAA!",
+        "La vida pirata no es fácil, y en cualquier momento se te puede presentar una decisión que tendrá consecuencias importantes...",
+        "Podrás consultar las consecuencias de tus acciones haciendo clic en el icono de 'Reputación' de la esquina superior izquierda. ¡GRAAAAA!",
+        "Además, si en algún momento pierdes de vista tu destino, puedes pulsar la flecha de la leyenda de la esquina superior derecha...",
+        "Así se desplegará una aclaración de los distintos eventos de interés ¡GRA GRA!",
+        "También puedes volver a pulsar el mismo icono para volver a plegar la leyenda ¡GRAAAAAAAA!",
+        "Por ahora eso es todo. ¡GRAAAA! Prueba a hacer clic en uno de los eventos iniciales y ve haciéndote camino entre estas peligrosas aguas. ¡GRA GRA!",
+        "Si alguna vez necesitas que te refresque la memoria, interactúa con el icono de la esquina inferior derecha. ¡GRAA!",
+        "Es un icono con mi cara. ¡No tiene pérdida! ¡No tiene pérdida! ¡GRAA GRAA!"
+    };
+
+    public static string[] ShortTutorialMap = {
+        "Haz clic sobre un evento activo para continuar con tu aventura. ¡GRAAAAAAAAAA!",
+        "¿Cómo te has portado últimamente? ¡GRAA!\nPulsa sobre el icono de 'Reputación' para analizar tu progreso. ¡GRA GRA!",
+        "¿Te has perdido?\nPulsa sobre la flecha del icono de la Leyenda para saber más sobre estos mares. ¡GRAAA!",
+        "¿Volver a la isla? ¡Para eso tienes que completar tu travesía! ¡GRAA!\nO morir en el intento... ¡GRA GRA!",
+        "Echa un ojo a tu reputación de vez en cuando, estas aguas están repletas de aliados y enemigos, pero debes decidir cúal es cuál. ¡GRAAAAA!"
+    };
+
 }

@@ -27,6 +27,10 @@ public class GameManager : Singleton<GameManager>
     private bool changeToCombat = false;
     private bool reactivateInterface = false;
 
+    //Tutorial info
+    [SerializeField] private bool firstTimeMap = true;
+    private string tutorialMapText = MainConstants.TutorialMap[0];
+
 
     public void showNPCText()
     {
@@ -261,6 +265,8 @@ public class GameManager : Singleton<GameManager>
 
     public void changeToIslandScene()
     {
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         SceneManager.LoadScene(MainConstants.INDEX_SCENE_ISLAND);
     }
 
@@ -368,5 +374,25 @@ public class GameManager : Singleton<GameManager>
     public void returnFromReactivate()
     {
         reactivateInterface = false;
+    }
+
+    public bool isFirstTimeInMap()
+    {
+        return firstTimeMap;
+    }
+
+    public void endMapTutorial()
+    {
+        firstTimeMap = false;
+    }
+
+    public void changeTutorialMapText(string newText)
+    {
+        tutorialMapText = newText;
+    }
+
+    public string getTutorialText()
+    {
+        return tutorialMapText;
     }
 }
