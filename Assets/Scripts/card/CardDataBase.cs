@@ -17,7 +17,7 @@ public class CardDataBase : MonoBehaviour
 
         // Tank Cards
         CardList.Add(new Card(4, "Ataque", "Ataca a los enemigos", Resources.Load<Sprite>("Sprites/sword")));
-        CardList.Add(new Card(5, "Defensa", "Absorve un x % del daño", Resources.Load<Sprite>("Sprites/shield")));
+        CardList.Add(new Card(5, "Defensa", "Absorbe un x % del daño", Resources.Load<Sprite>("Sprites/shield")));
         CardList.Add(new Card(6, "Robar", "Roba una carta del mazo", Resources.Load<Sprite>("Sprites/draw")));
 
         // Wizard Cards

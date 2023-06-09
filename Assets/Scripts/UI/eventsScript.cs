@@ -111,6 +111,7 @@ public class eventsScript : MonoBehaviour
 
     private void executeChestEvent()
     {
+        GameManager.Instance.addMoney(MainConstants.MONEY_CHEST);
         textName.SetText(MainConstants.NAME_CHEST);
         textEvent.SetText(MainConstants.EXPLANATION_CHEST);
         continueButton.gameObject.SetActive(true);

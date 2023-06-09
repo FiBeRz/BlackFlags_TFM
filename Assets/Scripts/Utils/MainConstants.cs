@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class MainConstants : MonoBehaviour
 {
+    //Constant values
+    public static int MONEY_CHEST = 100;
+
     //Scenes
     public static int INDEX_SCENE_ISLAND = 1;
     public static int INDEX_SCENE_MAP = 2;
@@ -57,7 +60,7 @@ public class MainConstants : MonoBehaviour
 
     //Event explanation
     public static string EXPLANATION_UNKNOWN = "La tripulación se ha encontrado con un evento desconocido.\nRealmente este evento invocaría a cualquiera de los otros y tendría las consecuencias del evento seleccionado de manera aleatoria.";
-    public static string EXPLANATION_BLESS = "La tripulación se ha encontrado con una misteriosa caverna que desprende un halo misterioso.\nParece que dentro se encontraba 'nombre de objeto', famoso por 'explicación de objeto'.\nSe comenta que su uso puede tener consecuencias nefastas. ¿Lo recoges?";
+    public static string EXPLANATION_BLESS = "La tripulación se ha encontrado con una misteriosa caverna.\nParece que dentro se encontraba una Mesa de destilería casera, muy útil para fabricar poderosos brebajes que lanzar a tus enemigos.\nSin embargo, no está muy bien recibida entre los buenos piratas. ¿Lo recoges?";
     public static string EXPLANATION_CHEST = "¡Pero qué ven mis ojos! La tripulación se ha encontrado con un hermoso botín pirata escondido años atrás. Supongo que nadie lo echará de menos...\nLa tripulación recibe monedas de oro";
     public static string EXPLANATION_OASIS = "¡Tierra a la vista! ¿Será una agradable zona de descanso o un espejismo causado por el cansancio?\nLa tripulación descansa, recuperando parte de sus Puntos de Salud";
     public static string EXPLANATION_SHARK = "Las aguas parecen más agitadas y hostiles que de costumbre. ¡Tiburones arremeten contra el barco!\nLa tripulación pierde Puntos de Salud y monedas de oro.";
@@ -220,8 +223,29 @@ public class MainConstants : MonoBehaviour
         "¿Puedes hacer un favor más a la isla y dejar que te coma un remolino?"
     };
 
+    public static string[] TutorialIsland1 = {
+        "¡GRAAAAA! Bienvenido grumete! ¿Es tu primera vez en esta isla?",
+        "Ahora mismo te encuentras en mitad del pueblo de la ciudad. ¡GRA GRA!",
+        "Este lugar a veces está lleno de vida. Prueba a integrarte entablando conversación con los lugareños. ¡GRAAAAA!",
+        "Cuando hayas terminado, te esperaré junto a la tienda del pueblo que se encuentra más adelante. ¡No tiene pérdida! ¡No tiene pérdida!"
+    };
+
+    public static string[] TutorialIsland2 = {
+        "¡GRAAAAA! ¿Qué te está pareciendo la isla? Interesante, ¿verdad?",
+        "Esta es la única tienda que queda en el pueblo, no olvides pasarte a comprar para prepararte antes de una aventura. ¡GRA GRA!",
+        "Acércate a la dueña de la tienda y cómprale alguna cosa, seguro que se alegra de ver clientes. ¡GRAAAAA!",
+        "Si ya has terminado, te esperaré junto al embarcadero que hay en la playa. ¡No tiene pérdida! ¡No tiene pérdida!"
+    };
+
+    public static string[] TutorialIsland3 = {
+        "¡GRAAAAA! ¿Qué te ha parecido la tendera? Es muy amable, pero cuidado. ¡No tolera a las malas personas! ¡GRAAAA!",
+        "Ahora estamos en el embarcadero, desde aquí puedes acceder a tu barco e iniciar una aventura en alta mar. ¿No estás emocionado? ¡GRA GRAAA!",
+        "Durante tu travesía ten mucho cuidado con las decisiones que tomas. ¡Las noticias vuelan en este pueblo! Cada acción puede tener consecuencias. ¡GRAA!",
+        "Por aquí ya no hay mucho más que hacer. Acércate al final del embarcadero e inicia una aventura. ¡GRAAAAA!"
+    };
+
     public static string[] TutorialMap = { 
-        "GRAAAA! ¿Primera travesía en alta mar, marinero?",
+        "¡GRAAAA! ¿Primera travesía en alta mar, marinero?",
         "Como puedes ver, este mapa muestra los puntos de interés más destacados de esta parte del océano. ¡GRAA!",
         "La vida pirata no es fácil, y en cualquier momento se te puede presentar una decisión que tendrá consecuencias importantes...",
         "Podrás consultar las consecuencias de tus acciones haciendo clic en el icono de 'Reputación' de la esquina superior izquierda. ¡GRAAAAA!",

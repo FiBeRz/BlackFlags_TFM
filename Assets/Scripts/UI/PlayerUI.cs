@@ -6,13 +6,13 @@ using TMPro;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI NPCText;
+    [SerializeField] private TextMeshProUGUI NPCText, tutorialText;
     [SerializeField] private Image NPCTextBox;
     [SerializeField] private Image fade;
     [SerializeField] private Image reputationIcon;
     [SerializeField] private Image expandedReputationIcon;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject shopUI, shopImage;
+    [SerializeField] private GameObject shopUI, shopImage, tutorialUI;
     [SerializeField] private TextMeshProUGUI moneyText;
 
     void Start()
@@ -75,6 +75,11 @@ public class PlayerUI : MonoBehaviour
                 NPCText.gameObject.SetActive(false);
                 NPCTextBox.gameObject.SetActive(false);
             }
+        }
+
+        if (GameManager.Instance.isInTutorial())
+        {
+            tutorialText.SetText(GameManager.Instance.getTutorialMessage());
         }
     }
 
@@ -148,17 +153,39 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void isInTutorial()
+    {
+        if (GameManager.Instance.isInTutorial())
+        {
+            tutorialUI.SetActive(true);
+        }
+        else
+        {
+            tutorialUI.SetActive(false);
+        }
+    }
+
     private void updateMoney()
     {
         moneyText.SetText(GameManager.Instance.getMoney() + "$");
     }
 
+    private void setTutorial()
+    {
+        if (!GameManager.Instance.isFirstTimeIsland())
+        {
+            GameManager.Instance.skipTutorial();
+        }
+    }
+
     private void Update()
     {
+        setTutorial();
         updateMoney();
         calculateReputationImage();
         changeText();
         isInShop();
+        isInTutorial();
         showReputation();
     }
 }

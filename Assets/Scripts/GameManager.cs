@@ -28,8 +28,96 @@ public class GameManager : Singleton<GameManager>
     private bool reactivateInterface = false;
 
     //Tutorial info
+    [SerializeField] private bool firstTimeIsland = true;
+    private string tutorialIslandText = "";
+    private int tutorialIslandIndex = 0, tutorialIslandGroup = 1;
+    private bool inTutorial = false;
+
     [SerializeField] private bool firstTimeMap = true;
     private string tutorialMapText = MainConstants.TutorialMap[0];
+
+    public bool isFirstTimeIsland()
+    {
+        return firstTimeIsland;
+    }
+
+    public void skipTutorial()
+    {
+        tutorialIslandGroup = 3;
+        tutorialIslandIndex = MainConstants.TutorialIsland3.Length-1;
+    }
+
+    public void showTutorialText()
+    {
+        inTutorial = true;
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
+        changeTutorialText();
+    }
+
+    public void changeTutorialIndex()
+    {
+        tutorialIslandIndex++;
+        changeTutorialText();
+    }
+
+    public void changeTutorialText()
+    {
+        if (tutorialIslandGroup == 1)
+        {
+            if (tutorialIslandIndex >= MainConstants.TutorialIsland1.Length)
+            {
+                tutorialIslandIndex = 0;
+                tutorialIslandGroup = 2;
+                StartCoroutine("fadeEffect");
+            }
+            else
+            {
+                tutorialIslandText = MainConstants.TutorialIsland1[tutorialIslandIndex];
+            }
+        }
+        else if (tutorialIslandGroup == 2)
+        {
+            if (tutorialIslandIndex >= MainConstants.TutorialIsland2.Length)
+            {
+                tutorialIslandIndex = 0;
+                tutorialIslandGroup = 3;
+                StartCoroutine(fadeEffect());
+            }
+            else
+            {
+                tutorialIslandText = MainConstants.TutorialIsland2[tutorialIslandIndex];
+            }
+        }
+        else
+        {
+            if (tutorialIslandIndex >= MainConstants.TutorialIsland3.Length)
+            {
+                firstTimeIsland = false;
+                tutorialIslandIndex = MainConstants.TutorialIsland3.Length-1;
+            }
+            tutorialIslandText = MainConstants.TutorialIsland3[tutorialIslandIndex];
+        }
+    }
+
+    public int getTutorialGroup()
+    {
+        return tutorialIslandGroup;
+    }
+
+    public int getTutorialIndex()
+    {
+        return tutorialIslandIndex;
+    }
+
+    public void hideTutorialText()
+    {
+        inTutorial = false;
+        tutorialIslandText = "";
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
 
     public void showNPCText()
@@ -139,6 +227,11 @@ public class GameManager : Singleton<GameManager>
         return inShop;
     }
 
+    public bool isInTutorial()
+    {
+        return inTutorial;
+    }
+
     public void showMapText()
     {
         textMessage = MainConstants.NOTIFICATION_MAP;
@@ -176,6 +269,11 @@ public class GameManager : Singleton<GameManager>
         return textMessage;
     }
 
+    public string getTutorialMessage()
+    {
+        return tutorialIslandText;
+    }
+
     public void showReputation()
     {
         inReputation = !inReputation;
@@ -211,6 +309,7 @@ public class GameManager : Singleton<GameManager>
     public void launchRescueEvent()
     {
         isRescueEvent = false;
+        addReputation(15);
 
         //Change to Battle-Rescue scene
         Debug.Log("Evento de rescate");
@@ -232,6 +331,31 @@ public class GameManager : Singleton<GameManager>
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         StartCoroutine("ChangeToMapScene");
+    }
+
+    IEnumerator fadeEffect()
+    {
+        fade = GameObject.FindGameObjectWithTag("Fadeout").GetComponent<Image>();
+        float a = 1;
+        fade.color = new Color(0, 0, 0, a);
+
+
+        while (a > 0)
+        {
+            a -= Time.deltaTime * 0.75f;
+            if (fade)
+            {
+                fade.color = new Color(0, 0, 0, a);
+            }
+            yield return null;
+        }
+        a = 0;
+
+        yield return new WaitForSeconds(0.2f);
+        if (fade)
+        {
+            fade.color = new Color(0, 0, 0, 0);
+        }
     }
 
     IEnumerator ChangeToMapScene()
@@ -345,15 +469,15 @@ public class GameManager : Singleton<GameManager>
 
     public void rejectObject()
     {
-        isRescueEvent = false;
+        isObjectEvent = false;
     }
 
     public void addObject()
     {
         isObjectEvent = false;
 
-        //Add object indicator to object list
         Debug.Log("Objeto añadido");
+        addReputation(-15);
     }
 
     public bool isInChangeToCombat()
