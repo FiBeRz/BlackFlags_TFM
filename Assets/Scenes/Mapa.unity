@@ -4025,7 +4025,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27351096, y: 0.058844466}
   m_AnchorMax: {x: 0.98856, y: 0.9522986}
-  m_AnchoredPosition: {x: 393.1639, y: 0}
+  m_AnchoredPosition: {x: 393.164, y: 0}
   m_SizeDelta: {x: 566.76965, y: 358.11145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505903051
@@ -7506,7 +7506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6845473775758117491, guid: 94abf46d1e39679498828a13d1b6fc83, type: 3}
       propertyPath: firstTimeMap
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6845473775758117491, guid: 94abf46d1e39679498828a13d1b6fc83, type: 3}
       propertyPath: totalReputationValue
@@ -11439,7 +11439,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27351096, y: 0.058844466}
   m_AnchorMax: {x: 0.98856, y: 0.9522986}
-  m_AnchoredPosition: {x: 393.1639, y: 0}
+  m_AnchoredPosition: {x: 393.164, y: 0}
   m_SizeDelta: {x: 566.76965, y: 358.11145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1748116392
