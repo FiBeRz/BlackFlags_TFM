@@ -25,6 +25,7 @@ public class flapjackNPCScript : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
+            GameManager.Instance.notify();
             GameManager.Instance.showTutorialText();
         }
     }
@@ -33,6 +34,8 @@ public class flapjackNPCScript : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
+            GameManager.Instance.endNotify();
+            GameManager.Instance.endText();
             GameManager.Instance.hideTutorialText();
         }
     }

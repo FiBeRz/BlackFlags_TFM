@@ -9,9 +9,8 @@ public class shopNPCScript : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             //Show text
+            GameManager.Instance.notify();
             GameManager.Instance.showNPCShopText();
-
-            //Show Shop event
         }
     }
 
@@ -20,6 +19,7 @@ public class shopNPCScript : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             //Hide text
+            GameManager.Instance.endNotify();
             GameManager.Instance.hideNPCShopText();
         }
     }

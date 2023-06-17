@@ -8,6 +8,7 @@ public class ShopButtonScript : MonoBehaviour
 {
     [SerializeField] private int value = 50;
     [SerializeField] private bool blackMarket = false;
+    [SerializeField] private AudioSource buySoundEffect;
     private int initialValue;
 
     void Start()
@@ -78,12 +79,19 @@ public class ShopButtonScript : MonoBehaviour
         if (GameManager.Instance.getMoney() >= value)
         {
             GameManager.Instance.addMoney(-1 * value);
+            buySoundEffect.Play();
             //this.GetComponent<Button>().interactable = false;
-            GameManager.Instance.changeShopBuyText();
+            if (!blackMarket)
+            {
+                GameManager.Instance.changeShopBuyText();
+            }
         }
         else
         {
-            GameManager.Instance.changeShopNoMoneyText();
+            if (!blackMarket)
+            {
+                GameManager.Instance.changeShopNoMoneyText();
+            }
         }
     }
 }

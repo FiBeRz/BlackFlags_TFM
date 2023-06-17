@@ -100,6 +100,11 @@ namespace StarterAssets
 
         //Action
         private InputAction _interactionAction;
+        private InputAction _escapeAction;
+
+        //Audio
+        [SerializeField] private AudioSource walkSoundEffect;
+        [SerializeField] private AudioSource runSoundEffect;
 
 #if ENABLE_INPUT_SYSTEM 
         private PlayerInput _playerInput;
@@ -156,21 +161,30 @@ namespace StarterAssets
 
             //Interact
             _interactionAction = _playerInput.actions[MainConstants.INTERACT_INTERACTION];
+            _escapeAction = _playerInput.actions[MainConstants.ESCAPE_INTERACTION];
         }
 
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            if (!(GameManager.Instance.isText()))
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
+
             interactAction();
+            escapeAction();
         }
 
         private void LateUpdate()
         {
-            CameraRotation();
+            if (!(GameManager.Instance.isText()))
+            {
+                CameraRotation();
+            } 
         }
 
         private void AssignAnimationIDs()
@@ -227,7 +241,34 @@ namespace StarterAssets
 
             // note: Vector2's == operator uses approximation so is not floating point error prone, and is cheaper than magnitude
             // if there is no input, set the target speed to 0
-            if (_input.move == Vector2.zero) targetSpeed = 0.0f;
+            if (_input.move == Vector2.zero)
+            {
+                targetSpeed = 0.0f;
+                walkSoundEffect.Stop();
+                runSoundEffect.Stop();
+            }
+            else if (!_input.sprint)
+            {
+                if (!walkSoundEffect.isPlaying)
+                {
+                    walkSoundEffect.Play();
+                    runSoundEffect.Stop();
+                }
+            }
+            else
+            {
+                if (!runSoundEffect.isPlaying)
+                {
+                    runSoundEffect.Play();
+                    walkSoundEffect.Stop();
+                }
+            }
+
+            if (!Grounded)
+            {
+                walkSoundEffect.Stop();
+                runSoundEffect.Stop();
+            }
 
             // a reference to the players current horizontal velocity
             float currentHorizontalSpeed = new Vector3(_controller.velocity.x, 0.0f, _controller.velocity.z).magnitude;
@@ -400,9 +441,34 @@ namespace StarterAssets
         {
             if (_interactionAction.triggered)
             {
-                if (GameManager.Instance.isInSceneZone())
+                if (GameManager.Instance.isNotificated())
                 {
-                    GameManager.Instance.changeToMapScene();
+                    if (GameManager.Instance.isInTutorial())
+                    {
+                        if (!GameManager.Instance.isText())
+                        {
+                            GameManager.Instance.enterTutorialText();
+                        }
+                        else
+                        {
+                            GameManager.Instance.changeTutorialIndex();
+                        }
+                    }
+                    else if (GameManager.Instance.isInPirateTalk())
+                    {
+                        if (!GameManager.Instance.isText())
+                        {
+                            GameManager.Instance.enterPirateText();
+                        }
+                        else
+                        {
+                            GameManager.Instance.changePirateIndex();
+                        }
+                    }
+                    else
+                    {
+                        GameManager.Instance.changeText();
+                    }
                 }
                 else
                 {
@@ -410,6 +476,17 @@ namespace StarterAssets
                 }
             }
             
+        }
+
+        private void escapeAction()
+        {
+            if (_escapeAction.triggered)
+            {
+                if (GameManager.Instance.isText())
+                {
+                    GameManager.Instance.endText();
+                }
+            }
         }
     }
 }

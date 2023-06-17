@@ -5,12 +5,11 @@ using UnityEngine;
 public class ContinueButtonScript : MonoBehaviour
 {
     [SerializeField] private GameObject eventInformation, mapInformation, shopUI;
+    [SerializeField] private AudioSource buttonSoundEffect;
 
     public void continueEvent()
     {
-        mapInformation.SetActive(true);
-        eventInformation.SetActive(false);
-        shopUI.SetActive(false);
+        StartCoroutine("continueSubroutine");
 
         if (GameManager.Instance.inBattleEvent())
         {
@@ -24,8 +23,7 @@ public class ContinueButtonScript : MonoBehaviour
 
     public void acceptEvent()
     {
-        mapInformation.SetActive(true);
-        eventInformation.SetActive(false);
+        StartCoroutine("continueSubroutine");
 
         if (GameManager.Instance.inRescueEvent())
         {
@@ -39,8 +37,7 @@ public class ContinueButtonScript : MonoBehaviour
 
     public void rejectEvent()
     {
-        mapInformation.SetActive(true);
-        eventInformation.SetActive(false);
+        StartCoroutine("continueSubroutine");
 
         if (GameManager.Instance.inRescueEvent())
         {
@@ -49,6 +46,19 @@ public class ContinueButtonScript : MonoBehaviour
         else if (GameManager.Instance.inObjectEvent())
         {
             GameManager.Instance.rejectObject();
+        }
+    }
+
+    IEnumerator continueSubroutine()
+    {
+        buttonSoundEffect.Play();
+        yield return new WaitForSeconds(0.1f);
+
+        mapInformation.SetActive(true);
+        eventInformation.SetActive(false);
+        if (shopUI)
+        {
+            shopUI.SetActive(false);
         }
     }
 

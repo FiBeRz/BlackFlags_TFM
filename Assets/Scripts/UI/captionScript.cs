@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class captionScript : MonoBehaviour
 {
+    [SerializeField] private AudioSource captionSoundEffect;
     [SerializeField] private Image expandedCaptionIcon;
     [SerializeField] private Sprite button, buttonPressed;
     private bool isExpanded = false;
@@ -16,6 +17,8 @@ public class captionScript : MonoBehaviour
 
     public void expandCaption()
     {
+        captionSoundEffect.Play();
+
         if (isExpanded)
         {
             expandedCaptionIcon.gameObject.SetActive(false);
