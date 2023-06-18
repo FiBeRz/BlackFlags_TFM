@@ -160,8 +160,9 @@ public class BattleSystem : MonoBehaviour
     {
         isDraggable = false;
         HUD.HideHand();
+        HUD.ChangeIcon(false);
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
 
         int nTargets = nAlly;
         if (defend && nWarriors > 0)
@@ -218,6 +219,7 @@ public class BattleSystem : MonoBehaviour
     void PlayerTurn() 
     {
         HUD.ShowHand();
+        HUD.ChangeIcon(true);
 
         isDraggable = true;
         if (multicard != 1)

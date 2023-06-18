@@ -317,8 +317,8 @@ MonoBehaviour:
   unitName: EnemyPrefab
   unitLevel: 12
   damage: 200
-  maxHP: 300
-  currentHP: 300
+  maxHP: 250
+  currentHP: 250
   defense: 10
   unitClass: 0
   _healthBar: {fileID: 2370062456077658268}

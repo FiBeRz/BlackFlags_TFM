@@ -12,6 +12,7 @@ TagManager:
   - CombatHolder
   - HubHolder
   - Top
+  - TurnMensage
   layers:
   - Default
   - TransparentFX

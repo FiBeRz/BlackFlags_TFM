@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class HUDController : MonoBehaviour
 {
@@ -16,11 +17,26 @@ public class HUDController : MonoBehaviour
 
     private bool hideHand = false;
 
+    public GameObject preFabDamagePopUp;
+    public GameObject EnemyIcon;
+    public GameObject AllyIcon;
+
+    private Image enemyBackground;
+    private Image enemyIcon;
+    private Image allyBackground;
+    private Image allyIcon;
+
     void Start()
     {
         posHand = Hand.transform;
         original = posHand.position;
         posHidden = HiddenPlace.transform;
+
+        enemyBackground = EnemyIcon.GetComponent<Image>();
+        enemyIcon = EnemyIcon.transform.GetChild(0).GetComponent<Image>();
+
+        allyBackground = AllyIcon.GetComponent<Image>();
+        allyIcon = AllyIcon.transform.GetChild(0).GetComponent<Image>();
     }
 
     void Update()
@@ -45,7 +61,48 @@ public class HUDController : MonoBehaviour
         return damagePopUp;
     }
 
-    public GameObject preFabDamagePopUp;
+    // bool @turno, true si aliado false si enemigo
+    public void ChangeIcon(bool turno)
+    {
+        if (turno) 
+        {
+            var tempColor = enemyBackground.color;
+            tempColor.a = 0.5f;
+            enemyBackground.color = tempColor;
+
+            tempColor = enemyIcon.color;
+            tempColor.a = 0.5f;
+            enemyIcon.color = tempColor;
+
+            tempColor = allyBackground.color;
+            tempColor.a = 1f;
+            allyBackground.color = tempColor;
+
+            tempColor = allyIcon.color;
+            tempColor.a = 1f;
+            allyIcon.color = tempColor;
+
+        }
+        else 
+        {
+            var tempColor = enemyBackground.color;
+            tempColor.a = 1f;
+            enemyBackground.color = tempColor;
+
+            tempColor = enemyIcon.color;
+            tempColor.a = 1f;
+            enemyIcon.color = tempColor;
+
+            tempColor = allyBackground.color;
+            tempColor.a = 0.5f;
+            allyBackground.color = tempColor;
+
+            tempColor = allyIcon.color;
+            tempColor.a = 0.5f;
+            allyIcon.color = tempColor;
+        }
+
+    }
 
     public void HideHand() 
     {
