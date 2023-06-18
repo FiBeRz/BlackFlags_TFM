@@ -9,7 +9,6 @@ public enum BattleState { START, PLAYERTURN, ENEMYTURN, WON, LOST }
 
 public class BattleSystem : MonoBehaviour
 {
-
     public GameObject CardDataBase;
     public GameObject HUDController;
 
@@ -170,6 +169,10 @@ public class BattleSystem : MonoBehaviour
             nTargets = nWarriors;
         }
 
+        //Poner animación de ataque del enemigo
+        Animator animator = enemyUnit.gameObject.GetComponentInChildren<Animator>();
+        StartCoroutine(attackAnimation(animator));
+
         for (int i = 0; i < allAlly.Count; ++i)
         {
             Unit currentUnit = allAlly[i];
@@ -177,29 +180,10 @@ public class BattleSystem : MonoBehaviour
             {
                 if (currentUnit.unitClass != UnitClass.Warrior) continue;
             }
-            bool isDead = currentUnit.TakeDamage(enemyUnit.damage / nTargets);
 
-            if (isDead)
-            {
-                nAlly--;
-                allAlly.Remove(currentUnit);
-                if (currentUnit.unitClass == UnitClass.Warrior)
-                {
-                    allyWarriors.Remove(currentUnit);
-                    nWarriors--;
-                } 
-                else if (currentUnit.unitClass == UnitClass.Shooter) 
-                {
-                    allyShooters.Remove(currentUnit);
-                    nShooters--; 
-                } 
-                else
-                {
-                    allyWizards.Remove(currentUnit);
-                    nWizards--; 
-                }
-                Destroy(currentUnit.gameObject);
-            }
+            //Poner animación de golpe en cada unidad
+            Animator animatorAlly = currentUnit.gameObject.GetComponentInChildren<Animator>();
+            StartCoroutine(hitAllyAnimation(animatorAlly, currentUnit, nTargets));
         }
         defend = false;
 
@@ -212,8 +196,79 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.PLAYERTURN;
             PlayerTurn();
         }
+    }
 
-       
+    IEnumerator attackAnimation(Animator animator)
+    {
+        if (animator)
+        {
+            animator.SetBool("Attack", true);
+        }
+        yield return new WaitForSeconds(1f);
+        if (animator)
+        {
+            animator.SetBool("Attack", false);
+        }
+    }
+
+    IEnumerator hitEnemyAnimation(Animator animator, int damage, float mlt)
+    {
+        yield return new WaitForSeconds(1f);
+        if (animator)
+        {
+            animator.SetBool("Hit", true);
+        }
+        yield return new WaitForSeconds(1f);
+        if (animator)
+        {
+            animator.SetBool("Hit", false);
+        }
+
+        bool isDead = enemyUnit.TakeDamage((int)(damage * mlt));
+        Debug.Log(enemyUnit.currentHP);
+        if (isDead)
+        {
+            state = BattleState.WON;
+            Debug.Log("Victoria");
+            StartCoroutine("ReturnToMap");
+        }
+    }
+
+    IEnumerator hitAllyAnimation(Animator animator, Unit currentUnit, int nTargets)
+    {
+        yield return new WaitForSeconds(1f);
+        if (animator)
+        {
+            animator.SetBool("Hit", true);
+        }
+        yield return new WaitForSeconds(1f);
+        if (animator)
+        {
+            animator.SetBool("Hit", false);
+        }
+
+        bool isDead = currentUnit.TakeDamage(enemyUnit.damage / nTargets);
+        if (isDead)
+        {
+            nAlly--;
+            allAlly.Remove(currentUnit);
+            if (currentUnit.unitClass == UnitClass.Warrior)
+            {
+                allyWarriors.Remove(currentUnit);
+                nWarriors--;
+            }
+            else if (currentUnit.unitClass == UnitClass.Shooter)
+            {
+                allyShooters.Remove(currentUnit);
+                nShooters--;
+            }
+            else
+            {
+                allyWizards.Remove(currentUnit);
+                nWizards--;
+            }
+            Destroy(currentUnit.gameObject);
+        }
     }
 
     void PlayerTurn() 
@@ -234,7 +289,6 @@ public class BattleSystem : MonoBehaviour
             }
         }
     }
-
 
     public void cardAction(int id)
     {
@@ -331,13 +385,21 @@ public class BattleSystem : MonoBehaviour
         {
             foreach (Unit warrior in allyWarriors)
             {
+                //Poner animacion de atacar en warrior
+                Animator animator = warrior.gameObject.GetComponentInChildren<Animator>();
+                StartCoroutine(attackAnimation(animator));
+
                 damage += warrior.damage;
             }
         }
         else if (clase == 1) //Shooters
         {
+            //unitsIndex = 3;
             foreach (Unit shooter in allyShooters)
             {
+                Animator animator = shooter.gameObject.GetComponentInChildren<Animator>();
+                StartCoroutine(attackAnimation(animator));
+
                 damage += shooter.damage;
             }
         }
@@ -345,7 +407,11 @@ public class BattleSystem : MonoBehaviour
             damage = shipDamage;
         }
 
-        bool isDead = enemyUnit.TakeDamage((int)(damage * mlt));
+        //Poner animación de golpeo en enemigo
+        Animator enemyAlly = enemyUnit.gameObject.GetComponentInChildren<Animator>();
+        StartCoroutine(hitEnemyAnimation(enemyAlly, damage, mlt));
+
+        /*bool isDead = enemyUnit.TakeDamage((int)(damage * mlt));
         Debug.Log(enemyUnit.currentHP);
 
         if (isDead)
@@ -353,7 +419,7 @@ public class BattleSystem : MonoBehaviour
             state = BattleState.WON;
             Debug.Log("Victoria");
             StartCoroutine("ReturnToMap");
-        }
+        }*/
 
     }
 

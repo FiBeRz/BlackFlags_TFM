@@ -328,6 +328,10 @@ public class GameManager : Singleton<GameManager>
 
     public void changeToMapScene(int mapID = 0)
     {
+        pirateTalk = false;
+        pierPirate = false;
+        notification = false;
+        haveText = false;
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
         runStartSoundEffect.Play();

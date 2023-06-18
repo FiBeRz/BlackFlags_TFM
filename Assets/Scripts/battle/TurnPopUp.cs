@@ -28,7 +28,7 @@ public class TurnPopUp : MonoBehaviour
 
         if (disappearTimer < 0)
         {
-            float disappearSpeed = 3f;
+            //float disappearSpeed = 3f;
            // textColor.a -= disappearSpeed * Time.deltaTime;
            // textMesh.color = textColor;
 

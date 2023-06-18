@@ -62,7 +62,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Attack
+      name: Hit
       takeName: metarig|metarigAction.001
       internalID: 2270989432139578439
       firstFrame: 60
@@ -91,7 +91,7 @@ ModelImporter:
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Hit
+      name: Attack
       takeName: metarig|metarigAction.001
       internalID: 136262619285018508
       firstFrame: 120

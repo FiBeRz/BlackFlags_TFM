@@ -1,12 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class mapBoatScript : MonoBehaviour
 {
     [SerializeField] private float speed = 40f;
+    [SerializeField] private Image startWaypoint;
 
-    // Update is called once per frame
+    void Start()
+    {
+        GameManager.Instance.setBoatPosition(startWaypoint.GetComponent<RectTransform>().anchoredPosition);
+        this.GetComponent<RectTransform>().anchoredPosition = startWaypoint.GetComponent<RectTransform>().anchoredPosition;
+    }
+
     void Update()
     {
         if (GameManager.Instance.isMovingBoat()){
