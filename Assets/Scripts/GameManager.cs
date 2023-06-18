@@ -6,14 +6,24 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    //Sound Effects
+    [SerializeField] private AudioSource flapjackSoundEffect;
+    [SerializeField] private AudioSource enterShopSoundEffect;
+    [SerializeField] private AudioSource talkingSoundEffect;
+    [SerializeField] private AudioSource objectSoundEffect;
+    [SerializeField] private AudioSource runStartSoundEffect;
+    [SerializeField] private AudioSource goodReputationSoundEffect;
+    [SerializeField] private AudioSource badReputationSoundEffect;
+
     [SerializeField] private int totalReputationValue = 0;
     [SerializeField] private int totalMoney = 300;
 
     //Island HUB
     private string textMessage = "";
-    private bool inSceneZone = false;
     private bool inReputation = false;
     private bool inShop = false;
+    private bool notification = false;
+    private bool haveText = false;
 
     //Map
     private bool isRescueEvent = false;
@@ -21,6 +31,8 @@ public class GameManager : Singleton<GameManager>
     private bool isBattleEvent = false;
     private bool isBossEvent = false;
     private bool endOfRun = false;
+    private Vector2 boatMapPosition;
+    private bool moveBoat = false;
 
     //Change Scenes
     [SerializeField] Image fade;
@@ -36,6 +48,12 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private bool firstTimeMap = true;
     private string tutorialMapText = MainConstants.TutorialMap[0];
 
+    //Get Map and Boat info
+    [SerializeField] private bool hasMap = false, hasBoat = false, hasMission = false;
+    private bool pirateTalk = false, boatPirate = false, pierPirate = false, mapPirate = false;
+    private int boatPirateIndex = 0, pierPirateIndex = 0, mapPirateIndex = 0;
+    private bool inChangeToMap = false;
+
     public bool isFirstTimeIsland()
     {
         return firstTimeIsland;
@@ -50,15 +68,13 @@ public class GameManager : Singleton<GameManager>
     public void showTutorialText()
     {
         inTutorial = true;
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
         changeTutorialText();
     }
 
     public void changeTutorialIndex()
     {
         tutorialIslandIndex++;
+        flapjackSoundEffect.Play();
         changeTutorialText();
     }
 
@@ -95,6 +111,7 @@ public class GameManager : Singleton<GameManager>
             if (tutorialIslandIndex >= MainConstants.TutorialIsland3.Length)
             {
                 firstTimeIsland = false;
+                endText();
                 tutorialIslandIndex = MainConstants.TutorialIsland3.Length-1;
             }
             tutorialIslandText = MainConstants.TutorialIsland3[tutorialIslandIndex];
@@ -115,8 +132,6 @@ public class GameManager : Singleton<GameManager>
     {
         inTutorial = false;
         tutorialIslandText = "";
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
 
@@ -195,9 +210,6 @@ public class GameManager : Singleton<GameManager>
             int stringNumber = Random.Range(0, MainConstants.NPCShopBad.Length);
             textMessage = MainConstants.NPCShopBad[stringNumber];
         }
-
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
         inShop = true;
     }
 
@@ -216,9 +228,6 @@ public class GameManager : Singleton<GameManager>
     public void hideNPCShopText()
     {
         textMessage = "";
-
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
         inShop = false;
     }
 
@@ -232,25 +241,17 @@ public class GameManager : Singleton<GameManager>
         return inTutorial;
     }
 
-    public void showMapText()
-    {
-        textMessage = MainConstants.NOTIFICATION_MAP;
-        inSceneZone = true;
-    }
-
-    public void hideMapText()
-    {
-        textMessage = "";
-        inSceneZone = false;
-    }
-
-    public bool isInSceneZone()
-    {
-        return inSceneZone;
-    }
-
     public void addReputation(int reputationPoints)
     {
+        if (reputationPoints > 0)
+        {
+            goodReputationSoundEffect.Play();
+        }
+        else if (reputationPoints < 0)
+        {
+            badReputationSoundEffect.Play();
+        }
+
         totalReputationValue += reputationPoints;
     }
 
@@ -327,9 +328,9 @@ public class GameManager : Singleton<GameManager>
 
     public void changeToMapScene(int mapID = 0)
     {
-        hideMapText();
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        runStartSoundEffect.Play();
         StartCoroutine("ChangeToMapScene");
     }
 
@@ -518,5 +519,247 @@ public class GameManager : Singleton<GameManager>
     public string getTutorialText()
     {
         return tutorialMapText;
+    }
+
+    public void notify()
+    {
+        notification = true;
+    }
+
+    public void endNotify()
+    {
+        notification = false;
+    }
+
+    public bool isNotificated()
+    {
+        return notification;
+    }
+
+    public void setText()
+    {
+        haveText = true;
+        if (inShop || inTutorial)
+        { 
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+
+            if (inShop)
+            {
+                enterShopSoundEffect.Play();
+            }
+            else
+            {
+                flapjackSoundEffect.Play();
+            }
+        }
+        else
+        {
+            talkingSoundEffect.Play();
+        }
+    }
+
+    public void endText()
+    {
+        haveText = false;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void changeText()
+    {
+        if (!haveText)
+        {
+            setText();
+        }
+        else
+        {
+            endText();
+        }
+    }
+
+    public void enterTutorialText()
+    {
+        setText();
+    }
+
+    public bool isText()
+    {
+        return haveText;
+    }
+
+    public void boatText()
+    {
+        pirateTalk = true;
+        boatPirate = true;
+
+        textMessage = MainConstants.NPCPirateBoat[boatPirateIndex];
+    }
+
+    public void hideBoatText()
+    {
+        textMessage = "";
+        pirateTalk = false;
+        boatPirate = false;
+    }
+
+    public void pirateMapText()
+    {
+        pirateTalk = true;
+        mapPirate = true;
+
+        textMessage = MainConstants.NPCPirateMap[mapPirateIndex];
+    }
+
+    public void hidePirateMapText()
+    {
+        textMessage = "";
+        pirateTalk = false;
+        mapPirate = false;
+    }
+
+    public void piratePierText()
+    {
+        pirateTalk = true;
+        pierPirate = true;
+
+        if (hasMap && !hasBoat)
+        {
+            textMessage = MainConstants.NPCPiratePierSearch[0];
+        }
+        else if (!hasMap && hasBoat)
+        {
+            textMessage = MainConstants.NPCPiratePierSearch[1];
+        }
+        else if (hasMap && hasBoat)
+        {
+            textMessage = MainConstants.NPCPiratePierFinal[0];
+            if (!inChangeToMap)
+            {
+                inChangeToMap = true;
+            }
+        }
+        else
+        {
+            textMessage = MainConstants.NPCPiratePierIntro[pierPirateIndex];
+        }
+    }
+
+    public void hidePiratePierText()
+    {
+        textMessage = "";
+        pirateTalk = false;
+        pierPirate = false;
+    }
+
+    public bool isInPirateTalk()
+    {
+        return pirateTalk;
+    }
+
+    public void enterPirateText()
+    {
+        setText();
+    }
+
+    public void changePirateIndex()
+    {
+        if (mapPirate)
+        {
+            if (hasMission)
+            {
+                mapPirateIndex++;
+                if (!hasMap)
+                {
+                    hasMap = true;
+                    objectSoundEffect.Play();
+                }
+
+                if (mapPirateIndex >= MainConstants.NPCPirateMap.Length)
+                {
+                    endText();
+                    mapPirateIndex = MainConstants.NPCPirateMap.Length - 1;
+                }
+                else
+                {
+                    talkingSoundEffect.Play();
+                    pirateMapText();
+                }
+            } 
+            else
+            {
+                endText();
+            }
+        }
+        else if (boatPirate)
+        {
+            if (hasMission)
+            {
+                boatPirateIndex++;
+                if (!hasBoat)
+                {
+                    hasBoat = true;
+                    objectSoundEffect.Play();
+                }
+
+                if (boatPirateIndex >= MainConstants.NPCPirateBoat.Length)
+                {
+                    endText();
+                    boatPirateIndex = MainConstants.NPCPirateBoat.Length - 1;
+                }
+                else
+                {
+                    talkingSoundEffect.Play();
+                    boatText();
+                }
+            }
+            else
+            {
+                endText();
+            }
+        }
+        else if (pierPirate)
+        {
+            pierPirateIndex++;
+
+            if (inChangeToMap)
+            {
+                changeToMapScene();
+            }
+            else if (pierPirateIndex >= MainConstants.NPCPiratePierIntro.Length)
+            {
+                pierPirateIndex = MainConstants.NPCPiratePierIntro.Length-1;
+                hasMission = true;
+                boatPirateIndex = 1;
+                mapPirateIndex = 1;
+                endText();
+            }
+            else
+            {
+                talkingSoundEffect.Play();
+                piratePierText();
+            }
+        }
+    }
+
+    public void setBoatPosition(Vector2 newPosition)
+    {
+        boatMapPosition = newPosition;
+        moveBoat = true;
+    }
+
+    public Vector2 getBoatPosition()
+    {
+        return boatMapPosition;
+    }
+
+    public void stopBoat()
+    {
+        moveBoat = false;
+    }
+
+    public bool isMovingBoat()
+    {
+        return moveBoat;
     }
 }

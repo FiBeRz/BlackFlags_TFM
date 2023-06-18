@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class reputationButtonScript : MonoBehaviour
 {
+    [SerializeField] private AudioSource reputationSoundEffect;
     [SerializeField] private Image expandedReputationIcon;
     private bool isExpanded = false;
 
@@ -15,6 +16,7 @@ public class reputationButtonScript : MonoBehaviour
 
     public void expandReputation()
     {
+        reputationSoundEffect.Play();
         if (isExpanded)
         {
             expandedReputationIcon.gameObject.SetActive(false);

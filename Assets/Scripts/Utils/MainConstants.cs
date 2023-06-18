@@ -14,6 +14,7 @@ public class MainConstants : MonoBehaviour
 
     //Actions
     public static string INTERACT_INTERACTION = "Interact";
+    public static string ESCAPE_INTERACTION = "Escape";
 
     //Text color
     public static int COLOR_BLACK = 0;
@@ -223,38 +224,56 @@ public class MainConstants : MonoBehaviour
         "¿Puedes hacer un favor más a la isla y dejar que te coma un remolino?"
     };
 
+    public static string[] NPCPiratePierIntro = {
+        "¡Pero qué ven mis ojos! ¿Un nuevo pirata por aquí?",
+        "Estas aguas son peligrosas. Si quieres zarpar hacia la aventura, vas a necesitar un buen barco y un mapa.",
+        "¿Por qué no preguntas a mis hermanos? Seguro que están encantados de ayudar a alguien del gremio",
+        "Busca a un par de piratas por esta isla y pregunta sobre un mapa o un barco, ¿quieres?"
+    };
+
+    public static string[] NPCPiratePierSearch = {
+        "Veo que traes un mapa. ¡Bien hecho! Pero sin barco aún no puedes zarpar. ¿Has visto a mi otro hermano?",
+        "¿Te ha prestado el barco?. ¡Bien hecho! Pero sin mapa aún no puedes zarpar. ¿Has visto a mi otro hermano?"
+    };
+
+    public static string[] NPCPiratePierFinal = {
+        "¡Viento en popa a toda vela! ¿Quieres que te acerque el barco para navegar?"
+    };
+
+    public static string[] NPCPirateMap = {
+        "Debería deshacerme ya de este viejo mapa...",
+        "¿Un mapa? Has hablado con mi hermano, ¿verdad? Si lo quieres es todo tuyo. Pero no admito devoluciones. ¡Estás avisado!",
+        "Ha pasado por momentos mejores, pero ese viejo mapa te guiará por todo el océano, trátalo bien."
+    };
+
+    public static string[] NPCPirateBoat = {
+        "Es una pena que nadie use ya el viejo barco...",
+        "¿Un barco? Has hablado con mi hermano, ¿verdad? Si lo quieres es todo tuyo. Pero no admito devoluciones. ¡Estás avisado!",
+        "Ya no se hacen barcos así, más te vale no hacerle ni un rasguño."
+    };
+
     public static string[] TutorialIsland1 = {
         "¡GRAAAAA! ¡Bienvenido grumete! ¿Es tu primera vez en esta isla?",
-        "Ahora mismo te encuentras en mitad del pueblo de la ciudad. ¡GRA GRA!",
-        "Este lugar a veces está lleno de vida. Prueba a integrarte entablando conversación con los lugareños. ¡GRAAAAA!",
-        "Cuando hayas terminado, te esperaré junto a la tienda del pueblo que se encuentra más adelante. ¡No tiene pérdida! ¡No tiene pérdida!"
+        "¿Por qué no investigas un poco? ¡GRAAAAA! Yo te esperaré junto a la tienda del pueblo que se encuentra más adelante. ¡No tiene pérdida!"
     };
 
     public static string[] TutorialIsland2 = {
-        "¡GRAAAAA! ¿Qué te está pareciendo la isla? Interesante, ¿verdad?",
-        "Esta es la única tienda que queda en el pueblo, no olvides pasarte a comprar para prepararte antes de una aventura. ¡GRA GRA!",
-        "Acércate a la dueña de la tienda y cómprale alguna cosa, seguro que se alegra de ver clientes. ¡GRAAAAA!",
-        "Si ya has terminado, te esperaré junto al embarcadero que hay en la playa. ¡No tiene pérdida! ¡No tiene pérdida!"
+        "¡GRAAAAA! ¡Hola de nuevo! Esta es la única tienda que queda en el pueblo, aquí puedes hacer tus compras antes de una aventura. ¡GRA GRA!",
+        "Hablando de aventuras, ¿has pasado ya por el embarcadero que hay en la playa? ¡No te lo puedes perder! ¡GRAAAA!"
     };
 
     public static string[] TutorialIsland3 = {
-        "¡GRAAAAA! ¿Qué te ha parecido la tendera? Es muy amable, pero cuidado. ¡No tolera a las malas personas! ¡GRAAAA!",
-        "Ahora estamos en el embarcadero, desde aquí puedes acceder a tu barco e iniciar una aventura en alta mar. ¿No estás emocionado? ¡GRA GRAAA!",
-        "Durante tu travesía ten mucho cuidado con las decisiones que tomas. ¡Las noticias vuelan en este pueblo! Cada acción puede tener consecuencias. ¡GRAA!",
-        "Por aquí ya no hay mucho más que hacer. Acércate al final del embarcadero e inicia una aventura. ¡GRAAAAA!"
+        "¡GRAAAA! El embarcadero solía ser un punto de interés entre los marineros, pero ahora solo lo visitan unos pocos ex piratas",
+        "¿Por qué no pruebas a pedirle consejo a alguno de ellos? ¡Cualquier información puede ser vital! ¡GRA GRA!",
+        "¡Ánimo! Las aventuras en alta mar son lo mejor ¡GRAAAAAAA!"
     };
 
     public static string[] TutorialMap = { 
-        "¡GRAAAA! ¿Primera travesía en alta mar, marinero?",
-        "Como puedes ver, este mapa muestra los puntos de interés más destacados de esta parte del océano. ¡GRAA!",
-        "La vida pirata no es fácil, y en cualquier momento se te puede presentar una decisión que tendrá consecuencias importantes...",
-        "Podrás consultar las consecuencias de tus acciones haciendo clic en el icono de 'Reputación' de la esquina superior izquierda. ¡GRAAAAA!",
-        "Además, si en algún momento pierdes de vista tu destino, puedes pulsar la flecha de la leyenda de la esquina superior derecha...",
-        "Así se desplegará una aclaración de los distintos eventos de interés ¡GRA GRA!",
-        "También puedes volver a pulsar el mismo icono para volver a plegar la leyenda ¡GRAAAAAAAA!",
-        "Por ahora eso es todo. ¡GRAAAA! Prueba a hacer clic en uno de los eventos iniciales y ve haciéndote camino entre estas peligrosas aguas. ¡GRA GRA!",
-        "Si alguna vez necesitas que te refresque la memoria, interactúa con el icono de la esquina inferior derecha. ¡GRAA!",
-        "Es un icono con mi cara. ¡No tiene pérdida! ¡No tiene pérdida! ¡GRAA GRAA!"
+        "¡GRAAAA! Primera travesía en alta mar. ¿No estás emocionado?",
+        "El mapa que te han entregado es increíble, muestra todos los puntos de interés del océano. ¡GRAA!",
+        "¡Incluso tiene una leyenda para que no te pierdas! ¿Por qué no pruebas a interactuar con ella! ¡GRA GRA!",
+        "¡Cuidado! Algunos puntos pueden requerir decisiones morales. Para consultar tu nivel de reputación haz clic en el icono de 'Reputación'. ¡GRAAAAA!",
+        "Si alguna vez necesitas que te refresque la memoria, interactúa con mi icono. ¡No tiene pérdida! ¡GRA GRA!",
     };
 
     public static string[] ShortTutorialMap = {

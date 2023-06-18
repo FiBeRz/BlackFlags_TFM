@@ -9,7 +9,7 @@ public class MapUI : MonoBehaviour
 {
     [SerializeField] private Image reputationIcon, fade;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation, blackMarketEvent, shortcutEvent, tutorialInformation;
+    [SerializeField] private GameObject eventInformation, mapInformation, fadeoutPanel, taxesInformation, blackMarketEvent, shortcutEvent, chestShortcutEvent, tutorialInformation;
     [SerializeField] private TextMeshProUGUI moneyText, shopMoneyText, tutorialText;
     [SerializeField] private TextMeshProUGUI[] eventPercentageTexts;
     [SerializeField] private Button startEventBattle, startEventUnknown;
@@ -29,17 +29,20 @@ public class MapUI : MonoBehaviour
         if (GameManager.Instance.getReputation() >= 50)
         {
             shortcutEvent.SetActive(true);
+            chestShortcutEvent.SetActive(true);
             blackMarketEvent.SetActive(false);
         }
         else if (GameManager.Instance.getReputation() <= -50)
         {
             blackMarketEvent.SetActive(true);
             shortcutEvent.SetActive(false);
+            chestShortcutEvent.SetActive(false);
         }
         else
         {
             blackMarketEvent.SetActive(false);
             shortcutEvent.SetActive(false);
+            chestShortcutEvent.SetActive(false);
         }
     }
 

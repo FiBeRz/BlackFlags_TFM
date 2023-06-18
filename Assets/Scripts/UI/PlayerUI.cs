@@ -12,7 +12,7 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image reputationIcon;
     [SerializeField] private Image expandedReputationIcon;
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject shopUI, shopImage, tutorialUI;
+    [SerializeField] private GameObject shopUI, shopImage, tutorialUI, notification;
     [SerializeField] private TextMeshProUGUI moneyText;
 
     void Start()
@@ -64,8 +64,9 @@ public class PlayerUI : MonoBehaviour
     {
         if (NPCText && NPCTextBox)
         {
-            if (GameManager.Instance.getTextMessage() != "")
+            if (!(GameManager.Instance.isInTutorial()) && (GameManager.Instance.isText()))
             {
+                notification.SetActive(false);
                 NPCText.SetText(GameManager.Instance.getTextMessage());
                 NPCText.gameObject.SetActive(true);
                 NPCTextBox.gameObject.SetActive(true);
@@ -137,7 +138,7 @@ public class PlayerUI : MonoBehaviour
 
     private void isInShop()
     {
-        if (GameManager.Instance.isInShop())
+        if ((GameManager.Instance.isInShop()) && (GameManager.Instance.isText()))
         {
             shopUI.SetActive(true);
             shopImage.SetActive(true);
@@ -155,8 +156,9 @@ public class PlayerUI : MonoBehaviour
 
     private void isInTutorial()
     {
-        if (GameManager.Instance.isInTutorial())
+        if ((GameManager.Instance.isInTutorial()) && (GameManager.Instance.isText()))
         {
+            notification.SetActive(false);
             tutorialUI.SetActive(true);
         }
         else
@@ -178,8 +180,21 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void checkNotification()
+    {
+        if (GameManager.Instance.isNotificated())
+        {
+            notification.SetActive(true);
+        }
+        else
+        {
+            notification.SetActive(false);
+        }
+    }
+
     private void Update()
     {
+        checkNotification();
         setTutorial();
         updateMoney();
         calculateReputationImage();

@@ -11,12 +11,29 @@ public class eventsScript : MonoBehaviour
     [SerializeField] private int eventType;
     [SerializeField] private GameObject eventInformation, mapInformation, shopUI;
     [SerializeField] private TextMeshProUGUI textName, textEvent;
-    [SerializeField] private Image eventImage;
+    [SerializeField] private Image eventImage, boat, boatWaypoint;
     [SerializeField] private Sprite eventSprite;
     [SerializeField] private Button continueButton, acceptButton, rejectButton;
 
+    //Sound effect
+    [SerializeField] private AudioSource pressEventSoundEffect;
+    [SerializeField] private AudioSource pointEventSoundEffect;
+
+    public void eventPoint()
+    {
+        if (this.GetComponent<Button>().interactable)
+        {
+            pointEventSoundEffect.Play();
+        }
+    }
+
     public void eventClick()
     {
+        //Move boat
+        GameManager.Instance.setBoatPosition(boatWaypoint.GetComponent<RectTransform>().anchoredPosition);
+        //boat.GetComponent<RectTransform>().position = boatWaypoint.GetComponent<RectTransform>().position;
+
+        //Change sprite to visited
         if (this.GetComponent<Button>())
         {
             this.GetComponent<Button>().interactable = false;
@@ -25,6 +42,7 @@ public class eventsScript : MonoBehaviour
             this.GetComponent<Button>().spriteState = ss;
         }
 
+        //Enable children buttons
         for (int i=0; i<childrenButtons.Length; i++)
         {
             if (childrenButtons[i].IsActive())
@@ -33,14 +51,23 @@ public class eventsScript : MonoBehaviour
             }
         }
 
+        //Disable branch buttons
         for (int i = 0; i < branchButtons.Length; i++)
         {
             branchButtons[i].interactable = false;
         }
 
+        StartCoroutine("eventSubroutine");
+        launchEvent();
+    }
+
+    IEnumerator eventSubroutine()
+    {
+        pressEventSoundEffect.Play();
+        yield return new WaitForSeconds(0.1f);
+
         mapInformation.SetActive(false);
         eventInformation.SetActive(true);
-        launchEvent();
     }
 
     private void launchEvent()

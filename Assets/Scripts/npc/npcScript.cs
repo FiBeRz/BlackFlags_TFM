@@ -32,6 +32,29 @@ public class npcScript : MonoBehaviour
         moving = true;
     }
 
+    private void changeAppearance()
+    {
+        SkinnedMeshRenderer renderer = this.GetComponentInChildren<SkinnedMeshRenderer>();
+        materials = renderer.materials;
+
+        setMaterial(Random.Range(0, hairList.Length), Random.Range(0, skinList.Length), Random.Range(0, shirtList.Length));
+        renderer.materials = materials;
+    }
+
+    void setMaterial(int hairNumber, int skinNumber, int shirtNumber)
+    {
+        //Change hair
+        materials[8] = hairList[hairNumber];
+
+        //Change skin
+        materials[1] = skinList[skinNumber];
+        materials[5] = skinList[skinNumber];
+        materials[6] = skinList[skinNumber];
+
+        //Change shirt
+        materials[0] = shirtList[shirtNumber];
+    }
+
     void Update()
     {
         if (moving && isMovable)
@@ -75,6 +98,7 @@ public class npcScript : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             stopWalking();
+            GameManager.Instance.notify();
             GameManager.Instance.showNPCText();
         }
     }
@@ -87,31 +111,9 @@ public class npcScript : MonoBehaviour
             {
                 walk();
             }
+            GameManager.Instance.endNotify();
             GameManager.Instance.hideNPCText();
         }
-    }
-
-    private void changeAppearance()
-    {
-        SkinnedMeshRenderer renderer =this.GetComponentInChildren<SkinnedMeshRenderer>();
-        materials = renderer.materials;
-
-        setMaterial(Random.Range(0, hairList.Length), Random.Range(0, skinList.Length), Random.Range(0, shirtList.Length));
-        renderer.materials = materials;
-    }
-
-    void setMaterial(int hairNumber, int skinNumber, int shirtNumber)
-    {
-        //Change hair
-        materials[8] = hairList[hairNumber];
-
-        //Change skin
-        materials[1] = skinList[skinNumber];
-        materials[5] = skinList[skinNumber];
-        materials[6] = skinList[skinNumber];
-
-        //Change shirt
-        materials[0] = shirtList[shirtNumber];
     }
 
     public void setWaypoints(GameObject[] waypointList)
