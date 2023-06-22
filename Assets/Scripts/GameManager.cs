@@ -48,6 +48,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private bool firstTimeMap = true;
     private string tutorialMapText = MainConstants.TutorialMap[0];
 
+    [SerializeField] private bool firstTimeBattle = true;
+
     //Get Map and Boat info
     [SerializeField] private bool hasMap = false, hasBoat = false, hasMission = false;
     private bool pirateTalk = false, boatPirate = false, pierPirate = false, mapPirate = false;
@@ -765,5 +767,15 @@ public class GameManager : Singleton<GameManager>
     public bool isMovingBoat()
     {
         return moveBoat;
+    }
+
+    public bool isFirstTimeBattle()
+    {
+        return firstTimeBattle;
+    }
+
+    public void endBattleTutorial()
+    {
+        firstTimeBattle = false;
     }
 }
