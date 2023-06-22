@@ -169,7 +169,7 @@ public class BattleSystem : MonoBehaviour
             nTargets = nWarriors;
         }
 
-        //Poner animación de ataque del enemigo
+        //Poner animacion de ataque del enemigo
         Animator animator = enemyUnit.gameObject.GetComponentInChildren<Animator>();
         StartCoroutine(attackAnimation(animator));
 
@@ -181,7 +181,7 @@ public class BattleSystem : MonoBehaviour
                 if (currentUnit.unitClass != UnitClass.Warrior) continue;
             }
 
-            //Poner animación de golpe en cada unidad
+            //Poner animacion de golpe en cada unidad
             Animator animatorAlly = currentUnit.gameObject.GetComponentInChildren<Animator>();
             StartCoroutine(hitAllyAnimation(animatorAlly, currentUnit, nTargets));
         }
@@ -325,31 +325,32 @@ public class BattleSystem : MonoBehaviour
             case 0:
                 this.attack(3);
                 break;
-            case 1://ATAQUE RAPIDO
+            case 1: //Fuego
                 this.attack(1, 1f);
                 break;
-            case 2://DESCARTAR
+            case 2: //Trueque
                 discard = true;
                 break;
-            case 3://ATAQUE CARGADO
+            case 3: //Mal de Ojo
                 ataqueCargado = true;
                 break;
-            case 4://ATAQUE NORMAL
+            case 4: //ATAQUE NORMAL
                 this.attack(0);
                 break;
-            case 5://DEFENSA
+            case 5: //DEFENSA
                 defend = true;
                 break;
-            case 6://ROBAR
+            case 6: //A toda vela
                 deck.DrawCard();
+                this.attack(3);
                 break;
-            case 7://AUMENTO ATAQUE
+            case 7: //AUMENTO ATAQUE
                 this.buffAlly(0);
                 break;
-            case 8://AUMENTO DEFENSA
+            case 8: //AUMENTO DEFENSA
                 this.buffAlly(1);
                 break;
-            case 9://MAREA
+            case 9: //MAREA
                 multicard = 2;
                 break;
             default:
@@ -407,7 +408,7 @@ public class BattleSystem : MonoBehaviour
             damage = shipDamage;
         }
 
-        //Poner animación de golpeo en enemigo
+        //Poner animacion de golpeo en enemigo
         Animator enemyAlly = enemyUnit.gameObject.GetComponentInChildren<Animator>();
         StartCoroutine(hitEnemyAnimation(enemyAlly, damage, mlt));
 
