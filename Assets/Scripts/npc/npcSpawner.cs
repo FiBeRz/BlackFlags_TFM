@@ -21,13 +21,15 @@ public class npcSpawner : MonoBehaviour
     {
         if (generate)
         {
-
+            
             if (Random.Range(0,2) == 0)
             {
+                Debug.Log("GenerandMo");
                 NPC = Instantiate(mNPCPrefab, spawnPoint);
             }
             else
             {
+                Debug.Log("GenerandoF");
                 NPC = Instantiate(fNPCPrefab, spawnPoint);
             }
             

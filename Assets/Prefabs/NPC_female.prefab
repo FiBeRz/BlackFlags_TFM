@@ -736,8 +736,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.8095987, y: 4.0603504, z: 3.181514}
-  m_Center: {x: -2.5847836, y: 1.5301794, z: 1.0907576}
+  m_Size: {x: 5.5072937, y: 4, z: 4}
+  m_Center: {x: -1.1986934, y: 1.5301793, z: 1.0907578}
 --- !u!95 &6444053841123015355
 Animator:
   serializedVersion: 4
@@ -771,6 +771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMovable: 0
+  transformCuerpo: {fileID: 2905596015633261251}
   waypoints: []
   speed: 3
   hairList:

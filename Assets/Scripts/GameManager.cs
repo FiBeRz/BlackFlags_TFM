@@ -14,7 +14,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private AudioSource runStartSoundEffect;
     [SerializeField] private AudioSource goodReputationSoundEffect;
     [SerializeField] private AudioSource badReputationSoundEffect;
-
+    [SerializeField] public GameObject jugadorReferencia;
+    [SerializeField] public Transform targetHablador;
     [SerializeField] private int totalReputationValue = 0;
     [SerializeField] private int totalMoney = 300;
 
@@ -51,9 +52,9 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private bool firstTimeBattle = true;
 
     //Get Map and Boat info
-    [SerializeField] private bool hasMap = false, hasBoat = false, hasMission = false;
-    private bool pirateTalk = false, boatPirate = false, pierPirate = false, mapPirate = false;
-    private int boatPirateIndex = 0, pierPirateIndex = 0, mapPirateIndex = 0;
+    [SerializeField] public bool hasMap = false, hasBoat = false, hasMission = false;
+    public bool pirateTalk = false, boatPirate = false, pierPirate = false, mapPirate = false;
+    public int boatPirateIndex = 0, pierPirateIndex = 0, mapPirateIndex = 0;
     private bool inChangeToMap = false;
 
     public bool isFirstTimeIsland()
@@ -88,7 +89,7 @@ public class GameManager : Singleton<GameManager>
             {
                 tutorialIslandIndex = 0;
                 tutorialIslandGroup = 2;
-                StartCoroutine("fadeEffect");
+              //  StartCoroutine("fadeEffect");
             }
             else
             {
@@ -101,7 +102,7 @@ public class GameManager : Singleton<GameManager>
             {
                 tutorialIslandIndex = 0;
                 tutorialIslandGroup = 3;
-                StartCoroutine(fadeEffect());
+              //  StartCoroutine(fadeEffect());
             }
             else
             {
@@ -545,6 +546,15 @@ public class GameManager : Singleton<GameManager>
     public void setText()
     {
         haveText = true;
+        inReputation = false;
+        if (targetHablador != null)
+        { 
+        targetHablador.LookAt(jugadorReferencia.transform);
+            targetHablador.Rotate(-90, 90, -90);
+        }
+
+        jugadorReferencia.GetComponent<Animator>().SetFloat("Speed", 0);
+
         if (inShop || inTutorial)
         { 
             Cursor.visible = true;
@@ -552,15 +562,18 @@ public class GameManager : Singleton<GameManager>
 
             if (inShop)
             {
+                Debug.Log("SPress");
                 enterShopSoundEffect.Play();
             }
             else
             {
+                Debug.Log("SEPress");
                 flapjackSoundEffect.Play();
             }
         }
         else
         {
+            Debug.Log("NPPress");
             talkingSoundEffect.Play();
         }
     }
