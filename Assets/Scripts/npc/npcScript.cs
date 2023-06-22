@@ -6,6 +6,8 @@ public class npcScript : MonoBehaviour
 {
     //Movement
     [SerializeField] private bool isMovable;
+    Quaternion rotacionInicial;
+    [SerializeField] Transform transformCuerpo;
     [SerializeField] private GameObject[] waypoints;
     [SerializeField] private float speed = 1.5f;
     private int waypointIndex = 0;
@@ -22,6 +24,7 @@ public class npcScript : MonoBehaviour
 
     void Start()
     {
+         rotacionInicial = transformCuerpo.rotation;
         changeAppearance();
 
         if (GetComponent<Animator>())
@@ -98,6 +101,7 @@ public class npcScript : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             stopWalking();
+            GameManager.Instance.targetHablador = transformCuerpo;
             GameManager.Instance.notify();
             GameManager.Instance.showNPCText();
         }
@@ -111,8 +115,10 @@ public class npcScript : MonoBehaviour
             {
                 walk();
             }
+            transformCuerpo.rotation = rotacionInicial;
             GameManager.Instance.endNotify();
             GameManager.Instance.hideNPCText();
+            GameManager.Instance.targetHablador = null;
         }
     }
 

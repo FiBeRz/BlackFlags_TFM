@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class shopNPCScript : MonoBehaviour
 {
+    [SerializeField] Transform transformCuerpo;
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
         {
             //Show text
+            GameManager.Instance.targetHablador = transformCuerpo;
             GameManager.Instance.notify();
             GameManager.Instance.showNPCShopText();
         }
@@ -20,6 +22,7 @@ public class shopNPCScript : MonoBehaviour
         {
             //Hide text
             GameManager.Instance.endNotify();
+            GameManager.Instance.targetHablador = null;
             GameManager.Instance.hideNPCShopText();
         }
     }

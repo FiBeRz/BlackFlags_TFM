@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class pirateNPCScript : MonoBehaviour
 {
+    [SerializeField] Transform transformCuerpo;
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
         {
             GameManager.Instance.notify();
+            GameManager.Instance.targetHablador = transformCuerpo;
             GameManager.Instance.piratePierText();
         }
     }
@@ -20,6 +22,7 @@ public class pirateNPCScript : MonoBehaviour
             GameManager.Instance.endNotify();
             GameManager.Instance.endText();
             GameManager.Instance.hidePiratePierText();
+            GameManager.Instance.targetHablador = null;
         }
     }
 }

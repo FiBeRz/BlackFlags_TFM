@@ -21,7 +21,7 @@ public class ContinueTutorialButtonScript : MonoBehaviour
     public void continueEvent()
     {
         flapjackSoundEffect.Play();
-
+        
         if (!inBattle)
         {
             textIndex++;
@@ -30,10 +30,12 @@ public class ContinueTutorialButtonScript : MonoBehaviour
                 GameManager.Instance.changeTutorialMapText(MainConstants.TutorialMap[textIndex]);
                 if (textIndex == 2)
                 {
+                    Debug.Log("EPress");
                     caption.SetActive(true);
                 }
                 else if (textIndex == 3)
                 {
+                    Debug.Log("EPress");
                     caption.SetActive(false);
                     reputation.SetActive(true);
                 }

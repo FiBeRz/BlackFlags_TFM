@@ -142,6 +142,9 @@ namespace StarterAssets
 
         private void Start()
         {
+
+            GameManager.Instance.jugadorReferencia = this.gameObject;
+
             _cinemachineTargetYaw = CinemachineCameraTarget.transform.rotation.eulerAngles.y;
             
             _hasAnimator = TryGetComponent(out _animator);

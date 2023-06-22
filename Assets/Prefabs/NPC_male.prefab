@@ -109,8 +109,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 3.8095987, y: 4.0603504, z: 3.181514}
-  m_Center: {x: -2.5847836, y: 1.5301794, z: 1.0907576}
+  m_Size: {x: 4.7567425, y: 4, z: 4}
+  m_Center: {x: -1.395704, y: 1.5301793, z: 1.0907574}
 --- !u!95 &9103643752175466419
 Animator:
   serializedVersion: 4
@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isMovable: 0
+  transformCuerpo: {fileID: 6347888985390165618}
   waypoints: []
   speed: 3
   hairList:
@@ -160,3 +161,8 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 117fdd177e7e1934580680d1f83b0b89, type: 2}
   - {fileID: 2100000, guid: b3df44c3d5b1ef04fa7615060d5e289f, type: 2}
   - {fileID: 2100000, guid: bd47d0e7002cba744b2908d04ec250fd, type: 2}
+--- !u!4 &6347888985390165618 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -1063094714816996356, guid: 7138a6ce2acae804584ae4969509da43, type: 3}
+  m_PrefabInstance: {fileID: 2965369232305911182}
+  m_PrefabAsset: {fileID: 0}
