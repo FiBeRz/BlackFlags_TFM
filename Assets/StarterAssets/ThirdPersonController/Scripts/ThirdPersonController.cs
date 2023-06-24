@@ -100,6 +100,7 @@ namespace StarterAssets
 
         //Action
         private InputAction _interactionAction;
+        private InputAction _interactionReputation;
         private InputAction _escapeAction;
 
         //Audio
@@ -164,6 +165,7 @@ namespace StarterAssets
 
             //Interact
             _interactionAction = _playerInput.actions[MainConstants.INTERACT_INTERACTION];
+            _interactionReputation = _playerInput.actions[MainConstants.INTERACT_REPUTATION];
             _escapeAction = _playerInput.actions[MainConstants.ESCAPE_INTERACTION];
         }
 
@@ -179,6 +181,7 @@ namespace StarterAssets
             }
 
             interactAction();
+            interactReputation();
             escapeAction();
         }
 
@@ -473,12 +476,16 @@ namespace StarterAssets
                         GameManager.Instance.changeText();
                     }
                 }
-                else
-                {
-                    GameManager.Instance.showReputation();
-                }
             }
             
+        }
+
+        private void interactReputation()
+        {
+            if (_interactionReputation.triggered)
+            {
+                GameManager.Instance.showReputation();
+            }
         }
 
         private void escapeAction()

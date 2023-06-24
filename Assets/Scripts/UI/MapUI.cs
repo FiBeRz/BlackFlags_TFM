@@ -18,6 +18,8 @@ public class MapUI : MonoBehaviour
 
     void Start()
     {
+        GameManager.Instance.setupMap();
+
         eventInformation.SetActive(false);
         taxesInformation.SetActive(false);
         checkTutorial();
@@ -111,7 +113,7 @@ public class MapUI : MonoBehaviour
             }
         }
 
-        changeReputationImage(reputationImage);
+        //changeReputationImage(reputationImage);
     }
 
     private void checkChangeToCombat()

@@ -11,8 +11,8 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Image fade;
     [SerializeField] private Image reputationIcon;
     [SerializeField] private Image expandedReputationIcon;
-    [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite;
-    [SerializeField] private GameObject shopUI, shopImage, tutorialUI, notification;
+    [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite, closeSprite, openSprite;
+    [SerializeField] private GameObject shopUI, shopImage, tutorialUI, notification, notificationMap, notificationBoat;
     [SerializeField] private TextMeshProUGUI moneyText;
 
     void Start()
@@ -121,7 +121,7 @@ public class PlayerUI : MonoBehaviour
             }
         }
 
-        changeReputationImage(reputationImage);
+        //changeReputationImage(reputationImage);
     }
 
     private void showReputation()
@@ -129,10 +129,18 @@ public class PlayerUI : MonoBehaviour
         if (GameManager.Instance.getInReputation())
         {
             expandedReputationIcon.gameObject.SetActive(true);
+            if (reputationIcon)
+            {
+                reputationIcon.sprite = closeSprite;
+            }
         }
         else
         {
             expandedReputationIcon.gameObject.SetActive(false);
+            if (reputationIcon)
+            {
+                reputationIcon.sprite = openSprite;
+            }
         }
     }
 
@@ -192,9 +200,27 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void checkBoatMapNotification()
+    {
+        if (GameManager.Instance.isNotificatedBoat())
+        {
+            notificationBoat.SetActive(true);
+        }
+        else if (GameManager.Instance.isNotificatedMap())
+        {
+            notificationMap.SetActive(true);
+        }
+        else
+        {
+            notificationMap.SetActive(false);
+            notificationBoat.SetActive(false);
+        }
+    }
+
     private void Update()
     {
         checkNotification();
+        checkBoatMapNotification();
         setTutorial();
         updateMoney();
         calculateReputationImage();

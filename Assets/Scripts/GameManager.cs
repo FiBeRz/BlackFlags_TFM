@@ -56,6 +56,7 @@ public class GameManager : Singleton<GameManager>
     public bool pirateTalk = false, boatPirate = false, pierPirate = false, mapPirate = false;
     public int boatPirateIndex = 0, pierPirateIndex = 0, mapPirateIndex = 0;
     private bool inChangeToMap = false;
+    private bool notificationMap = false, notificationBoat = false;
 
     public bool isFirstTimeIsland()
     {
@@ -341,6 +342,12 @@ public class GameManager : Singleton<GameManager>
         StartCoroutine("ChangeToMapScene");
     }
 
+    public void setupMap()
+    {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     IEnumerator fadeEffect()
     {
         fade = GameObject.FindGameObjectWithTag("Fadeout").GetComponent<Image>();
@@ -583,6 +590,16 @@ public class GameManager : Singleton<GameManager>
         haveText = false;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        if (notificationBoat)
+        {
+            notificationBoat = false;
+        }
+
+        if (notificationMap)
+        {
+            notificationMap = false;
+        }
     }
 
     public void changeText()
@@ -692,13 +709,16 @@ public class GameManager : Singleton<GameManager>
                 {
                     hasMap = true;
                     objectSoundEffect.Play();
+                    notificationMap = true;
                 }
 
                 if (mapPirateIndex >= MainConstants.NPCPirateMap.Length)
                 {
+                    notificationMap = false;
                     endText();
                     mapPirateIndex = MainConstants.NPCPirateMap.Length - 1;
                 }
+
                 else
                 {
                     talkingSoundEffect.Play();
@@ -719,10 +739,12 @@ public class GameManager : Singleton<GameManager>
                 {
                     hasBoat = true;
                     objectSoundEffect.Play();
+                    notificationBoat = true;
                 }
 
                 if (boatPirateIndex >= MainConstants.NPCPirateBoat.Length)
                 {
+                    notificationBoat = false;
                     endText();
                     boatPirateIndex = MainConstants.NPCPirateBoat.Length - 1;
                 }
@@ -759,6 +781,16 @@ public class GameManager : Singleton<GameManager>
                 piratePierText();
             }
         }
+    }
+
+    public bool isNotificatedMap()
+    {
+        return notificationMap;
+    }
+
+    public bool isNotificatedBoat()
+    {
+        return notificationBoat;
     }
 
     public void setBoatPosition(Vector2 newPosition)

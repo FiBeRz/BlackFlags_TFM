@@ -5156,7 +5156,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27351096, y: 0.058844466}
   m_AnchorMax: {x: 0.98856, y: 0.9522986}
-  m_AnchoredPosition: {x: 393.1679, y: 0}
+  m_AnchoredPosition: {x: 393.16803, y: 0}
   m_SizeDelta: {x: 566.76965, y: 358.11145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &505903051
@@ -6025,7 +6025,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 37c93833dc2dbf54aaf1399e22a73570, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3993c76bc0c654647abf445b703ca03c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6133,6 +6133,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reputationSoundEffect: {fileID: 616736259}
   expandedReputationIcon: {fileID: 1451116458}
+  closeSprite: {fileID: 21300000, guid: 1f9dafd2e83b92c41a6b18c547868e17, type: 3}
+  openSprite: {fileID: 21300000, guid: 3993c76bc0c654647abf445b703ca03c, type: 3}
 --- !u!82 &616736259
 AudioSource:
   m_ObjectHideFlags: 0
@@ -8255,6 +8257,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   reputationSoundEffect: {fileID: 0}
   expandedReputationIcon: {fileID: 1451116458}
+  closeSprite: {fileID: 0}
+  openSprite: {fileID: 0}
 --- !u!114 &1005016862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13776,7 +13780,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.27351096, y: 0.058844466}
   m_AnchorMax: {x: 0.98856, y: 0.9522986}
-  m_AnchoredPosition: {x: 393.1679, y: 0}
+  m_AnchoredPosition: {x: 393.16803, y: 0}
   m_SizeDelta: {x: 566.76965, y: 358.11145}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1748116392

@@ -14,6 +14,7 @@ public class MainConstants : MonoBehaviour
 
     //Actions
     public static string INTERACT_INTERACTION = "Interact";
+    public static string INTERACT_REPUTATION = "ReputationInteract";
     public static string ESCAPE_INTERACTION = "Escape";
 
     //Text color
