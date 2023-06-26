@@ -55,6 +55,12 @@ public class BattleSystem : MonoBehaviour
     private bool ataqueCargado = false;
     private int multicard = 0;
 
+    //EFECTOS SONIDO
+    [SerializeField] private AudioSource enemyHitSoundEffect;
+    [SerializeField] private AudioSource allyHitSoundEffect;
+    [SerializeField] private AudioSource statsUpSoundEffect;
+    [SerializeField] private AudioSource defenseSoundEffect;
+
 
     // Start is called before the first frame update
     void Start()
@@ -193,12 +199,18 @@ public class BattleSystem : MonoBehaviour
         }
         else 
         {
-            state = BattleState.PLAYERTURN;
-            PlayerTurn();
+            StartCoroutine(changePlayerTurn());
         }
     }
 
-    IEnumerator attackAnimation(Animator animator)
+    IEnumerator changePlayerTurn()
+    {
+        yield return new WaitForSeconds(2f);
+        state = BattleState.PLAYERTURN;
+        PlayerTurn();
+    }
+
+        IEnumerator attackAnimation(Animator animator)
     {
         if (animator)
         {
@@ -218,6 +230,7 @@ public class BattleSystem : MonoBehaviour
         {
             animator.SetBool("Hit", true);
         }
+        allyHitSoundEffect.Play();
         yield return new WaitForSeconds(1f);
         if (animator)
         {
@@ -241,6 +254,7 @@ public class BattleSystem : MonoBehaviour
         {
             animator.SetBool("Hit", true);
         }
+        enemyHitSoundEffect.Play();
         yield return new WaitForSeconds(1f);
         if (animator)
         {
@@ -279,7 +293,7 @@ public class BattleSystem : MonoBehaviour
         isDraggable = true;
         if (multicard != 1)
         {
-            deck.DrawCard();
+            StartCoroutine(drawCard());
 
             if (ataqueCargado)
             {
@@ -290,7 +304,13 @@ public class BattleSystem : MonoBehaviour
         }
     }
 
-    public void cardAction(int id)
+    IEnumerator drawCard()
+    {
+        yield return new WaitForSeconds(1.3f);
+        deck.DrawCard();
+    }
+
+        public void cardAction(int id)
     {
         if (discard)
         {
@@ -339,6 +359,7 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 5: //DEFENSA
                 defend = true;
+                StartCoroutine(defenseCoroutine());
                 break;
             case 6: //A toda vela
                 deck.DrawCard();
@@ -346,9 +367,11 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 7: //AUMENTO ATAQUE
                 this.buffAlly(0);
+                StartCoroutine(statsUpCoroutine());
                 break;
             case 8: //AUMENTO DEFENSA
                 this.buffAlly(1);
+                StartCoroutine(statsUpCoroutine());
                 break;
             case 9: //MAREA
                 multicard = 2;
@@ -377,6 +400,17 @@ public class BattleSystem : MonoBehaviour
            
     }
 
+    IEnumerator statsUpCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        statsUpSoundEffect.Play();
+    }
+
+    IEnumerator defenseCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        defenseSoundEffect.Play();
+    }
 
     private void attack(int clase, float mlt = 1)
     {

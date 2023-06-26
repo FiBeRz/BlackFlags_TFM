@@ -14,6 +14,7 @@ public class Deck : MonoBehaviour
     [SerializeField] private List<Image> deckCardBacks = new List<Image>();
     [SerializeField] private GameObject cardPrefab;
     [SerializeField] private List<GameObject> hand = new List<GameObject>();
+    [SerializeField] private AudioSource addCardSoundEffect;
 
     private bool drawing;
 
@@ -56,6 +57,7 @@ public class Deck : MonoBehaviour
             }
 
             var card = Instantiate(cardPrefab, transform.position, transform.rotation);
+            addCardSoundEffect.Play();
             card.transform.SetParent(panel.transform);
             card.GetComponent<CardDisplay>().Init(currentDeck[0]);
 

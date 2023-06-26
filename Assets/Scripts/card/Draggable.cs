@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [SerializeField] private AudioSource useCardSoundEffect;
+    [SerializeField] private AudioSource dragCardSoundEffect;
+
     private GameObject BattleSystem;
 
     public Transform parentToReturn;
@@ -33,6 +36,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         this.transform.SetParent(this.transform.parent.parent);
 
         GetComponent<CanvasGroup>().blocksRaycasts = false;
+        dragCardSoundEffect.Play();
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -75,9 +79,16 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
         if (parentToReturn.name == "DropArea")
         {
             BattleSystem.GetComponent<BattleSystem>().cardAction(this.GetComponent<CardDisplay>().id);
-            Destroy(this.gameObject);
+            StartCoroutine(destroyCard());
         }
 
         Destroy(placeHolder);
+    }
+
+    IEnumerator destroyCard()
+    {
+        useCardSoundEffect.Play();
+        yield return new WaitForSeconds(0.05f);
+        Destroy(this.gameObject);
     }
 }
