@@ -2053,6 +2053,8 @@ MonoBehaviour:
   Hand: {fileID: 1540800067}
   HiddenPlace: {fileID: 368329514}
   preFabDamagePopUp: {fileID: 6041969194254862645, guid: 1fd4f52d18da63a42837351a0b09d9cb, type: 3}
+  preFabAtkPopUp: {fileID: 6041969194254862645, guid: c0b3f7d038d07424fa2c2bdfdbc87e88, type: 3}
+  preFabDefPopUp: {fileID: 6041969194254862645, guid: a8b17cd1b6035864083b2935571d766b, type: 3}
   EnemyIcon: {fileID: 695295336}
   AllyIcon: {fileID: 604094981}
 --- !u!4 &1149214620 stripped
@@ -2950,7 +2952,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2106493293
 Transform:
   m_ObjectHideFlags: 0

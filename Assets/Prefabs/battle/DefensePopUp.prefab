@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6041969194254862644}
   - component: {fileID: 6041969194254862646}
   - component: {fileID: 6041969194254862647}
-  - component: {fileID: 3847791866684724463}
+  - component: {fileID: 4319754444289077529}
   m_Layer: 0
-  m_Name: DamagePopUp
+  m_Name: DefensePopUp
   m_TagString: Top
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,8 +110,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278255564
-  m_fontColor: {r: 0.80047655, g: 1, b: 0, a: 1}
+    rgba: 4294908928
+  m_fontColor: {r: 0.754717, g: 0.43262285, b: 0.17443931, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -128,8 +128,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 8
-  m_fontSizeBase: 8
+  m_fontSize: 5
+  m_fontSizeBase: 5
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -173,7 +173,7 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_renderer: {fileID: 6041969194254862646}
   m_maskType: 0
---- !u!114 &3847791866684724463
+--- !u!114 &4319754444289077529
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

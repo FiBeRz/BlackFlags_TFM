@@ -32,15 +32,17 @@ public class Unit : MonoBehaviour
     public void buffAttack(float ratio) 
     {
         this.damage += (int)(this.damage * ratio);
+        HUDController.ShowStatsBuff(this.transform.position, ratio, 1);
     }
 
     public void buffDefense(float ratio)
     {
         this.defense += (int)(this.defense * ratio);
+        HUDController.ShowStatsBuff(this.transform.position, ratio, 0);
     }
 
     // LO SUYO SERIA QUE LAS UNIDADES TUVIESEN UN ID, Y AL MORIR DEVOLVIESE LA FUNCION EL ID DE LA UNIDAD PARA TRABAJAR MEJOR
-    // POR AHORA NO HACE FALTA PERO ESTÁ APUNTADO
+    // POR AHORA NO HACE FALTA PERO ESTï¿½ APUNTADO
     public bool TakeDamage(int dmg)
     {
         int currentDMG = dmg - defense;
@@ -50,7 +52,7 @@ public class Unit : MonoBehaviour
         currentHP -= currentDMG;
 
         _healthBar.UpdateHealthBar(maxHP, currentHP);
-        HUDController.ShowDamage(this.transform.position,currentDMG);
+        HUDController.ShowDamage(this.transform.position, currentDMG);
 
         if (currentHP <= 0)
             return true;

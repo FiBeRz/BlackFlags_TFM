@@ -18,6 +18,8 @@ public class HUDController : MonoBehaviour
     private bool hideHand = false;
 
     public GameObject preFabDamagePopUp;
+    public GameObject preFabAtkPopUp;
+    public GameObject preFabDefPopUp;
     public GameObject EnemyIcon;
     public GameObject AllyIcon;
 
@@ -51,14 +53,40 @@ public class HUDController : MonoBehaviour
         }
     }
 
-    public DamagePopUp ShowDamage(Vector3 position, int damage)
+    public StatsPopUp ShowDamage(Vector3 position, int damage)
     {
         GameObject damagePopUpTransform = Instantiate(preFabDamagePopUp, position + new Vector3(-1,1,0), Quaternion.identity);
 
-        DamagePopUp damagePopUp = damagePopUpTransform.GetComponent<DamagePopUp>();
+        StatsPopUp damagePopUp = damagePopUpTransform.GetComponent<StatsPopUp>();
         damagePopUp.Setup(damage);
 
         return damagePopUp;
+    }
+
+    public StatsPopUp ShowStatsBuff(Vector3 position, float buff, int type)
+    {
+        var text = "";
+
+        switch (type){
+            case 0:
+                GameObject defBuffPopUpTransform = Instantiate(preFabDefPopUp, position + new Vector3(-1,1,0), Quaternion.identity);
+                StatsPopUp defBuffPopUp = defBuffPopUpTransform.GetComponent<StatsPopUp>();
+                text = "↑DEF";
+                
+                defBuffPopUp.ShowBuff(text);
+
+                return defBuffPopUp;
+            case 1:
+                GameObject atkBuffPopUpTransform = Instantiate(preFabAtkPopUp, position + new Vector3(-1,1,0), Quaternion.identity);
+                StatsPopUp atkBuffPopUp = atkBuffPopUpTransform.GetComponent<StatsPopUp>();
+                text = "↑ATK";
+
+                atkBuffPopUp.ShowBuff(text);
+
+                return atkBuffPopUp;
+            default:
+                return null;
+        }
     }
 
     // bool @turno, true si aliado false si enemigo

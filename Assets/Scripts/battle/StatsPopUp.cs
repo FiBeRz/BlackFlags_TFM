@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class DamagePopUp : MonoBehaviour
+public class StatsPopUp : MonoBehaviour
 {
     private TextMeshPro textMesh;
     private Color textColor;
@@ -20,6 +20,12 @@ public class DamagePopUp : MonoBehaviour
     public void Setup(int damage)
     {
         textMesh.SetText(damage.ToString());
+        disappearTimer = 1f;
+    }
+
+    public void ShowBuff(string buff)
+    {
+        textMesh.SetText(buff);
         disappearTimer = 1f;
     }
 
