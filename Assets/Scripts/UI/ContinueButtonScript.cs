@@ -68,12 +68,18 @@ public class ContinueButtonScript : MonoBehaviour
         int totalTaxes = 10 * money / 100;
         GameManager.Instance.addMoney(-1 * totalTaxes);
         GameManager.Instance.addReputation(10);
-        GameManager.Instance.changeToIslandScene();
+        StartCoroutine(waitReputation());
     }
 
     public void rejectTaxes()
     {
         GameManager.Instance.addReputation(-20);
+        StartCoroutine(waitReputation());
+    }
+
+    IEnumerator waitReputation()
+    {
+        yield return new WaitForSeconds(1f);
         GameManager.Instance.changeToIslandScene();
     }
 }

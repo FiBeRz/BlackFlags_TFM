@@ -6,6 +6,9 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    //Reputation Popup
+    [SerializeField] private GameObject prefabReputationPopUp;
+
     //Sound Effects
     [SerializeField] private AudioSource flapjackSoundEffect;
     [SerializeField] private AudioSource enterShopSoundEffect;
@@ -247,6 +250,8 @@ public class GameManager : Singleton<GameManager>
 
     public void addReputation(int reputationPoints)
     {
+        popUpReputation(reputationPoints);
+
         if (reputationPoints > 0)
         {
             goodReputationSoundEffect.Play();
@@ -257,6 +262,16 @@ public class GameManager : Singleton<GameManager>
         }
 
         totalReputationValue += reputationPoints;
+    }
+
+    public void popUpReputation(int reputationPoints)
+    {
+        GameObject reputationPopUpTransform = Instantiate(prefabReputationPopUp);
+
+        if (reputationPopUpTransform.GetComponent<reputationPopUp>())
+        {
+            reputationPopUpTransform.GetComponent<reputationPopUp>().Setup(reputationPoints);
+        }
     }
 
     public int getReputation()

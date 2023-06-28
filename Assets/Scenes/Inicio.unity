@@ -373,6 +373,14 @@ PrefabInstance:
       propertyPath: totalReputationValue
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6845473775758117491, guid: 94abf46d1e39679498828a13d1b6fc83, type: 3}
+      propertyPath: prefabReputationPopUp
+      value: 
+      objectReference: {fileID: 6041969194254862645, guid: d1794805a2231f8409884878baa09793, type: 3}
+    - target: {fileID: 6845473775758117491, guid: 94abf46d1e39679498828a13d1b6fc83, type: 3}
+      propertyPath: reputationPopUpPosition
+      value: 
+      objectReference: {fileID: 1431009940933575565, guid: 47f5ea49fb0b8d64d882a0cffc2008ff, type: 3}
     - target: {fileID: 6845473775758117500, guid: 94abf46d1e39679498828a13d1b6fc83, type: 3}
       propertyPath: m_Name
       value: GameManager
