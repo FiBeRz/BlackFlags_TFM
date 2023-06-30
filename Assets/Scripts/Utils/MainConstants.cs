@@ -260,7 +260,7 @@ public class MainConstants : MonoBehaviour
 
     public static string[] TutorialIsland2 = {
         "¡GRAAAAA! ¡Hola de nuevo! Esta es la única tienda que queda en el pueblo, aquí puedes hacer tus compras antes de una aventura. ¡GRA GRA!",
-        "Hablando de aventuras, ¿has pasado ya por el embarcadero que hay en la playa? ¡No te lo puedes perder! ¡GRAAAA!"
+        "Hablando de aventuras, ¡nos vemos de vuelta en el embarcadero! ¡No te vayas a ir sin mí! ¡GRAAAA!"
     };
 
     public static string[] TutorialIsland3 = {
