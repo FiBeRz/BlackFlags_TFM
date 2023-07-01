@@ -175,6 +175,9 @@ public class BattleSystem : MonoBehaviour
             nTargets = nWarriors;
         }
 
+        //POPup Ataque
+        enemyUnit.ShowMessage("Al Ataque");
+
         //Poner animacion de ataque del enemigo
         Animator animator = enemyUnit.gameObject.GetComponentInChildren<Animator>();
         StartCoroutine(attackAnimation(animator));
@@ -415,7 +418,7 @@ public class BattleSystem : MonoBehaviour
     private void attack(int clase, float mlt = 1)
     {
         int damage = 0;
-        Debug.Log(enemyUnit.currentHP);
+        //Debug.Log(enemyUnit.currentHP);
         if (clase == 0) //Warriors
         {
             foreach (Unit warrior in allyWarriors)

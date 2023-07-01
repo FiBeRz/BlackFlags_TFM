@@ -20,6 +20,7 @@ public class HUDController : MonoBehaviour
     public GameObject preFabDamagePopUp;
     public GameObject preFabAtkPopUp;
     public GameObject preFabDefPopUp;
+    public GameObject preFabMessagePopUp;
     public GameObject EnemyIcon;
     public GameObject AllyIcon;
 
@@ -87,6 +88,17 @@ public class HUDController : MonoBehaviour
             default:
                 return null;
         }
+    }
+
+    public MessagePopUp ShowMessage(Vector3 position, string message)
+    {
+
+        GameObject atkMessPopUpTransform = Instantiate(preFabMessagePopUp, position + new Vector3(-1, 1, 0), Quaternion.identity);
+        MessagePopUp atkMessPopUp = atkMessPopUpTransform.GetComponent<MessagePopUp>();
+
+        atkMessPopUp.ShowMessage(message);
+
+        return atkMessPopUp;
     }
 
     // bool @turno, true si aliado false si enemigo
