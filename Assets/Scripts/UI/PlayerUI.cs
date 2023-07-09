@@ -14,6 +14,9 @@ public class PlayerUI : MonoBehaviour
     [SerializeField] private Sprite defaultSprite, goodSprite, bestSprite, badSprite, worstSprite, closeSprite, openSprite;
     [SerializeField] private GameObject shopUI, shopImage, tutorialUI, notification, notificationMap, notificationBoat;
     [SerializeField] private TextMeshProUGUI moneyText;
+    [SerializeField] private GameObject missionHUD;
+    [SerializeField] private Sprite boatMissionSprite, mapMissionSprite;
+    [SerializeField] private Image boatMissionImage, mapMissionImage;
 
     void Start()
     {
@@ -32,6 +35,10 @@ public class PlayerUI : MonoBehaviour
         if (shopUI)
         {
             shopUI.SetActive(false);
+        }
+        if (missionHUD)
+        {
+            missionHUD.SetActive(false);
         }
     }
 
@@ -217,6 +224,22 @@ public class PlayerUI : MonoBehaviour
         }
     }
 
+    private void checkMission()
+    {
+        if (GameManager.Instance.isInMission())
+        {
+            missionHUD.SetActive(true);
+        }
+        if (GameManager.Instance.playerHasBoat())
+        {
+            boatMissionImage.sprite = boatMissionSprite;
+        }
+        if (GameManager.Instance.playerHasMap())
+        {
+            mapMissionImage.sprite = mapMissionSprite;
+        }
+    }
+
     private void Update()
     {
         checkNotification();
@@ -228,5 +251,6 @@ public class PlayerUI : MonoBehaviour
         isInShop();
         isInTutorial();
         showReputation();
+        checkMission();
     }
 }

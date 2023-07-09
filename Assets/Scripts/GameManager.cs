@@ -713,6 +713,21 @@ public class GameManager : Singleton<GameManager>
         setText();
     }
 
+    public bool isInMission()
+    {
+        return hasMission;
+    }
+
+    public bool playerHasMap()
+    {
+        return hasMap;
+    }
+
+    public bool playerHasBoat()
+    {
+        return hasBoat;
+    }
+
     public void changePirateIndex()
     {
         if (mapPirate)
