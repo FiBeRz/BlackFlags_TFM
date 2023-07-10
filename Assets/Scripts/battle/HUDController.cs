@@ -72,7 +72,14 @@ public class HUDController : MonoBehaviour
             case 0:
                 GameObject defBuffPopUpTransform = Instantiate(preFabDefPopUp, position + new Vector3(-1,1,0), Quaternion.identity);
                 StatsPopUp defBuffPopUp = defBuffPopUpTransform.GetComponent<StatsPopUp>();
-                text = "↑DEF";
+                if (buff > 0)
+                {
+                    text = "↑DEF";
+                }
+                else
+                {
+                    text = "↓DEF";
+                }
                 
                 defBuffPopUp.ShowBuff(text);
 
