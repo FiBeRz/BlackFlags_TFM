@@ -60,4 +60,9 @@ public class Unit : MonoBehaviour
             return false;
 
     }
+
+    public void ShowMessage(string message)
+    {
+        HUDController.ShowMessage(this.transform.position, message);
+    }
 }

@@ -12,7 +12,7 @@ public class CardDataBase : MonoBehaviour
 
         // Ship Shooter
         CardList.Add(new Card(1, "Fuego!", "Ataca con tu potencia de fuego", Resources.Load<Sprite>("Sprites/gun")));
-        CardList.Add(new Card(2, "Trueque", "Descarta una carta para robar dos", Resources.Load<Sprite>("Sprites/shuffle")));
+        CardList.Add(new Card(2, "Debilitar", "Reduce la defensa de los enemigos", Resources.Load<Sprite>("Sprites/deBuffDefense")));
         CardList.Add(new Card(3, "Mal de Ojo", "Realiza un 175% del daño al principio del siguiente turno", Resources.Load<Sprite>("Sprites/bigGun")));
 
         // Tank Cards

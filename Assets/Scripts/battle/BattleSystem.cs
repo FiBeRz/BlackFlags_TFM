@@ -45,6 +45,9 @@ public class BattleSystem : MonoBehaviour
     public float buffAttackRatio = 0.1F;
     public float buffDefenseRatio = 0.2F;
 
+    public float debuffAttackRatio = -0.1F;
+    public float debuffDefenseRatio = -0.2F;
+
     public float ataqueCargadoRatio = 1.0F;
 
     public int shipDamage = 50;
@@ -59,6 +62,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private AudioSource enemyHitSoundEffect;
     [SerializeField] private AudioSource allyHitSoundEffect;
     [SerializeField] private AudioSource statsUpSoundEffect;
+    [SerializeField] private AudioSource statsDownSoundEffect;
     [SerializeField] private AudioSource defenseSoundEffect;
 
 
@@ -174,6 +178,9 @@ public class BattleSystem : MonoBehaviour
         {
             nTargets = nWarriors;
         }
+
+        //POPup Ataque
+        enemyUnit.ShowMessage("Al Ataque");
 
         //Poner animacion de ataque del enemigo
         Animator animator = enemyUnit.gameObject.GetComponentInChildren<Animator>();
@@ -348,8 +355,9 @@ public class BattleSystem : MonoBehaviour
             case 1: //Fuego
                 this.attack(1, 1f);
                 break;
-            case 2: //Trueque
-                discard = true;
+            case 2: //Debilitar
+                this.debuffEnemy(1);
+                StartCoroutine(statsDownCoroutine());
                 break;
             case 3: //Mal de Ojo
                 ataqueCargado = true;
@@ -406,6 +414,12 @@ public class BattleSystem : MonoBehaviour
         statsUpSoundEffect.Play();
     }
 
+    IEnumerator statsDownCoroutine()
+    {
+        yield return new WaitForSeconds(0.5f);
+        statsDownSoundEffect.Play();
+    }
+
     IEnumerator defenseCoroutine()
     {
         yield return new WaitForSeconds(0.5f);
@@ -415,7 +429,7 @@ public class BattleSystem : MonoBehaviour
     private void attack(int clase, float mlt = 1)
     {
         int damage = 0;
-        Debug.Log(enemyUnit.currentHP);
+        //Debug.Log(enemyUnit.currentHP);
         if (clase == 0) //Warriors
         {
             foreach (Unit warrior in allyWarriors)
@@ -473,6 +487,22 @@ public class BattleSystem : MonoBehaviour
             {
                 unit.buffDefense(buffDefenseRatio);
             }
+        }
+    }
+
+    public void debuffEnemy(int type)
+    {
+        if (type == 0)
+        {
+
+            enemyUnit.buffAttack(debuffAttackRatio);
+
+        }
+        else if (type == 1)
+        {
+
+            enemyUnit.buffDefense(debuffDefenseRatio);
+
         }
     }
 
