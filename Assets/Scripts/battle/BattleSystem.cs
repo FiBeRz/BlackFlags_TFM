@@ -249,6 +249,7 @@ public class BattleSystem : MonoBehaviour
         if (isDead)
         {
             state = BattleState.WON;
+            Destroy(enemyUnit.gameObject);
             Debug.Log("Victoria");
             StartCoroutine("ReturnToMap");
         }
