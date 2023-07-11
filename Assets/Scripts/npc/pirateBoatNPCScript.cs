@@ -5,6 +5,13 @@ using UnityEngine;
 public class pirateBoatNPCScript : MonoBehaviour
 {
     [SerializeField] Transform transformCuerpo;
+    Quaternion rotacionInicial;
+
+    private void Start()
+    {
+        rotacionInicial = transformCuerpo.rotation;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
@@ -19,6 +26,7 @@ public class pirateBoatNPCScript : MonoBehaviour
     {
         if (other.transform.tag == "Player")
         {
+            transformCuerpo.rotation = rotacionInicial;
             GameManager.Instance.endNotify();
             GameManager.Instance.endText();
             GameManager.Instance.hideBoatText();

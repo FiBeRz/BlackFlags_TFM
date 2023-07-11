@@ -5,6 +5,13 @@ using UnityEngine;
 public class shopNPCScript : MonoBehaviour
 {
     [SerializeField] Transform transformCuerpo;
+    Quaternion rotacionInicial;
+
+    private void Start()
+    {
+        rotacionInicial = transformCuerpo.rotation;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
@@ -21,6 +28,7 @@ public class shopNPCScript : MonoBehaviour
         if (other.transform.tag == "Player")
         {
             //Hide text
+            transformCuerpo.rotation = rotacionInicial;
             GameManager.Instance.endNotify();
             GameManager.Instance.targetHablador = null;
             GameManager.Instance.hideNPCShopText();

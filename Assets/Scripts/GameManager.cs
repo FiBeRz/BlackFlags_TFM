@@ -17,8 +17,8 @@ public class GameManager : Singleton<GameManager>
     [SerializeField] private AudioSource runStartSoundEffect;
     [SerializeField] private AudioSource goodReputationSoundEffect;
     [SerializeField] private AudioSource badReputationSoundEffect;
-    [SerializeField] public GameObject jugadorReferencia;
-    [SerializeField] public Transform targetHablador;
+
+    //Variables
     [SerializeField] private int totalReputationValue = 0;
     [SerializeField] private int totalMoney = 300;
 
@@ -28,6 +28,8 @@ public class GameManager : Singleton<GameManager>
     private bool inShop = false;
     private bool notification = false;
     private bool haveText = false;
+    [SerializeField] public GameObject jugadorReferencia = null;
+    [SerializeField] public Transform targetHablador;
 
     //Map
     private bool isRescueEvent = false;
@@ -565,14 +567,18 @@ public class GameManager : Singleton<GameManager>
         return notification;
     }
 
+    public void setPlayer(GameObject player)
+    {
+        jugadorReferencia = player;
+    }
+
     public void setText()
     {
         haveText = true;
         inReputation = false;
         if (targetHablador != null)
-        { 
-        targetHablador.LookAt(jugadorReferencia.transform);
-            targetHablador.Rotate(-90, 90, -90);
+        {
+            targetHablador.eulerAngles = new Vector3(targetHablador.eulerAngles.x, jugadorReferencia.transform.eulerAngles.y + 180, targetHablador.eulerAngles.z);
         }
 
         jugadorReferencia.GetComponent<Animator>().SetFloat("Speed", 0);
@@ -801,6 +807,7 @@ public class GameManager : Singleton<GameManager>
             {
                 pierPirateIndex = MainConstants.NPCPiratePierIntro.Length-1;
                 hasMission = true;
+                objectSoundEffect.Play();
                 boatPirateIndex = 1;
                 mapPirateIndex = 1;
                 endText();

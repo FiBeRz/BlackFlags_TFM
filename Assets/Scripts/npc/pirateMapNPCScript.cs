@@ -6,11 +6,12 @@ public class pirateMapNPCScript : MonoBehaviour
 {
     [SerializeField] Transform transformCuerpo;
     Quaternion rotacionInicial;
+
     private void Start()
     {
         rotacionInicial = transformCuerpo.rotation;
-
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.transform.tag == "Player")
