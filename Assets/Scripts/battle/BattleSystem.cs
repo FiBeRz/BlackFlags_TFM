@@ -124,7 +124,6 @@ public class BattleSystem : MonoBehaviour
 
         GameObject enemyGO = Instantiate(enemyPrefab, enemyStation);
         enemyUnit = enemyGO.GetComponent<Unit>();
-
     }
 
     GameObject worldmap;
@@ -147,7 +146,6 @@ public class BattleSystem : MonoBehaviour
                 yield return null;
             }
 
-
             worldmap = GameObject.FindGameObjectWithTag("Holder");
             if (worldmap)
             {
@@ -156,7 +154,6 @@ public class BattleSystem : MonoBehaviour
         }
 
         StartCoroutine(deck.DrawFirstCards());
-
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
