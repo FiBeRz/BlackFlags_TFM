@@ -254,8 +254,8 @@ public class MainConstants : MonoBehaviour
     };
 
     public static string[] TutorialIsland1 = {
-        "¡GRAAAAA! ¡Bienvenido grumete! ¿Es tu primera vez en esta isla?",
-        "¿Por qué no investigas un poco? ¡GRAAAAA! Yo te esperaré junto a la tienda del pueblo que se encuentra más adelante. ¡No tiene pérdida!"
+        "¡GRAAAAA! ¡Bienvenido grumete! ¿Es tu primera vez en esta isla? ¿Por qué no investigas un poco?",
+        "¡GRAAAAA! Yo te esperaré junto a la tienda del pueblo que se encuentra más adelante. ¡Corre con LSHIFT y alcánzame!"
     };
 
     public static string[] TutorialIsland2 = {

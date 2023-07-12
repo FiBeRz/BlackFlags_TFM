@@ -21,6 +21,8 @@ public class GameManager : Singleton<GameManager>
     //Variables
     [SerializeField] private int totalReputationValue = 0;
     [SerializeField] private int totalMoney = 300;
+    [SerializeField] private bool audioSilenciado = false;
+    [SerializeField] private float maxVolumen = 1;
 
     //Island HUB
     private string textMessage = "";
@@ -62,6 +64,37 @@ public class GameManager : Singleton<GameManager>
     public int boatPirateIndex = 0, pierPirateIndex = 0, mapPirateIndex = 0;
     private bool inChangeToMap = false;
     private bool notificationMap = false, notificationBoat = false;
+
+    public void FijarVolumen()
+    {
+        if (audioSilenciado)
+        {
+            AudioListener.volume = 0;
+           
+        }
+        else
+        {
+            AudioListener.volume = maxVolumen;
+           
+        }
+    }
+
+    // Update is called once per frame
+
+    public bool GetAudioEstatus()
+    {
+
+        return audioSilenciado;
+    }
+
+    public bool CambiarEstatus()
+    {
+        audioSilenciado = !audioSilenciado;
+
+        FijarVolumen();
+
+        return audioSilenciado;
+    }
 
     public bool isFirstTimeIsland()
     {
