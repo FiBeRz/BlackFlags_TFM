@@ -84,12 +84,12 @@ public class BattleSystem : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.W))
+        /*if(Input.GetKeyDown(KeyCode.W))
         {
             state = BattleState.WON;
             Debug.Log("Victoria");
             StartCoroutine("ReturnToMap");
-        }
+        }*/
 
     }
     [SerializeField] Image fade;
