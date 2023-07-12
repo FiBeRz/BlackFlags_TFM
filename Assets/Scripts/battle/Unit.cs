@@ -41,6 +41,11 @@ public class Unit : MonoBehaviour
         HUDController.ShowStatsBuff(this.transform.position, ratio, 0);
     }
 
+    public void protection()
+    {
+        HUDController.ShowStatsBuff(this.transform.position, -1, 2);
+    }
+
     // LO SUYO SERIA QUE LAS UNIDADES TUVIESEN UN ID, Y AL MORIR DEVOLVIESE LA FUNCION EL ID DE LA UNIDAD PARA TRABAJAR MEJOR
     // POR AHORA NO HACE FALTA PERO EST� APUNTADO
     public bool TakeDamage(int dmg)

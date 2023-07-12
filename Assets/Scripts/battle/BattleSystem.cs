@@ -380,7 +380,7 @@ public class BattleSystem : MonoBehaviour
                 this.attack(0);
                 break;
             case 5: //DEFENSA
-                defend = true;
+                this.buffAlly(2);
                 StartCoroutine(defenseCoroutine());
                 break;
             case 6: //A toda vela
@@ -505,6 +505,15 @@ public class BattleSystem : MonoBehaviour
             foreach (Unit unit in allAlly)
             {
                 unit.buffDefense(buffDefenseRatio);
+            }
+        }
+        else if (type == 2)
+        {
+            defend = true;
+            
+            foreach (Unit unit in allyWarriors)
+            {
+                unit.protection();
             }
         }
     }

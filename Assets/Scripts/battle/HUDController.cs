@@ -21,6 +21,7 @@ public class HUDController : MonoBehaviour
     public GameObject preFabAtkPopUp;
     public GameObject preFabDefPopUp;
     public GameObject preFabMessagePopUp;
+    public GameObject preFabProtectionPopUp;
     public GameObject EnemyIcon;
     public GameObject AllyIcon;
 
@@ -92,6 +93,14 @@ public class HUDController : MonoBehaviour
                 atkBuffPopUp.ShowBuff(text);
 
                 return atkBuffPopUp;
+            case 2:
+                GameObject protectionPopUpTransform = Instantiate(preFabProtectionPopUp, position + new Vector3(-1,1,0), Quaternion.identity);
+                StatsPopUp protectionPopUp = protectionPopUpTransform.GetComponent<StatsPopUp>();
+                text = "⌂BLK";
+
+                protectionPopUp.ShowBuff(text);
+
+                return protectionPopUp;
             default:
                 return null;
         }
