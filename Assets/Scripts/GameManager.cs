@@ -806,8 +806,11 @@ public class GameManager : Singleton<GameManager>
             else if (pierPirateIndex >= MainConstants.NPCPiratePierIntro.Length)
             {
                 pierPirateIndex = MainConstants.NPCPiratePierIntro.Length-1;
-                hasMission = true;
-                objectSoundEffect.Play();
+                if (!hasMission)
+                {
+                    hasMission = true;
+                    objectSoundEffect.Play();
+                }
                 boatPirateIndex = 1;
                 mapPirateIndex = 1;
                 endText();
