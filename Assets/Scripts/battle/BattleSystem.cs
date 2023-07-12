@@ -28,6 +28,9 @@ public class BattleSystem : MonoBehaviour
     public BattleState state;
     public bool isDraggable = false;
 
+    // Particles
+
+    [SerializeField] private List<ParticleSystem> CannonSmokes;
 
     // LISTA DE ALIADOS POR CLASE
     public List<Unit> allyWarriors;
@@ -64,6 +67,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private AudioSource statsUpSoundEffect;
     [SerializeField] private AudioSource statsDownSoundEffect;
     [SerializeField] private AudioSource defenseSoundEffect;
+    [SerializeField] private AudioSource shootCannonsSoundEffect;
 
 
     // Start is called before the first frame update
@@ -76,8 +80,6 @@ public class BattleSystem : MonoBehaviour
         
         StartCoroutine("SetupBattle");
         //Desactivacion del mapa que invoco battle system, por lo cual tambien se remueve el fade
-       
-
     }
 
     private void Update()
@@ -157,10 +159,7 @@ public class BattleSystem : MonoBehaviour
 
         state = BattleState.PLAYERTURN;
         PlayerTurn();
-
     }
-
-
 
     IEnumerator EnemyTurn() 
     {
@@ -214,7 +213,16 @@ public class BattleSystem : MonoBehaviour
         PlayerTurn();
     }
 
-        IEnumerator attackAnimation(Animator animator)
+    IEnumerator shootCannons()
+    {
+        yield return new WaitForSeconds(0.5f);
+        foreach (var cannonSmoke in CannonSmokes){
+            cannonSmoke.gameObject.GetComponent<ParticleSystem>().Play();
+        }
+        shootCannonsSoundEffect.Play();
+    }
+
+    IEnumerator attackAnimation(Animator animator)
     {
         if (animator)
         {
@@ -338,9 +346,7 @@ public class BattleSystem : MonoBehaviour
             multicard = 0;
         }
 
-
-
-        if (multicard == 2)
+        else if (multicard == 2)
         {
             multicard = 1;
         }
@@ -359,6 +365,7 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 3: //Mal de Ojo
                 ataqueCargado = true;
+                this.attack(3);
                 break;
             case 4: //ATAQUE NORMAL
                 this.attack(0);
@@ -381,6 +388,7 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 9: //MAREA
                 multicard = 2;
+                this.attack(3);
                 break;
             default:
                 break;
@@ -451,6 +459,8 @@ public class BattleSystem : MonoBehaviour
             }
         }
         else {
+            StartCoroutine(shootCannons());
+
             damage = shipDamage;
         }
 
@@ -492,15 +502,11 @@ public class BattleSystem : MonoBehaviour
     {
         if (type == 0)
         {
-
             enemyUnit.buffAttack(debuffAttackRatio);
-
         }
         else if (type == 1)
         {
-
             enemyUnit.buffDefense(debuffDefenseRatio);
-
         }
     }
 
@@ -527,5 +533,4 @@ public class BattleSystem : MonoBehaviour
         
         yield return null;
     }
-
 }

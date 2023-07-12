@@ -11,18 +11,19 @@ public class CardDataBase : MonoBehaviour
         CardList.Add(new Card(0, "Cañonazo", "Dispara los cañones del barco", Resources.Load<Sprite>("Sprites/cannon")));
 
         // Ship Shooter
-        CardList.Add(new Card(1, "Fuego!", "Ataca con tu potencia de fuego", Resources.Load<Sprite>("Sprites/gun")));
+        CardList.Add(new Card(1, "Fuego!", "Los <b>Artilleros</b> atacan con su potencia de fuego", Resources.Load<Sprite>("Sprites/gun")));
         CardList.Add(new Card(2, "Debilitar", "Reduce la defensa de los enemigos", Resources.Load<Sprite>("Sprites/deBuffDefense")));
-        CardList.Add(new Card(3, "Mal de Ojo", "Realiza un 175% del daño al principio del siguiente turno", Resources.Load<Sprite>("Sprites/bigGun")));
+        CardList.Add(new Card(3, "Mal de Ojo", "Activa <b>Cañonazo</b> y los <b>Artilleros</b> realizarán un potente ataque al comiendo del siguiente turno", 
+                                Resources.Load<Sprite>("Sprites/bigGun")));
 
         // Tank Cards
-        CardList.Add(new Card(4, "Duelo", "Ataca a los enemigos", Resources.Load<Sprite>("Sprites/sword")));
-        CardList.Add(new Card(5, "Protección", "Absorbe un x % del daño", Resources.Load<Sprite>("Sprites/shield")));
-        CardList.Add(new Card(6, "A toda vela!", "Roba una carta del mazo y dispara los cañones", Resources.Load<Sprite>("Sprites/draw")));
+        CardList.Add(new Card(4, "Duelo", "Los <b>Bucaneros</b> atacan con sus sables", Resources.Load<Sprite>("Sprites/sword")));
+        CardList.Add(new Card(5, "Protección", "El siguiente turno solo los <b>Bucaneros</b> recibirán daño", Resources.Load<Sprite>("Sprites/shield")));
+        CardList.Add(new Card(6, "A toda vela!", "Activa <b>Cañonazo</b> y roba una carta", Resources.Load<Sprite>("Sprites/draw")));
 
         // Wizard Cards
-        CardList.Add(new Card(7, "Amplificación", "Aumenta el poder de los aliados", Resources.Load<Sprite>("Sprites/buffAttack")));
-        CardList.Add(new Card(8, "Refuerzo", "Aumenta la defensa de los aliados", Resources.Load<Sprite>("Sprites/buffDefense")));
-        CardList.Add(new Card(9, "Marea", "El siguiente turno puedes jugar dos cartas", Resources.Load<Sprite>("Sprites/water")));
+        CardList.Add(new Card(7, "Amplificación", "Los <b>Escorbúticos</b> aumentan el poder de los aliados", Resources.Load<Sprite>("Sprites/buffAttack")));
+        CardList.Add(new Card(8, "Refuerzo", "Los <b>Escorbúticos</b> aumentan la defensa de los aliados", Resources.Load<Sprite>("Sprites/buffDefense")));
+        CardList.Add(new Card(9, "Marea", "Activa <b>Cañonazo</b> y el siguiente turno puedes jugar dos cartas", Resources.Load<Sprite>("Sprites/water")));
     }
 }
