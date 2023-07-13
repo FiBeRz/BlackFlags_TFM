@@ -13,7 +13,7 @@ public class CardDataBase : MonoBehaviour
         // Ship Shooter
         CardList.Add(new Card(1, "Fuego!", "Los <b>Artilleros</b> atacan con su potencia de fuego", Resources.Load<Sprite>("Sprites/gun")));
         CardList.Add(new Card(2, "Debilitar", "Reduce la defensa de los enemigos", Resources.Load<Sprite>("Sprites/deBuffDefense")));
-        CardList.Add(new Card(3, "Mal de Ojo", "Activa <b>Cañonazo</b> y los <b>Artilleros</b> realizarán un potente ataque al comiendo del siguiente turno", 
+        CardList.Add(new Card(3, "Mal de Ojo", "Activa <b>Cañonazo</b> y los <b>Artilleros</b> realizarán un potente ataque al comienzo del siguiente turno", 
                                 Resources.Load<Sprite>("Sprites/bigGun")));
 
         // Tank Cards
@@ -24,6 +24,6 @@ public class CardDataBase : MonoBehaviour
         // Wizard Cards
         CardList.Add(new Card(7, "Amplificación", "Los <b>Escorbúticos</b> aumentan el poder de los aliados", Resources.Load<Sprite>("Sprites/buffAttack")));
         CardList.Add(new Card(8, "Refuerzo", "Los <b>Escorbúticos</b> aumentan la defensa de los aliados", Resources.Load<Sprite>("Sprites/buffDefense")));
-        CardList.Add(new Card(9, "Marea", "Activa <b>Cañonazo</b> y el siguiente turno puedes jugar dos cartas", Resources.Load<Sprite>("Sprites/water")));
+        CardList.Add(new Card(9, "Marea", "Activa <b>Cañonazo</b> y al siguiente turno permite jugar dos cartas", Resources.Load<Sprite>("Sprites/water")));
     }
 }
