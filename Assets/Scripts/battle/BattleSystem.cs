@@ -68,6 +68,7 @@ public class BattleSystem : MonoBehaviour
     [SerializeField] private AudioSource statsDownSoundEffect;
     [SerializeField] private AudioSource defenseSoundEffect;
     [SerializeField] private AudioSource shootCannonsSoundEffect;
+    [SerializeField] private AudioSource cardWithNoUseSoundEffect;
 
 
     // Start is called before the first frame update
@@ -97,24 +98,24 @@ public class BattleSystem : MonoBehaviour
     public void SpawnEntities()
     {
         Vector3 position = allyStation.position;
-        // POR AHORA HAY UN EQUIPO PREDEFINIDO DE 3 WARRIOR, 2 SHOOTERS Y 1 WIZARD
+        // POR AHORA HAY UN EQUIPO PREDEFINIDO DE 2 WARRIOR, 1 SHOOTERS Y 1 WIZARD
 
         int i;
-        for (i = 0; i < 3; i++)
+        for (i = 0; i < GameManager.Instance.getWarriors(); i++)
         {
             GameObject allyGO = Instantiate(allyWarriorPrefab, new Vector3(position.x + 0f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyWarriors.Add(allyGO.GetComponent<Unit>());
             allAlly.Add(allyGO.GetComponent<Unit>());
         }
         nWarriors = i;
-        for (i = 0; i < 2; i++)
+        for (i = 0; i < GameManager.Instance.getShooters(); i++)
         {
             GameObject allyGO = Instantiate(allyShooterPrefab, new Vector3(position.x + 2f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyShooters.Add(allyGO.GetComponent<Unit>());
             allAlly.Add(allyGO.GetComponent<Unit>());
         }
         nShooters = i;
-        for (i = 0; i < 1; i++)
+        for (i = 0; i < GameManager.Instance.getWizards(); i++)
         {
             GameObject allyGO = Instantiate(allyWizardPrefab, new Vector3(position.x + 4f, position.y, position.z + (i * 2)), allyStation.rotation, allyStation);
             allyWizards.Add(allyGO.GetComponent<Unit>());
@@ -201,6 +202,7 @@ public class BattleSystem : MonoBehaviour
             if (nAlly == 0)
             {
                 state = BattleState.LOST;
+                GameManager.Instance.changeToIslandScene();
             }
             else
             {
@@ -211,9 +213,16 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator changePlayerTurn()
     {
-        yield return new WaitForSeconds(2f);
-        state = BattleState.PLAYERTURN;
-        PlayerTurn();
+        if (state != BattleState.LOST)
+        {
+            yield return new WaitForSeconds(2f);
+            state = BattleState.PLAYERTURN;
+            PlayerTurn();
+        }
+        else
+        {
+            GameManager.Instance.changeToIslandScene();
+        }
     }
 
     IEnumerator shootCannons()
@@ -304,25 +313,38 @@ public class BattleSystem : MonoBehaviour
                 }
                 Destroy(currentUnit.gameObject);
             }
+
+            if (nAlly == 0)
+            {
+                state = BattleState.LOST;
+                GameManager.Instance.changeToIslandScene();
+            }
         }
     }
 
     void PlayerTurn() 
     {
-        HUD.ShowHand();
-        HUD.ChangeIcon(true);
-
-        isDraggable = true;
-        if (multicard != 1)
+        if (state != BattleState.LOST)
         {
-            StartCoroutine(drawCard());
+            HUD.ShowHand();
+            HUD.ChangeIcon(true);
 
-            if (ataqueCargado)
+            isDraggable = true;
+            if (multicard != 1)
             {
-                //yield return new WaitForSeconds(1f);
-                this.attack(1, ataqueCargadoRatio);
-                ataqueCargado = false;
+                StartCoroutine(drawCard());
+
+                if (ataqueCargado)
+                {
+                    //yield return new WaitForSeconds(1f);
+                    this.attack(1, ataqueCargadoRatio);
+                    ataqueCargado = false;
+                }
             }
+        }
+        else
+        {
+            GameManager.Instance.changeToIslandScene();
         }
     }
 
@@ -370,7 +392,8 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 2: //Debilitar
                 this.debuffEnemy(1);
-                StartCoroutine(statsDownCoroutine());
+                if (nWizards > 0)
+                    StartCoroutine(statsDownCoroutine());
                 break;
             case 3: //Mal de Ojo
                 ataqueCargado = true;
@@ -389,11 +412,13 @@ public class BattleSystem : MonoBehaviour
                 break;
             case 7: //AUMENTO ATAQUE
                 this.buffAlly(0);
-                StartCoroutine(statsUpCoroutine());
+                if (nWizards > 0)
+                    StartCoroutine(statsUpCoroutine());
                 break;
             case 8: //AUMENTO DEFENSA
                 this.buffAlly(1);
-                StartCoroutine(statsUpCoroutine());
+                if (nWizards > 0)
+                    StartCoroutine(statsUpCoroutine());
                 break;
             case 9: //MAREA
                 multicard = 2;
@@ -418,9 +443,7 @@ public class BattleSystem : MonoBehaviour
                 state = BattleState.ENEMYTURN;
                 StartCoroutine(EnemyTurn());
             }
-            
-        }
-           
+        }    
     }
 
     IEnumerator statsUpCoroutine()
@@ -474,10 +497,14 @@ public class BattleSystem : MonoBehaviour
         }
 
         //Poner animacion de golpeo en enemigo
-        if (enemyUnit)
+        if (enemyUnit && damage > 0)
         {
             Animator enemyAlly = enemyUnit.gameObject.GetComponentInChildren<Animator>();
             StartCoroutine(hitEnemyAnimation(enemyAlly, damage, mlt));
+        }
+        else
+        {
+            cardWithNoUseSoundEffect.Play();
         }
         /*bool isDead = enemyUnit.TakeDamage((int)(damage * mlt));
         Debug.Log(enemyUnit.currentHP);
@@ -495,16 +522,30 @@ public class BattleSystem : MonoBehaviour
     {
         if (type == 0)
         {
-            foreach (Unit unit in allAlly)
+            if (nWizards > 0)
             {
-                unit.buffAttack(buffAttackRatio);
+                foreach (Unit unit in allAlly)
+                {
+                    unit.buffAttack(buffAttackRatio);
+                }
+            }
+            else
+            {
+                cardWithNoUseSoundEffect.Play();
             }
         }
-        else if (type == 1)
+        else if (type == 1 && nWizards > 0)
         {
-            foreach (Unit unit in allAlly)
+            if (nWizards > 0)
             {
-                unit.buffDefense(buffDefenseRatio);
+                foreach (Unit unit in allAlly)
+                {
+                    unit.buffDefense(buffDefenseRatio);
+                }
+            }
+            else
+            {
+                cardWithNoUseSoundEffect.Play();
             }
         }
         else if (type == 2)
@@ -520,15 +561,22 @@ public class BattleSystem : MonoBehaviour
 
     public void debuffEnemy(int type)
     {
-        if (type == 0)
+        if (nWizards > 0)
         {
-            if (enemyUnit)
-                enemyUnit.buffAttack(debuffAttackRatio);
+            if (type == 0)
+            {
+                if (enemyUnit)
+                    enemyUnit.buffAttack(debuffAttackRatio);
+            }
+            else if (type == 1)
+            {
+                if (enemyUnit)
+                    enemyUnit.buffDefense(debuffDefenseRatio);
+            }
         }
-        else if (type == 1)
+        else
         {
-            if (enemyUnit)
-                enemyUnit.buffDefense(debuffDefenseRatio);
+            cardWithNoUseSoundEffect.Play();
         }
     }
 
@@ -548,6 +596,7 @@ public class BattleSystem : MonoBehaviour
        
         if (worldmap)
         {
+            GameManager.Instance.unlockCard();
             worldmap.SetActive(true);
 
             SceneManager.UnloadSceneAsync(MainConstants.INDEX_SCENE_BATTLE);
