@@ -67,8 +67,8 @@ public class MainConstants : MonoBehaviour
     public static string EXPLANATION_OASIS = "¡Tierra a la vista! ¿Será una agradable zona de descanso o un espejismo causado por el cansancio?\nLa tripulación descansa, recuperando parte de sus Puntos de Salud";
     public static string EXPLANATION_SHARK = "Las aguas parecen más agitadas y hostiles que de costumbre. ¡Tiburones arremeten contra el barco!\nLa tripulación pierde Puntos de Salud y monedas de oro.";
     public static string EXPLANATION_RESCUE = "¡Socorro! ¡Parece que alguien está siendo atacado por otros piratas!\n¿Debe la tripulación ir en su auxilio?";
-    public static string EXPLANATION_BATTLE = "Monstruos horribles vienen al ataque. ¡Hora de pasar a la acción!";
-    public static string EXPLANATION_BOSS = "Este enemigo no se parece en nada a los peligros enfrentados hasta ahora.\nSerá mejor que la tripulación se prepare...";
+    public static string EXPLANATION_BATTLE = "Monstruos horribles vienen al ataque. ¡Hora de pasar a la acción!\n\nGana batallas para obtener nuevas cartas de acción.";
+    public static string EXPLANATION_BOSS = "Este enemigo no se parece en nada a los peligros enfrentados hasta ahora.\nSerá mejor que la tripulación se prepare...\n¡Obtén un nuevo miembro para tu tripulación como recompensa!";
     public static string EXPLANATION_BLACKMARKET = "Aquí aparecérá una tienda como la de la isla principal, pero con objetos del mercado negro.";
     public static string EXPLANATION_SHORTCUT = "Los corsarios de buena reputación reconocen a la tripulación como miembros de los suyos.\nLa tripulación utiliza un pasaje secreto para evitar algunas amenazas y obtener importantes recompensas.";
 
@@ -250,7 +250,7 @@ public class MainConstants : MonoBehaviour
     public static string[] NPCPirateBoat = {
         "Es una pena que nadie use ya el viejo barco...",
         "¿Un barco? Has hablado con mi hermano, ¿verdad? Si lo quieres es todo tuyo. Pero no admito devoluciones. ¡Estás avisado!",
-        "Ya no se hacen barcos así, más te vale no hacerle ni un rasguño."
+        "Te dejo el barco derca del embarcadero, mi hermano te lo acercará cuando lo necesites. Cuídalo bien."
     };
 
     public static string[] TutorialIsland1 = {

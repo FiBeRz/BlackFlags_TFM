@@ -6,6 +6,18 @@ using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
+    //Tripulación pirata
+    [SerializeField] private int pirateWarriors = 2;
+    [SerializeField] private int pirateShooters = 1;
+    [SerializeField] private int pirateWizards = 1;
+
+    //Desbloqueo cartas
+    [SerializeField] private bool card2 = false;
+    [SerializeField] private bool card3 = false;
+    [SerializeField] private bool card5 = false;
+    [SerializeField] private bool card6 = false;
+    [SerializeField] private bool card8= false;
+
     //Reputation Popup
     [SerializeField] private GameObject prefabReputationPopUp;
 
@@ -515,6 +527,21 @@ public class GameManager : Singleton<GameManager>
     public void returnFromBoss()
     {
         endOfRun = true;
+
+        //Sumar piratas tripulantes
+        int random = Random.Range(0, 3);
+        if (random == 0)
+        {
+            pirateWarriors++;
+        }
+        else if(random == 1)
+        {
+            pirateShooters++;
+        }
+        else
+        {
+            pirateWizards++;
+        }
     }
 
     public bool isEndOfRun()
@@ -553,6 +580,55 @@ public class GameManager : Singleton<GameManager>
     public void returnFromCombat()
     {
         changeToCombat = false;
+    }
+
+    public void unlockCard()
+    {
+        if (!card8)
+        {
+            card8 = true;
+        }
+        else if (!card6)
+        {
+            card6 = true;
+        }
+        else if (!card5)
+        {
+            card5 = true;
+        }
+        else if (!card3)
+        {
+            card3 = true;
+        }
+        else
+        {
+            card2 = true;
+        }
+    }
+
+    public bool getCard2()
+    {
+        return card2;
+    }
+
+    public bool getCard3()
+    {
+        return card3;
+    }
+
+    public bool getCard5()
+    {
+        return card5;
+    }
+
+    public bool getCard6()
+    {
+        return card6;
+    }
+
+    public bool getCard8()
+    {
+        return card8;
     }
 
     public bool isInReactivateInterface()
@@ -895,5 +971,20 @@ public class GameManager : Singleton<GameManager>
     public void endBattleTutorial()
     {
         firstTimeBattle = false;
+    }
+
+    public int getWarriors()
+    {
+        return pirateWarriors;
+    }
+
+    public int getShooters()
+    {
+        return pirateShooters;
+    }
+
+    public int getWizards()
+    {
+        return pirateWizards;
     }
 }
